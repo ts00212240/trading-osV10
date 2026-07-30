@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 65359.04,
-      buyingPower: 19131.11,
-      cash: 65359,
-      dayChange: -199.19,
-      lastUpdated: '2026-07-28 15:06',
+      nav: 64771.07,
+      buyingPower: 19168.46,
+      cash: 64771,
+      dayChange: -787.16,
+      lastUpdated: '2026-07-29 12:14',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 158720.63,
+      nav: 159478.63,
       buyingPower: 18791.32,
       cash: 78736.63,
-      dayChange: 200.00,
-      lastUpdated: '2026-07-28 15:06',
+      dayChange: 757.99,
+      lastUpdated: '2026-07-29 12:55',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -422,13 +422,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  739.09,   // 07/28 TOS top bar
-      QQQ:  682.12,   // 07/28 TOS watchlist
-      IBIT:  35.93,   // 07/28 第一證券 App
-      BRKB: 498.00,   // 07/28 第一證券 App
-      MSFT: 389.10,   // 07/28 TOS watchlist
+      SPY:  740.86,   // 07/29 TOS top bar
+      QQQ:  675.49,   // 07/29 TOS watchlist
+      IBIT:  36.05,   // 07/29 第一證券 App
+      BRKB: 513.36,   // 07/29 第一證券 App
+      MSFT: 393.35,   // 07/29 TOS watchlist
       SPCX: 145.30,   // 07/11 舊值 · 近日截圖未見 SPCX，待補
-      updatedAt: '2026-07-28',
+      updatedAt: '2026-07-29',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -554,6 +554,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-07-24', sc:159565.79, ft:66963.82, ib:1000, total:227529.61 },
     { date:'2026-07-25', sc:158520.63, ft:65938.87, ib:1000, total:225459.50 },
     { date:'2026-07-28', sc:158720.63, ft:65359.04, ib:1000, total:225079.67 },
+    { date:'2026-07-29', sc:159478.63, ft:64771.07, ib:1000, total:225249.70 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -575,7 +576,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:8.42, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:7.77, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -583,15 +584,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:11.245, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:10.59, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P_G3', desc:'SPY 695P BUY × 5 · 第三組尾部保護腿',
       type:'phase2', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:7.56, currentMark:10.765, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:7.56, currentMark:10.13, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 BUY 腿 · GTC @7.56 · 等 SPY 反彈 / IV 回落 / Theta 消耗使 mark 降至 7.56' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.095, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:4.665, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -722,6 +723,20 @@ const PORTFOLIO_STATE = {
         { label:'規則', desc:'承接是權利，不是義務；限價單是紀律，不是祈禱' },
         { label:'規則', desc:'獲利承接可以存在，不一定要等虧損才承接' },
         { label:'規則', desc:'不成交也接受，不追價，不瘋狂修改訂單' }
+      ]},
+    { id:'EV_R2', date:'2026-07-29', type:'milestone', emoji:'🛑',
+      title:'有訊號但守住不加碼 · BP紀律優先', strategy:'QQQ_豪華摩天輪',
+      equity:225250, sc:159479, ft:64771, ib:1000,
+      zoomMin:2,
+      reason:'QQQ 本月跌約 -10%，07/28 摩天輪 2.0 三條件全數觸發：單日下跌約 -2% + IV > 70 + 履約價低於 650。但融資購買力僅剩約 $1.8 萬，若此時加碼，之後那兩筆有機會轉深價內 BUY CALL 的承接就會無錢可動。因此主動放棄開倉，規劃兩個月後 RBS 與黑天鵝到期、購買力回到約 $4 萬時再有底氣加碼',
+      outcome:'訊號齊備仍克制不進場 · 把子彈留到能連續作戰的時機 · 摩天輪 2.0 第五項檢查(承接後BP是否安全) 首次實戰攔截',
+      stratNote:'與 EV_LC1(獲利承接) 互為一體兩面：一個教「該接時果斷接」，一個教「不該接時忍住不接」· 氧氣優先',
+      hypothesis:'在訊號觸發但資源受限時主動放棄，長期是否比硬加碼後陷入無彈可動更能存活？由兩個月後購買力回補、加碼時機的品質驗證。',
+      validation:null,
+      legs:[
+        { label:'訊號', desc:'QQQ -2% + IV>70 + 履約價<650 · 三條件全中' },
+        { label:'攔截', desc:'BP 僅 $1.8萬 · 加碼將排擠後續承接資金 → 放棄' },
+        { label:'規劃', desc:'RBS/黑天鵝到期 · BP 回 $4萬 → 補彈再戰' }
       ]},
 
     // ── 2026-06-09 認知節點群 ──────────────────────────────────────
@@ -1644,7 +1659,8 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-17","close":750.72},{"date":"2026-07-18","close":743.29},
   {"date":"2026-07-21","close":742.09},{"date":"2026-07-22","close":748.28},
   {"date":"2026-07-23","close":747.41},{"date":"2026-07-24","close":738.18},
-  {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09}
+  {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
+  {"date":"2026-07-29","close":740.86}
 ]
 
 function fetchSPYHistory() {
@@ -3491,7 +3507,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.19 · build 2026-07-28 · 會計修正:14922淨現金流誤記realized → 拆690C+3956/710C-2016 · 雙口徑(realizedNetPnl/evNetPnl) · QQQ_PMCC淨$2,978 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.21 · build 2026-07-29 · EV_R2認知節點:訊號觸發但守BP紀律不加碼 · 摩天輪2.0第五檢查首次攔截 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
