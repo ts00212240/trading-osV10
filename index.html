@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 65888.56,
-      buyingPower: 19280.78,
-      cash: 65889,
-      dayChange: -59.75,
-      lastUpdated: '2026-07-31 12:08',
+      nav: 66895.86,
+      buyingPower: 19225.86,
+      cash: 66896,
+      dayChange: 946.55,
+      lastUpdated: '2026-08-01 07:00',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 164671.74,
-      buyingPower: 19486.93,
+      nav: 168138.74,
+      buyingPower: 19466.93,
       cash: 79432.24,
-      dayChange: 15024.61,
-      lastUpdated: '2026-07-31 12:26',
+      dayChange: 3433.83,
+      lastUpdated: '2026-08-01 07:08',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -422,13 +422,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  741.69,   // 07/31 TradingView
-      QQQ:  683.55,   // 07/31 TradingView
-      IBIT:  36.70,   // 07/31 TOS watchlist
-      BRKB: 509.68,   // 07/31 TOS watchlist
-      MSFT: 451.10,   // 07/31 財報+15% TOS watchlist
+      SPY:  747.03,   // 08/01 TOS top bar
+      QQQ:  687.99,   // 08/01 TOS top bar
+      IBIT:  35.60,   // 08/01 第一證券 App
+      BRKB: 511.88,   // 08/01 第一證券 App
+      MSFT: 464.72,   // 08/01 財報後續漲 TOS watchlist
       SPCX: 145.30,   // 07/11 舊值 · 近日截圖未見 SPCX，待補
-      updatedAt: '2026-07-31',
+      updatedAt: '2026-08-01',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -557,6 +557,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-07-29', sc:159478.63, ft:64771.07, ib:1000, total:225249.70 },
     { date:'2026-07-30', sc:149647.13, ft:62851.43, ib:1000, total:213498.56 },
     { date:'2026-07-31', sc:164671.74, ft:65888.56, ib:1000, total:231560.30 },
+    { date:'2026-08-01', sc:168138.74, ft:66895.86, ib:1000, total:236034.60 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -578,7 +579,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:6.65, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:5.56, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -586,15 +587,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:9.675, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:8.66, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
-    { id:'GTC_695P_G3', desc:'SPY 695P BUY × 5 · 第三組尾部保護腿',
-      type:'phase2', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:7.56, currentMark:9.245, broker:'嘉信', strategy:'SPY_BlackSwan',
-      note:'第三組 BUY 腿 · GTC @7.56 · 等 SPY 反彈 / IV 回落 / Theta 消耗使 mark 降至 7.56' },
+    { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第三組尾部保護腿（改掛）',
+      type:'phase2', orderDate:'2026-08-01', fillDate:null, fillPrice:null,
+      limitPrice:7.60, currentMark:11.645, broker:'嘉信', strategy:'SPY_BlackSwan',
+      note:'08/01 取消原 695P OCT30 @7.56，改掛 700P NOV30 @7.60（到期延後一月、履約價升5）· 等 SPY 反彈 / IV 回落使 mark 降至 7.60' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.905, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:3.24, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -990,7 +991,45 @@ const PORTFOLIO_STATE = {
     }
   },
 
+  // ── 進場前自檢清單（8月建立 · 每次開倉/加碼前對照）─────────────
+  entryChecklist: {
+    since: '2026-08',
+    origin: '7月結算覺察：防禦層佔用購買力，下跌高IV時反而無法加碼',
+    items: [
+      '承接得起嗎？',
+      'RBS 是否卡住購買力？',
+      '黑天鵝是否壓縮主策略？',
+      '豪華摩天輪是否還有下一步？',
+      '下跌時我是真的能加碼，還是只能看著？'
+    ]
+  },
+
   civilizationArchive: [
+    {
+      month: '2026-07', label: '7月', emoji: '⚖️', theme: '購買力覺醒 · 防禦與進攻的資金張力',
+      startNAV: 225322, targetNAV: 229828, actualNAV: 231560,
+      get surplus()     { return this.actualNAV - this.targetNAV },
+      get achieveRate() { return +(this.actualNAV / this.targetNAV * 100).toFixed(2) },
+      biggestProgress: '我能準確的知道RBS 佔用我太多融資購買力 使我在下跌時本應該加碼時卻限制住了,在50日RBS釋放購買力之後 所有黑天鵝步驟都會以先購買PUT在SELL 完成先防禦 在收租的流程 並且可以持續優化 這絕對是我的優點',
+      biggestMistake:  '絕對就是沒有執行下跌10%因為購買力不足而只能被動等待的 明明資金只占用50% 卻無法加碼的無能為力  但系統執行建立起來需要時間 你需要各方面的嘗試 才能優化',
+      wouldChange:     '下跌3%的恐慌 源自於RBS佔用太多資金 使我無法正確加碼 這絕對是要修正的問題',
+      keySystemUpgrade:'融資購買力必須維持在健康的水準 至少要保留40%-50%',
+      systemUpgrade:   '8月演化方向：50日 RBS 釋放購買力後，黑天鵝流程改為「先 BUY PUT（建尾部防禦）→ 再 SELL PUT（收租）」，完成「先防禦、後收租」的生命循環，並持續優化',
+      noteToFuture:    '3次系統觸發下跌高IV都無法加碼 這可能令我錯失贏過影子策略的機會 不過只要能活在市場 我會修正這個問題',
+      milestones: [
+        { icon:'🛑', label:'三次「下跌 + 高 IV」訊號觸發卻因 BP 不足無法加碼 —— 發現 RBS 過度佔用購買力，立下「BP 維持 40–50%」新規則' },
+        { icon:'🔄', label:'QQQ / MSFT 豪華摩天輪 2.0 實戰 —— QQQ C4 獲利承接、QQQ C7 下跌 + IV > 70 精準再部署、MSFT C1 90% 平倉後高 IV 同履約價再部署，驗證「高獲利、下跌、高 IV、承接氧氣」四條件' },
+        { icon:'⚖️', label:'會計憲法建立 —— 揪出 $14,922 淨現金流誤記漏洞，雙口徑 P/L 上線，避免策略績效與現金流混淆' }
+      ],
+      nextMonthChecklist: [
+        '承接得起嗎？',
+        'RBS 是否卡住購買力？',
+        '黑天鵝是否壓縮主策略？',
+        '豪華摩天輪是否還有下一步？',
+        '下跌時我是真的能加碼，還是只能看著？'
+      ],
+      status: 'archived', archivedAt: '2026-07-31'
+    },
     {
       month: '2026-06', label: '6月', emoji: '🎡', theme: 'QQQ 2UP · 系統條件優先',
       startNAV: 225322, targetNAV: 230000, actualNAV: 235438,
@@ -1664,7 +1703,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-23","close":747.41},{"date":"2026-07-24","close":738.18},
   {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
-  {"date":"2026-07-31","close":741.69}
+  {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03}
 ]
 
 function fetchSPYHistory() {
@@ -3511,7 +3550,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.23 · build 2026-07-31 · MSFT財報+15%完整參與 375C大賺 · 475C SELL Δ0.3重掛(+$695) · 單日反彈+$18,062 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.25 · build 2026-08-01 · 08/01 NAV SC$168,139 FT$66,896 · 月初反彈續 · 保護腿改掛700P NOV30 · MSFT財報後續漲464 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
