@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 66895.86,
-      buyingPower: 19225.86,
-      cash: 66896,
-      dayChange: 946.55,
-      lastUpdated: '2026-08-01 07:00',
+      nav: 69024.91,
+      buyingPower: 19249.98,
+      cash: 69025,
+      dayChange: 2123.50,
+      lastUpdated: '2026-08-04 04:02',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 168138.74,
-      buyingPower: 19466.93,
-      cash: 79432.24,
-      dayChange: 3433.83,
-      lastUpdated: '2026-08-01 07:08',
+      nav: 175377.71,
+      buyingPower: 20994.90,
+      cash: 80960.21,
+      dayChange: 6220.23,
+      lastUpdated: '2026-08-04 05:20',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -422,13 +422,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  747.03,   // 08/01 TOS top bar
-      QQQ:  687.99,   // 08/01 TOS top bar
-      IBIT:  35.60,   // 08/01 第一證券 App
-      BRKB: 511.88,   // 08/01 第一證券 App
-      MSFT: 464.72,   // 08/01 財報後續漲 TOS watchlist
+      SPY:  757.67,   // 08/04 TradingView
+      QQQ:  700.07,   // 08/04 TOS watchlist
+      IBIT:  36.16,   // 08/04 TOS watchlist
+      BRKB: 513.14,   // 08/04 TOS watchlist
+      MSFT: 487.65,   // 08/04 財報後續漲 TOS watchlist
       SPCX: 145.30,   // 07/11 舊值 · 近日截圖未見 SPCX，待補
-      updatedAt: '2026-08-01',
+      updatedAt: '2026-08-04',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -558,6 +558,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-07-30', sc:149647.13, ft:62851.43, ib:1000, total:213498.56 },
     { date:'2026-07-31', sc:164671.74, ft:65888.56, ib:1000, total:231560.30 },
     { date:'2026-08-01', sc:168138.74, ft:66895.86, ib:1000, total:236034.60 },
+    { date:'2026-08-04', sc:175377.71, ft:69024.91, ib:1000, total:245402.62 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -579,7 +580,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.56, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:3.87, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -587,15 +588,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:8.66, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:6.915, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第三組尾部保護腿（改掛）',
       type:'phase2', orderDate:'2026-08-01', fillDate:null, fillPrice:null,
-      limitPrice:7.60, currentMark:11.645, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:7.60, currentMark:9.69, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'08/01 取消原 695P OCT30 @7.56，改掛 700P NOV30 @7.60（到期延後一月、履約價升5）· 等 SPY 反彈 / IV 回落使 mark 降至 7.60' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.24, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:2.295, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1087,7 +1088,7 @@ const PORTFOLIO_STATE = {
 
   // ── 策略統計資料 ─────────────────────────────────────────────
   strategies: [
-    { id:'SPY_PMCC',       acct:'嘉信', type:'PMCC',           col:'#388BFD', typeGroup:'pmcc',       open:1, closed:2, totalProfit:1618, totalLoss:4122, currentPrem:2898, monthPnl:394,   monthNote:'770C 07/24 平倉 +$2,472(85%) + 770C 08/14 ×3 新開 $1,446', note:'730C LEAPS×6 持倉中 · 745C -$4,122 · 780C +$1,618(84%) · 770C JUL24 +$2,472(85% · 07/10平) · 770C AUG14 ×3 @4.82 新開' , broker:'嘉信', emoji:'📈', iconColor:'#388BFD', iconBg:'rgba(56,139,253,0.12)', name:'SPY PMCC', sub:'LEAPS 730C × 6 + SELL 770C × 3 (08/14)', cashflow:'+$1,414', totalPnl:1414, expiry:'08/14', exp:'2026-08-14', status:'ok', statusLabel:'770C滾月×3 · +$2,472已實現', civBeta:{val:0.56,bm:'SPY'}, legs:[{type:'BUY CALL',strike:'730C · 2028/12 · ×6',pnl:'LEAPS 持倉中 · 現$139.61',pos:true},{type:'SELL CALL',strike:'770C · 08/14 · ×3 · 賣@$4.82',pnl:'+$1,446 已收 (2026-07-10)',pos:true},{type:'CLOSED',strike:'770C 07/24 ×6 · 07/10買回@$0.71',pnl:'+$2,472 已實現 (85%)',pos:true},{type:'CLOSED',strike:'780C ×6 買回 06/09 @$0.57',pnl:'+$1,618 已實現 (84%)'},{type:'CLOSED',strike:'745C ×6 買回',pnl:'-$4,122 淨虧'},{type:'NET',strike:'SPY PMCC 累計淨',pnl:'-$4,122+$1,618+$2,472+$1,446 = +$1,414',pos:true}], details:[{label:'LEAPS',val:'730C × 6 · 2028/12 持倉中 · 現$139.61',cls:''},{label:'SELL CALL',val:'770C × 3 · 08/14 · @$4.82 = +$1,446 · 07/10滾月(×6→×3減倉)',cls:'pos'},{label:'770C 已平',val:'07/24合約 ×6 · +$2,472 (85%) · 07/10',cls:'pos'},{label:'累計淨',val:'-$4,122 + $1,618 + $2,472 + $1,446 = +$1,414 ✅',cls:'pos'},{label:'780C 已平',val:'+$1,618 (84%) · 06/09',cls:'pos'}] },
+    { id:'SPY_PMCC',       acct:'嘉信', type:'PMCC',           col:'#388BFD', typeGroup:'pmcc',       open:1, closed:2, totalProfit:1618, totalLoss:4122, currentPrem:2898, monthPnl:394,   monthNote:'770C AUG14 $1,446 + 770C SEP04 $1,530（雙層並行）', note:'730C LEAPS×6 · 770C JUL24 +$2,472(85%·07/10平) · 770C AUG14 ×3 @4.82 · 770C SEP04 ×3 @5.10(08/03加開) · 雙層 short call' , broker:'嘉信', emoji:'📈', iconColor:'#388BFD', iconBg:'rgba(56,139,253,0.12)', name:'SPY PMCC', sub:'LEAPS 730C × 6 + 770C ×3(08/14) + 770C ×3(09/04)', cashflow:'+$2,944', totalPnl:1414, expiry:'09/04', exp:'2026-09-04', status:'ok', statusLabel:'雙層770C收租 · +$2,472已實現', civBeta:{val:0.56,bm:'SPY'}, legs:[{type:'BUY CALL',strike:'730C · 2028/12 · ×6',pnl:'LEAPS 持倉中 · 現$142.68',pos:true},{type:'SELL CALL',strike:'770C · 08/14 · ×3 · 賣@$4.82',pnl:'+$1,446 已收 · 現$1.64近歸零',pos:true},{type:'SELL CALL',strike:'770C · 09/04 · ×3 · 賣@$5.10',pnl:'+$1,530 已收 (08/03) · 現$6.99',pos:true},{type:'CLOSED',strike:'770C 07/24 ×6 · 07/10買回@$0.71',pnl:'+$2,472 已實現 (85%)',pos:true},{type:'CLOSED',strike:'745C -$4,122 / 780C +$1,618',pnl:'累計已實現 -$32'}], details:[{label:'LEAPS',val:'730C × 6 · 2028/12 持倉中 · 現$142.68',cls:''},{label:'770C 雙層',val:'08/14 ×3 @4.82(近歸零) + 09/04 ×3 @5.10(08/03加開) · 並行收租',cls:'pos'},{label:'770C 已平',val:'07/24合約 ×6 · +$2,472 (85%) · 07/10',cls:'pos'},{label:'口徑① 已實現',val:'-$4,122+$1,618+$2,472 = -$32（745C虧被780C/770C補回）',cls:''},{label:'未平權利金',val:'770C AUG $1,446 + SEP $1,530 = $2,976（未平不計realized）',cls:'pos'}] },
     { id:'MSFT_PMCC',     acct:'嘉信', type:'PMCC',           col:'#0277BD', typeGroup:'pmcc',       open:1, closed:1, totalProfit:371, totalLoss:0, currentPrem:556, monthPnl:927,  monthNote:'430C 07/17 平倉 +$371(95%) + 430C 08/14 平倉 +$111(20% 財報前)', note:'MSFT 375C LEAPS 買 06/12 @$105.60 · 430C JUL +$371(95%·07/10) · 430C AUG +$111(20%·07/25財報前買回) · 短Call全平 · LEAPS 裸多過財報' , broker:'嘉信', emoji:'📈', iconColor:'#0277BD', iconBg:'rgba(2,119,189,0.12)', name:'MSFT PMCC', sub:'LEAPS 375C (2028/12) · 短Call已平 · 財報前防禦', cashflow:'+$1,177', totalPnl:482, expiry:'09/04', exp:'2026-09-04', status:'ok', statusLabel:'財報完整參與✅ 375C大賺 · 475C重掛Δ0.3', civBeta:{val:0.0,bm:'MSFT'}, legs:[{type:'BUY CALL',strike:'375C · 2028/12 · ×1 · 買@$105.60',pnl:'現$147.38 · 財報+15% 完整吃到',pos:true},{type:'SELL CALL',strike:'475C · 09/04 · ×1 · 賣@$6.95',pnl:'+$695 已收 · Δ0.31 · IV crush高點',pos:true},{type:'CLOSED',strike:'430C · 08/14 · 07/25買回@$4.45',pnl:'+$111 已實現 (20%)',pos:true},{type:'CLOSED',strike:'430C · 07/17 · 07/10買回@$0.19',pnl:'+$371 已實現 (95%)',pos:true}], details:[{label:'LEAPS 財報戰果',val:'375C · mark 105.60→147.38 · 財報+15% 裸多完整參與 · 未實現大賺',cls:'pos'},{label:'475C 重掛',val:'09/04 · Δ0.31 · @6.95 = +$695 · 履約價475>前次430 · IV crush順風 · 35 DTE',cls:'pos'},{label:'PMCC 紀律',val:'財報前平短Call留LEAPS → 財報後重掛 · 完整走完一輪防禦→參與→收租',cls:''},{label:'已實現累計',val:'+$482（430C JUL $371 + AUG $111）· 475C未平不計realized',cls:'pos'}] },
     { id:'ARM_Wheel',      acct:'嘉信', type:'Put Spread',     col:'#F0A500', typeGroup:'wheel',       open:0, closed:1, totalProfit:32,   totalLoss:0,   currentPrem:32,  monthPnl:32,    monthNote:'C1 淨利 $32', note:'[C1] 370P/325P·06/05 ✅ 1天平倉 淨利$32（收$1,234·還$1,202）' },
     { id:'QQQ_PMCC',       acct:'第一', type:'PMCC',           col:'#3FB950', typeGroup:'pmcc',       open:2, closed:2, totalProfit:15412, totalLoss:0,  currentPrem:715, monthPnl:2073,  monthNote:'690C LEAPS +$3,956(方向性) + 710C −$2,016 + 770C +$490(80%) + 775C +$548(76.6%)', note:'690C→685C LEAPS換約：690C平倉 realized +$3,956（proceeds17806−cost13850）· 710C短Call realized −$2,016 · 770C +$490 · 775C +$548 · 685C 新底層 cost $17,950' , broker:'第一', emoji:'📈', iconColor:'#3FB950', iconBg:'rgba(56,139,253,0.12)', name:'QQQ PMCC', sub:'LEAPS 685C (5/28) + SELL 775C (07/17) · ×1', cashflow:'+$2,073', totalPnl:2978, expiry:'07/17', exp:'2026-07-17', status:'ok', statusLabel:'正常', civBeta:{val:0.02,bm:'QQQ'}, legs:[{type:'BUY CALL',strike:'685C · 2028/12 · ×1 · 買@$179.50',pnl:'新底層 成本 $17,950 (2026-05-28)',pos:false},{type:'SELL CALL',strike:'775C · 07/17 · ×1 · 賣@$7.15',pnl:'+$715 已收 (2026-06-17)',pos:true},{type:'CLOSED',strike:'770C 06/26·×1 · 買回 06/09 @$1.20',pnl:'+$490 已實現 (80%)',pos:true},{type:'CLOSED',strike:'690C LEAPS 平倉 06/01 @178.06',pnl:'+$3,956 資本利得(方向性)',pos:true},{type:'CLOSED',strike:'710C 06/05 · 買回 06/01 @28.84',pnl:'−$2,016 已實現(短Call)',pos:false}], details:[{label:'LEAPS',val:'685C × 1 · 2028/12 持倉中 · 舊690C已換 +$3,956',cls:''},{label:'SELL CALL',val:'775C × 1 · 07/17 · @$7.15 = +$715 · 06/17成交',cls:'pos'},{label:'口徑① 策略總損益',val:'+$2,978（含690C資本利得3956−710C 2016+770C 490+775C 548）',cls:'pos'},{label:'口徑② EV(可重複Cycle)',val:'−$978（710C−2016+770C490+775C548 · 不含LEAPS方向性）',cls:'warn'},{label:'770C 已平',val:'+$490 (80%) · 06/09',cls:'pos'}] },
@@ -1228,6 +1229,7 @@ const PORTFOLIO_STATE = {
     { id:'T_SPYPMCC_770C_O',   strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_770C', cycleLabel:'SPY PMCC · 770C × 6 · 07/24', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-06-18', expiry:'2026-07-24', quantity:6, legs:['SELL 770C ×6 @4.83'], grossCashflow:2898, fees:null, netCashflow:2898, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYPMCC_770CJUL_C', note:'770C SELL 06/18 @$4.83 ×6 · 07/10 已平' },
     { id:'T_SPYPMCC_770CJUL_C', strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_770C', cycleLabel:'SPY PMCC · 770C × 6 · 06/18~07/10 · 提前平倉', account:'sc', ticker:'SPY', action:'CLOSE', tradeDate:'2026-07-10', expiry:'2026-07-24', quantity:6, legs:['BUY TO CLOSE 770C ×6 @0.71 (22:58)'], grossCashflow:-426, fees:null, netCashflow:-426, realizedPnl:2472, pct:85.3, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYPMCC_770CAUG_O', ledgerId:'CF_M07_005', note:'770C 07/24 · 06/18開 @4.83×6 (+$2,898) · 07/10買回 @0.71×6 (-$426) · 實現 +$2,472 (85.3%) · 費用未列 · 同日滾月開 770C 08/14 ×3' },
     { id:'T_SPYPMCC_770CAUG_O', strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_770C_AUG', cycleLabel:'SPY PMCC · 770C × 3 · 08/14', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-07-10', expiry:'2026-08-14', quantity:3, legs:['SELL 770C ×3 @4.82 (22:59)'], grossCashflow:1446, fees:null, netCashflow:1446, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_SPYPMCC_770CJUL_C', note:'滾月新開 · ×6→×3 減倉 · +$1,446 未扣費 · 與 07/24 舊約不同合約' },
+    { id:'T_SPYPMCC_770CSEP_O', strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_770C_SEP', cycleLabel:'SPY PMCC · 770C × 3 · 09/04', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-08-03', expiry:'2026-09-04', quantity:3, legs:['SELL 770C ×3 @5.10 (22:16)'], grossCashflow:1530, fees:null, netCashflow:1530, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'SPY +1.4% · 履約價770 · PMCC', reason:'爬升中加開第二層 short call · 770C 08/14+09/04 並行收租', note:'SPY PMCC 加開 770C 09/04 ×3 @5.10 (+$1,530) · 32 DTE · 雙層並行 · LEAPS 730C×6' },
     // ── MSFT PMCC (嘉信) ────────────────────────────────────────
     { id:'T_MSFTPMCC_LEAPS_O', strategyId:'MSFT_PMCC', strategyName:'MSFT PMCC', ledgerType:'pmcc', cycleId:'MSFT_PMCC_SC_LEAPS', cycleLabel:'MSFT LEAPS 375C × 1 · 2028/12', account:'sc', ticker:'MSFT', action:'OPEN', tradeDate:'2026-06-12', expiry:'2028-12-15', quantity:1, legs:['BUY 375C ×1 @105.60'], grossCashflow:-10560, fees:null, netCashflow:-10560, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:null, note:'底層 LEAPS · 原始成本 $10,560 不得重設' },
     { id:'T_MSFTPMCC_430CJUL_O', strategyId:'MSFT_PMCC', strategyName:'MSFT PMCC', ledgerType:'pmcc', cycleId:'MSFT_PMCC_SC_430C_JUL', cycleLabel:'MSFT PMCC · 430C × 1 · 07/17', account:'sc', ticker:'MSFT', action:'OPEN', tradeDate:'2026-06-12', expiry:'2026-07-17', quantity:1, legs:['SELL 430C ×1 @3.90'], grossCashflow:390, fees:0.67, netCashflow:389.33, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_MSFTPMCC_430CJUL_C', note:'舊短Call · 06/12 開倉 @$3.90 · 券商淨收 $389.33' },
@@ -1703,7 +1705,8 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-23","close":747.41},{"date":"2026-07-24","close":738.18},
   {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
-  {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03}
+  {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
+  {"date":"2026-08-04","close":757.67}
 ]
 
 function fetchSPYHistory() {
@@ -3550,7 +3553,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.25 · build 2026-08-01 · 08/01 NAV SC$168,139 FT$66,896 · 月初反彈續 · 保護腿改掛700P NOV30 · MSFT財報後續漲464 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.26 · build 2026-08-04 · 08/04 NAV $245,403 歷史新高 · SPY PMCC加開770C SEP04×3(+$1,530)雙層 · MSFT續漲487 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
