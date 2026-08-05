@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 69024.91,
-      buyingPower: 19249.98,
-      cash: 69025,
-      dayChange: 2123.50,
-      lastUpdated: '2026-08-04 04:02',
+      nav: 71180.92,
+      buyingPower: 19343.52,
+      cash: 71181,
+      dayChange: 2141.63,
+      lastUpdated: '2026-08-05 07:51',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 175377.71,
+      nav: 178972.71,
       buyingPower: 20994.90,
       cash: 80960.21,
-      dayChange: 6220.23,
-      lastUpdated: '2026-08-04 05:20',
+      dayChange: 1998.71,
+      lastUpdated: '2026-08-05 08:03',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -422,13 +422,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  757.67,   // 08/04 TradingView
-      QQQ:  700.07,   // 08/04 TOS watchlist
-      IBIT:  36.16,   // 08/04 TOS watchlist
-      BRKB: 513.14,   // 08/04 TOS watchlist
-      MSFT: 487.65,   // 08/04 財報後續漲 TOS watchlist
-      SPCX: 145.30,   // 07/11 舊值 · 近日截圖未見 SPCX，待補
-      updatedAt: '2026-08-04',
+      SPY:  771.33,   // 08/05 TradingView
+      QQQ:  723.85,   // 08/05 TradingView
+      IBIT:  36.39,   // 08/05 TOS watchlist
+      BRKB: 517.22,   // 08/05 TOS watchlist
+      MSFT: 492.81,   // 08/05 財報後續漲 TOS watchlist
+      SPCX: 125.33,   // 08/05 TOS watchlist（SPCX 重現）
+      updatedAt: '2026-08-05',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -559,6 +559,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-07-31', sc:164671.74, ft:65888.56, ib:1000, total:231560.30 },
     { date:'2026-08-01', sc:168138.74, ft:66895.86, ib:1000, total:236034.60 },
     { date:'2026-08-04', sc:175377.71, ft:69024.91, ib:1000, total:245402.62 },
+    { date:'2026-08-05', sc:178972.71, ft:71180.92, ib:1000, total:251153.63 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -580,7 +581,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.87, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:2.915, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -588,15 +589,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:6.915, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:5.885, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第三組尾部保護腿（改掛）',
       type:'phase2', orderDate:'2026-08-01', fillDate:null, fillPrice:null,
-      limitPrice:7.60, currentMark:9.69, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:7.60, currentMark:8.455, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'08/01 取消原 695P OCT30 @7.56，改掛 700P NOV30 @7.60（到期延後一月、履約價升5）· 等 SPY 反彈 / IV 回落使 mark 降至 7.60' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:2.295, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.80, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1706,7 +1707,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
   {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
-  {"date":"2026-08-04","close":757.67}
+  {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33}
 ]
 
 function fetchSPYHistory() {
@@ -3553,7 +3554,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.26 · build 2026-08-04 · 08/04 NAV $245,403 歷史新高 · SPY PMCC加開770C SEP04×3(+$1,530)雙層 · MSFT續漲487 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.27 · build 2026-08-05 · 08/05 NAV $251,154 再創新高 · SPY771/QQQ724/MSFT493續漲 · 無交易事件 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
