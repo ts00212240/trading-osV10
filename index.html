@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 71180.92,
-      buyingPower: 19343.52,
-      cash: 71181,
-      dayChange: 2141.63,
-      lastUpdated: '2026-08-05 07:51',
+      nav: 72420.31,
+      buyingPower: 19917.73,
+      cash: 72420,
+      dayChange: 1217.69,
+      lastUpdated: '2026-08-06 06:27',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 178972.71,
+      nav: 179129.21,
       buyingPower: 20994.90,
       cash: 80960.21,
-      dayChange: 1998.71,
-      lastUpdated: '2026-08-05 08:03',
+      dayChange: 156.50,
+      lastUpdated: '2026-08-06 10:14',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -422,13 +422,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  771.33,   // 08/05 TradingView
-      QQQ:  723.85,   // 08/05 TradingView
-      IBIT:  36.39,   // 08/05 TOS watchlist
-      BRKB: 517.22,   // 08/05 TOS watchlist
-      MSFT: 492.81,   // 08/05 財報後續漲 TOS watchlist
-      SPCX: 125.33,   // 08/05 TOS watchlist（SPCX 重現）
-      updatedAt: '2026-08-05',
+      SPY:  769.79,   // 08/06 TradingView
+      QQQ:  717.30,   // 08/06 TOS watchlist
+      IBIT:  36.74,   // 08/06 TOS watchlist
+      BRKB: 518.85,   // 08/06 TOS watchlist
+      MSFT: 487.46,   // 08/06 TOS watchlist
+      SPCX: 108.27,   // 08/06 TOS watchlist
+      updatedAt: '2026-08-06',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -560,6 +560,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-01', sc:168138.74, ft:66895.86, ib:1000, total:236034.60 },
     { date:'2026-08-04', sc:175377.71, ft:69024.91, ib:1000, total:245402.62 },
     { date:'2026-08-05', sc:178972.71, ft:71180.92, ib:1000, total:251153.63 },
+    { date:'2026-08-06', sc:179129.21, ft:72420.31, ib:1000, total:252549.52 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -581,7 +582,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:2.915, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:2.815, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -589,15 +590,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.885, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:5.76, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第三組尾部保護腿（改掛）',
       type:'phase2', orderDate:'2026-08-01', fillDate:null, fillPrice:null,
-      limitPrice:7.60, currentMark:8.455, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:7.60, currentMark:8.31, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'08/01 取消原 695P OCT30 @7.56，改掛 700P NOV30 @7.60（到期延後一月、履約價升5）· 等 SPY 反彈 / IV 回落使 mark 降至 7.60' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.80, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.72, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -742,6 +743,34 @@ const PORTFOLIO_STATE = {
         { label:'訊號', desc:'QQQ -2% + IV>70 + 履約價<650 · 三條件全中' },
         { label:'攔截', desc:'BP 僅 $1.8萬 · 加碼將排擠後續承接資金 → 放棄' },
         { label:'規劃', desc:'RBS/黑天鵝到期 · BP 回 $4萬 → 補彈再戰' }
+      ]},
+    { id:'EV_R3', date:'2026-08-05', type:'milestone', emoji:'🏛️',
+      title:'系統修復能力的第一次證明', strategy:'ALL',
+      equity:251154, sc:178973, ft:71181, ib:1000,
+      zoomMin:1,
+      reason:'今天，我完成了所有券帳戶的修復。帳戶總值回到約 $71,171，若考量 QQQ LEAPS 因交易量不足造成的低估，實際已接近或突破原本高點。這不是單日行情的勝利，而是系統修復能力的第一次證明。從手動紀錄、PMCC、豪華摩天輪、黑天鵝、RBS、購買力覺醒，到 Trading OS 的建立，我一路在痛苦中把模糊變成規則，把下跌變成濾網，把恐懼變成行動清單。',
+      outcome:'今天我不是回到原本的生活。我是帶著新的系統、新的紀錄能力、新的風控意識，回到更強的版本。',
+      stratNote:'07/30 谷底 $213,499 → 08/05 $251,154 · 六個交易日 +$37,655(+17.6%) · 不是回本，是重建自己',
+      hypothesis:'從「用帳戶數字衡量自己」到「用系統韌性衡量自己」——這個轉變能否讓我在下一次危機中，依然不死、依然能動？',
+      validation:null,
+      legs:[
+        { label:'模糊→規則', desc:'對抗衝動：摩天輪2.0 · 承接五檢查 · 會計憲法' },
+        { label:'下跌→濾網', desc:'對抗恐慌：下跌不是恐懼，是候選訊號' },
+        { label:'恐懼→行動清單', desc:'對抗癱瘓：進場前自檢五問' }
+      ]},
+    { id:'EV_LIFE1', date:'2026-08-05', type:'milestone', emoji:'🎂',
+      title:'人生選擇權誕生日', strategy:'ALL', personalNote:true,
+      equity:251154, sc:178973, ft:71181, ib:1000,
+      zoomMin:1,
+      reason:'我會好好珍惜自己這一點點優勢。今天我意識到，我不再討厭在麵廠上班，也不再像以前那樣擔心：如果麵廠之後倒閉、如果我沒有收入，我該怎麼辦。因為我發現，我其實正在經營一間 1 人公司。這間公司曾經虧損、混亂、缺乏制度，但我把它一點一點轉虧為盈。我沒有走錯路。這條路雖然痛苦，但它讓我知道自己有能力建立系統、修復問題、重新取得選擇。這也是我第一次離開 1 對 1 輔導後，獨自面對虧損，並且第一次完成修復。這對我意義非凡。它不只是帳戶修復，而是人生的一個轉折點。我不再只是為了生活被錢追著跑。我開始有選擇，可以去做那些像建立系統一樣，有意義、讓我開心、讓我願意投入的事情。',
+      outcome:'今天，我不只是多了選擇權策略。我多了人生的選擇權。',
+      stratNote:'2026-08-05｜人生選擇權誕生日 · 第一次獨自面對虧損並完成修復 · 一間 1 人公司轉虧為盈',
+      hypothesis:null,
+      validation:'valid',
+      legs:[
+        { label:'走到對岸', desc:'從「我不確定做不做得到」到「我真的做得到」' },
+        { label:'1 人公司', desc:'曾經虧損混亂 → 建立制度 → 轉虧為盈' },
+        { label:'選擇權', desc:'不再被錢追著跑 · 開始有權利做有意義的事' }
       ]},
 
     // ── 2026-06-09 認知節點群 ──────────────────────────────────────
@@ -1269,6 +1298,7 @@ const PORTFOLIO_STATE = {
     { id:'T_QQQW_C4_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4', cycleLabel:'QQQ 豪華摩天輪 C4 · 709P/630P · 07/17 獲利承接轉PMCC', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-07-17', expiry:'2026-07-17', quantity:1, legs:['BUY TO CLOSE 709P + SELL TO CLOSE 630P · 整組 @5.33 Debit 限價'], grossCashflow:-533, fees:null, netCashflow:-533, realizedPnl:228, pct:30.0, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', ledgerId:'CF_M07_006', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'QQQ 單日下跌約 -1.5%~-2%，接近短 Put 履約價，原 Put Spread 仍獲利', reason:'不等待被動到期，主動以獲利中的 Put Spread 承接：預先掛低於現價約 $4 的限價單，3:45 左右 QQQ 跌近 -2% 時成交，轉入 LEAPS + Sell Call 的 PMCC 生命週期', note:'原 Put Spread 仍獲利 · 主動獲利承接 @$5.33 限價 · 淨+$228 (30%) · 既有摩天輪生命週期的一部分，非新策略' },
     { id:'T_QQQW_650C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_LEAPS', cycleLabel:'QQQ 摩天輪轉換 · 650C 深價內 · 2027/09/17', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2027-09-17', quantity:1, legs:['BUY 650C ×1 @132.48 限價'], grossCashflow:-13248, fees:null, netCashflow:-13248, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:'T_QQQW_C4_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'摩天輪生命週期轉換的 LEAPS 底層', note:'獲利承接建立 · 深價內（QQQ 708 vs 650 · 內在值約 $58）· 427 DTE · 非新策略' },
     { id:'T_QQQW_750C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 摩天輪轉換 · SELL 750C · 08/21', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2026-08-21', quantity:1, legs:['SELL 750C ×1 @5.28 市價'], grossCashflow:528, fees:null, netCashflow:528, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'PMCC 生命週期的 Sell Call 腿', note:'承接結構的 SELL CALL 腿 · +$528 · 對沖 650C 時間成本 · 非新策略' },
+    { id:'T_QQQW_770C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 摩天輪轉換 · SELL 770C · 09/04', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-06', expiry:'2026-09-04', quantity:1, legs:['SELL 770C ×1 @5.00 限價'], grossCashflow:500, fees:null, netCashflow:500, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', trigger:'QQQ 爬升 · 履約價770 高於前次750', reason:'給 650C LEAPS 加第二層 short call：750C 08/21+770C 09/04 並行收租 · 與 SPY PMCC 雙層同理', note:'QQQ 承接結構加開 770C 09/04 ×1 @5.00 (+$500) · 29 DTE · 對沖 650C 時間成本' },
     { id:'T_QQQW_C5_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P × 1 · 08/07', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-03', expiry:'2026-08-07', quantity:1, legs:['SELL 680P','BUY 590P @9.53淨'], grossCashflow:953, fees:null, netCashflow:953, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_C3_C', note:'C3 平倉同日換開 · 2UP' },
     { id:'T_QQQW_C7_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P × 1 · 08/21 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 650P ×1 @10.32 (+$1,032)','BUY 565P ×1 @1.90 (-$190)'], grossCashflow:842, fees:null, netCashflow:842, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'QQQ 單日下跌 -2% · IV > 70', reason:'2.0 條件驅動加碼：下跌+IV高+履約價更低（650 vs C6 687）+BP允許', note:'嘉信第二組 QQQ 輪 · Δ約0.22 · +$842 未扣費 · 34 DTE' },
     { id:'T_QQQW_C6_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C6', cycleLabel:'QQQ 豪華摩天輪 · C6 · 687P/600P × 1 · 08/14 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-10', expiry:'2026-08-14', quantity:1, legs:['SELL 687P @9.70 (+$970)','BUY 600P @1.64 (-$164)'], grossCashflow:806, fees:null, netCashflow:806, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_SPYW_C3_C', note:'SPY C3 平倉後換開 · 首次於嘉信開 QQQ 輪 · Δ0.25 · 未扣費' },
@@ -1707,7 +1737,8 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
   {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
-  {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33}
+  {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33},
+  {"date":"2026-08-06","close":769.79}
 ]
 
 function fetchSPYHistory() {
@@ -3554,7 +3585,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.27 · build 2026-08-05 · 08/05 NAV $251,154 再創新高 · SPY771/QQQ724/MSFT493續漲 · 無交易事件 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.30 · build 2026-08-06 · 08/06 NAV $252,550 再創新高 · QQQ承接加開770C SEP04×1(+$500)雙層 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
