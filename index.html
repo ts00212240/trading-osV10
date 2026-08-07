@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 72420.31,
-      buyingPower: 19917.73,
-      cash: 72420,
-      dayChange: 1217.69,
-      lastUpdated: '2026-08-06 06:27',
+      nav: 72248.87,
+      buyingPower: 19942.47,
+      cash: 72249,
+      dayChange: -193.21,
+      lastUpdated: '2026-08-07 09:58',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 179129.21,
+      nav: 179664.21,
       buyingPower: 20994.90,
       cash: 80960.21,
-      dayChange: 156.50,
-      lastUpdated: '2026-08-06 10:14',
+      dayChange: 535.00,
+      lastUpdated: '2026-08-07 10:00',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -393,11 +393,33 @@ const PORTFOLIO_STATE = {
     }
   },
 
-  // ── 歷史 ATH 紀錄 ────────────────────────────────────────────
+  // ── 歷史 ATH 紀錄（V13.33 分層架構）────────────────────────────
+  //  currentATH  = 目前真正歷史新高（所有 drawdown/distance/progress 的計算基準）
+  //  previousATH = 上一個被突破的 ATH（保留歷史意義，可回溯）
+  //  athHistory  = 所有重要 ATH 節點（不刪除，只 append）
+  //  rollATH() 每日收盤後檢測 dailyEquity 峰值，破頂則滾動：舊 current → previous + history
   ath: {
-    combined: { value: 252654.52, date: '2022-11-16' },
-    sc:       { value: 202812,    date: '2025-05-16' },
-    ft:       { value: 71191,     date: '2026-05-27', isToday: false }
+    combined: {
+      currentATH:  { value: 252913.08, date: '2026-08-07' },
+      previousATH: { value: 252654.52, date: '2022-11-16' },
+      athHistory: [
+        { value: 252654.52, date: '2022-11-16', note: '2022 巔峰' },
+        { value: 252913.08, date: '2026-08-07', note: '修復後首破 · 相隔 3 年 8 個月' }
+      ]
+    },
+    sc: {
+      currentATH:  { value: 202812, date: '2025-05-16' },
+      previousATH: null,
+      athHistory: [ { value: 202812, date: '2025-05-16', note: '嘉信巔峰' } ]
+    },
+    ft: {
+      currentATH:  { value: 72420.31, date: '2026-08-06' },
+      previousATH: { value: 71191, date: '2026-05-27' },
+      athHistory: [
+        { value: 71191,    date: '2026-05-27', note: '第一證券舊高' },
+        { value: 72420.31, date: '2026-08-06', note: '修復後首破' }
+      ]
+    }
   },
 
   // ── 嘉信修復任務 ──────────────────────────────────────────────
@@ -422,13 +444,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  769.79,   // 08/06 TradingView
-      QQQ:  717.30,   // 08/06 TOS watchlist
-      IBIT:  36.74,   // 08/06 TOS watchlist
-      BRKB: 518.85,   // 08/06 TOS watchlist
-      MSFT: 487.46,   // 08/06 TOS watchlist
-      SPCX: 108.27,   // 08/06 TOS watchlist
-      updatedAt: '2026-08-06',
+      SPY:  768.56,   // 08/07 TOS top bar
+      QQQ:  714.65,   // 08/07 TOS watchlist
+      IBIT:  36.45,   // 08/07 第一證券 App
+      BRKB: 524.61,   // 08/07 TOS watchlist
+      MSFT: 499.86,   // 08/07 TOS watchlist（逼近500）
+      SPCX: 114.92,   // 08/07 TOS watchlist（反彈）
+      updatedAt: '2026-08-07',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -561,6 +583,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-04', sc:175377.71, ft:69024.91, ib:1000, total:245402.62 },
     { date:'2026-08-05', sc:178972.71, ft:71180.92, ib:1000, total:251153.63 },
     { date:'2026-08-06', sc:179129.21, ft:72420.31, ib:1000, total:252549.52 },
+    { date:'2026-08-07', sc:179664.21, ft:72248.87, ib:1000, total:252913.08 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -582,7 +605,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:2.815, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:2.70, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -590,15 +613,15 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.76, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:5.665, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第三組尾部保護腿（改掛）',
       type:'phase2', orderDate:'2026-08-01', fillDate:null, fillPrice:null,
-      limitPrice:7.60, currentMark:8.31, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:7.60, currentMark:8.24, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'08/01 取消原 695P OCT30 @7.56，改掛 700P NOV30 @7.60（到期延後一月、履約價升5）· 等 SPY 反彈 / IV 回落使 mark 降至 7.60' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.72, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.64, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1738,7 +1761,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
   {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
   {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33},
-  {"date":"2026-08-06","close":769.79}
+  {"date":"2026-08-06","close":769.79},{"date":"2026-08-07","close":768.56}
 ]
 
 function fetchSPYHistory() {
@@ -2247,6 +2270,48 @@ function validateTradeSync() {
   return result
 }
 
+// ══════════════════════════════════════════════════════════════
+// ATH Rolling Update（歷史層 · V13.33）
+// 每日收盤後檢測 dailyEquity 各帳戶峰值；若 > currentATH 則滾動：
+//   舊 currentATH → previousATH + append athHistory；currentATH 前移到新峰值。
+// 冪等：峰值未超過 currentATH 就不動。不刪除任何歷史。
+// 顯示層(_deriveATH) 與此獨立：盤中可先顯示「今日創新高」，收盤後由此固化。
+// ══════════════════════════════════════════════════════════════
+// ATH 耗時格式：兩日期相隔 X年Y個月
+function _athElapsed(fromDate, toDate) {
+  try {
+    var a = new Date(fromDate), b = new Date(toDate)
+    var mo = (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth())
+    if (b.getDate() < a.getDate()) mo -= 1
+    if (mo < 0) mo = 0
+    var y = Math.floor(mo/12), m = mo%12
+    return (y>0 ? y+' 年 ' : '') + (m>0 ? m+' 個月' : (y>0?'':'不到 1 個月'))
+  } catch(e){ return '' }
+}
+
+function rollATH() {
+  var S = PORTFOLIO_STATE, eq = S.dailyEquity || []
+  if (!eq.length || !S.ath) return { rolled: [] }
+  var keyMap = { combined:'total', sc:'sc', ft:'ft' }
+  var rolled = []
+  ;['combined','sc','ft'].forEach(function(acct){
+    var a = S.ath[acct]; if (!a || !a.currentATH) return
+    var k = keyMap[acct]
+    var peak = -Infinity, peakDate = null
+    eq.forEach(function(d){ var v = d[k]; if (typeof v==='number' && v > peak) { peak = v; peakDate = d.date } })
+    if (peak > a.currentATH.value + 0.01) {
+      a.previousATH = { value: a.currentATH.value, date: a.currentATH.date }
+      a.currentATH  = { value: peak, date: peakDate }
+      a.athHistory = a.athHistory || []
+      if (!a.athHistory.some(function(h){ return Math.abs(h.value - peak) < 0.01 }))
+        a.athHistory.push({ value: peak, date: peakDate, note: '滾動更新' })
+      rolled.push(acct + ' → $' + Math.round(peak).toLocaleString() + ' (' + peakDate + ')')
+    }
+  })
+  if (rolled.length) console.log('[rollATH] 滾動更新:', rolled.join(' · '))
+  return { rolled: rolled }
+}
+
 function applyTradesSSOT() {
   var S = PORTFOLIO_STATE
   var stats = deriveStrategyStats(S.trades)
@@ -2265,6 +2330,7 @@ function applyTradesSSOT() {
   S._monthlyPremium = deriveMonthlyPremium(S.trades)
   S._cycleHistory = deriveCycleHistory(S.trades)
   S._derivedTradeEvents = deriveJourneyTradeEvents(S.trades)
+  try { rollATH() } catch(e){ console.error('[rollATH]', e) }   // 歷史層：收盤後固化新高
   return validateTradeSync()
 }
 
@@ -2279,13 +2345,44 @@ function calculateMetrics() {
   var combined = ftNav + scNav + ibNav
   var today = new Date().toISOString().slice(0,10)
 
-  // ── ATH ──────────────────────────────────────────────────────
-  var athCombinedGap = S.ath.combined.value - combined
-  var athCombinedPct = combined / S.ath.combined.value * 100
-  var scAthGap       = S.ath.sc.value - scNav
-  var scAthPct       = scNav / S.ath.sc.value * 100
-  var ftAthPct       = Math.min(100, ftNav / S.ath.ft.value * 100)
-  var ftAtATH        = ftNav >= S.ath.ft.value
+  // ── ATH（V13.31 Auto-Derive：displayATH = max(歷史ATH, 當前NAV)）──
+  // 憲法：不改 PORTFOLIO_STATE.ath 歷史值；UI 顯示層一律用 max(savedATH, currentNAV)。
+  //   currentNAV > savedATH → 顯示新ATH · 回撤0% · 進度100% · 今日/持續創新高
+  //   currentNAV ≤ savedATH → 顯示歷史ATH · 差額 · 回撤%
+  var _eqArr   = (S.dailyEquity || [])
+  var _prevEq  = _eqArr.length >= 2 ? _eqArr[_eqArr.length-2] : null
+  // 顯示層：以 currentATH 為基準；drawdown/distance/progress 全部相對 currentATH
+  function _deriveATH(athObj, curNAV, prevNAV) {
+    var cur    = athObj.currentATH               // { value, date }
+    var isNew  = curNAV > cur.value
+    var wasNew = (prevNAV != null) && (prevNAV > cur.value)
+    return {
+      displayValue: Math.max(cur.value, curNAV),
+      displayDate:  isNew ? today : cur.date,
+      savedValue:   cur.value,                    // = currentATH.value（計算基準）
+      savedDate:    cur.date,
+      previousATH:  athObj.previousATH || null,   // 前一個 ATH（UI 顯示用）
+      athHistory:   athObj.athHistory || [],
+      current:      curNAV,
+      isNewHigh:    isNew,                        // NAV 盤中超越 currentATH（尚未 roll）
+      isATHToday:   cur.date === today,           // currentATH 是今天固化的（含已 roll）
+      isTodayNew:   isNew && !wasNew,
+      isContinuing: isNew && wasNew,
+      gap:          Math.max(0, cur.value - curNAV),
+      drawdownPct:  isNew ? 0 : +((cur.value - curNAV) / cur.value * 100).toFixed(2),
+      progressPct:  isNew ? 100 : +Math.min(100, curNAV / cur.value * 100).toFixed(1)
+    }
+  }
+  var athFT       = _deriveATH(S.ath.ft,       ftNav,    _prevEq ? _prevEq.ft    : null)
+  var athSC       = _deriveATH(S.ath.sc,       scNav,    _prevEq ? _prevEq.sc    : null)
+  var athCombined = _deriveATH(S.ath.combined, combined, _prevEq ? _prevEq.total : null)
+  // 相容舊欄位（其他地方若引用）
+  var athCombinedGap = athCombined.gap
+  var athCombinedPct = athCombined.progressPct
+  var scAthGap       = athSC.gap
+  var scAthPct       = athSC.progressPct
+  var ftAthPct       = athFT.progressPct
+  var ftAtATH        = athFT.isNewHigh
 
   // ── Ladder ───────────────────────────────────────────────────
   var scLadderRange   = S.ladder.sc.target - S.ladder.sc.start
@@ -2374,7 +2471,8 @@ function calculateMetrics() {
     ath: {
       combinedGap: athCombinedGap, combinedPct: athCombinedPct,
       scGap: scAthGap, scPct: scAthPct,
-      ftAthPct: ftAthPct, ftAtATH: ftAtATH
+      ftAthPct: ftAthPct, ftAtATH: ftAtATH,
+      ftD: athFT, scD: athSC, combinedD: athCombined   // V13.31 派生物件
     },
     ladder: {
       sc: { pct:scLadderPct, surplus:scLadderSurplus, met:scLadderMet, current:scNav, target:S.ladder.sc.target, start:S.ladder.sc.start },
@@ -3585,7 +3683,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.30 · build 2026-08-06 · 08/06 NAV $252,550 再創新高 · QQQ承接加開770C SEP04×1(+$500)雙層 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.33 · build 2026-08-07 · ATH Rolling Update:currentATH滾動+previousATH可回溯+athHistory · 合計$252,913固化 前ATH2022-11-16 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
@@ -4333,13 +4431,31 @@ function renderATH(m) {
   var S = PORTFOLIO_STATE
   var el = document.getElementById('home-ath-section')
   if (!el) return
-  var athCPct  = m.ath.combinedPct.toFixed(1)
-  var scPct    = m.ath.scPct.toFixed(1)
-  var ftPct    = m.ath.ftAthPct.toFixed(1)
-  var ftDateLbl= S.ath.ft.isToday ? S.ath.ft.date + ' 今日 🆕' : S.ath.ft.date
-  var ftNote   = m.ath.ftAtATH ? '持續創新高' : '目前 ' + _fmt$(m.nav.ft)
-  var ftRecLbl = m.ath.ftAtATH ? '回撤 0% ✅' : ('-' + (100-m.ath.ftAthPct).toFixed(1) + '%')
-  var ftRecCol = m.ath.ftAtATH ? '#00C896' : '#FF4B5C'
+  // V13.33 分層：顯示層(Auto-Derive) + 歷史層(currentATH/previousATH)
+  var cD = m.ath.combinedD, sD = m.ath.scD, fD = m.ath.ftD
+  // ATH 日期標籤：今日固化→🆕；盤中超越→盤中新高；否則→ currentATH 日期
+  function _athDate(d){
+    if (d.isATHToday) return d.savedDate + ' 🆕 今日創新高'
+    if (d.isNewHigh)  return today + ' 盤中新高（收盤固化）'
+    return d.savedDate
+  }
+  // 前 ATH + 耗時
+  function _prevLine(d){
+    if (!d.previousATH) return ''
+    return '前 ATH ' + d.previousATH.date + ' · 相隔 ' + _athElapsed(d.previousATH.date, d.savedDate)
+  }
+  // 回撤/差額：一律相對 currentATH
+  function _recLbl(d, atNewWord){
+    if (d.current >= d.savedValue) return '回撤 0% ✅'
+    return (atNewWord||'還差 ') + _fmt$(d.gap) + ' (-' + d.drawdownPct.toFixed(1) + '%)'
+  }
+  var athCPct  = cD.progressPct.toFixed(1)
+  var scPct    = sD.progressPct.toFixed(1)
+  var ftPct    = fD.progressPct.toFixed(1)
+  var cDateLbl = _athDate(cD), cPrev = _prevLine(cD), cRecLbl = _recLbl(cD), cRecCol = (cD.current>=cD.savedValue)?'#00C896':'#FF4B5C'
+  var scDateLbl= _athDate(sD), scPrev= _prevLine(sD), scRecLbl= _recLbl(sD,'-'), scRecCol= (sD.current>=sD.savedValue)?'#00C896':'#FF4B5C'
+  var ftDateLbl= _athDate(fD), ftPrev= _prevLine(fD), ftRecLbl= _recLbl(fD,'-'), ftRecCol= (fD.current>=fD.savedValue)?'#00C896':'#FF4B5C'
+  var ftNote   = fD.isATHToday || fD.isNewHigh ? '持續巔峰 📈' : '目前 ' + _fmt$(m.nav.ft)
 
   el.innerHTML =
     '<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px 5px;display:flex;align-items:center;gap:5px;color:#F0C040"><span style="font-size:13px">👑</span>ATH Sovereignty</div>' +
@@ -4347,30 +4463,32 @@ function renderATH(m) {
       '<div class="ath-c">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">' +
           '<div style="font-size:10px;color:#9BA3B8;display:flex;align-items:center;gap:4px"><span style="font-size:12px">👑</span>雙帳戶合計歷史巔峰</div>' +
-          '<span class="badge bg-gold">' + S.ath.combined.date + '</span>' +
+          '<span class="badge bg-gold">' + cDateLbl + '</span>' +
         '</div>' +
-        '<div style="font-size:22px;font-weight:600;color:#F0C040;letter-spacing:-.5px;margin-bottom:4px">$' + S.ath.combined.value.toLocaleString() + '</div>' +
+        '<div style="font-size:22px;font-weight:600;color:#F0C040;letter-spacing:-.5px;margin-bottom:4px">$' + Math.round(cD.displayValue).toLocaleString() + '</div>' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">' +
           '<span style="font-size:11px;color:#9BA3B8">目前合計 ' + _fmt$(m.nav.combined) + '</span>' +
-          '<span style="font-size:11px;font-weight:500;color:#FF4B5C">還差 ' + _fmt$(m.ath.combinedGap) + ' (-' + (100-m.ath.combinedPct).toFixed(1) + '%)</span>' +
+          '<span style="font-size:11px;font-weight:500;color:'+cRecCol+'">' + cRecLbl + '</span>' +
         '</div>' +
         '<div class="pt"><div class="pf" style="width:'+athCPct+'%;background:linear-gradient(90deg,#F0C040,#FFD700)"></div></div>' +
-        '<div style="font-size:9px;color:#5A6278;margin-top:3px;text-align:right">'+athCPct+'% recovered to combined ATH</div>' +
+        (cPrev ? '<div style="font-size:9px;color:#7A6A3A;margin-top:4px">📜 '+cPrev+'</div>' : '') +
+        '<div style="font-size:9px;color:#5A6278;margin-top:3px;text-align:right">'+((cD.current>=cD.savedValue)?'100% · 新巔峰':athCPct+'% recovered to combined ATH')+'</div>' +
       '</div>' +
       '<div class="ath-g">' +
         '<div class="ath-col">' +
           '<div style="font-size:10px;color:#9BA3B8;margin-bottom:3px;display:flex;align-items:center;gap:3px"><span style="color:#388BFD">●</span>嘉信單獨 ATH</div>' +
-          '<div style="font-size:17px;font-weight:600;color:#79C0FF;margin-bottom:1px">$' + S.ath.sc.value.toLocaleString() + '</div>' +
-          '<div style="font-size:10px;color:#5A6278;margin-bottom:5px">' + S.ath.sc.date + '</div>' +
+          '<div style="font-size:17px;font-weight:600;color:#79C0FF;margin-bottom:1px">$' + Math.round(sD.displayValue).toLocaleString() + '</div>' +
+          '<div style="font-size:10px;color:#5A6278;margin-bottom:5px">' + scDateLbl + '</div>' +
           '<div style="font-size:10px;color:#9BA3B8">目前 ' + _fmt$(m.nav.sc) + '</div>' +
-          '<div style="font-size:11px;font-weight:500;color:#FF4B5C;margin-bottom:3px">-' + _fmt$(m.ath.scGap) + ' (-' + (100-m.ath.scPct).toFixed(1) + '%)</div>' +
+          '<div style="font-size:11px;font-weight:500;color:'+scRecCol+';margin-bottom:3px">' + scRecLbl + '</div>' +
           '<div class="pt"><div class="pf" style="width:'+scPct+'%;background:#388BFD"></div></div>' +
         '</div>' +
         '<div class="ath-col ath-col-ft">' +
           '<div style="font-size:10px;color:#9BA3B8;margin-bottom:3px;display:flex;align-items:center;gap:3px"><span style="color:#00C896">●</span>第一證券 ATH</div>' +
-          '<div style="font-size:17px;font-weight:600;color:#00C896;margin-bottom:1px">$' + S.ath.ft.value.toLocaleString() + '</div>' +
+          '<div style="font-size:17px;font-weight:600;color:#00C896;margin-bottom:1px">$' + Math.round(fD.displayValue).toLocaleString() + '</div>' +
           '<div style="font-size:10px;color:#5A6278;margin-bottom:5px">' + ftDateLbl + '</div>' +
           '<div style="font-size:10px;color:#9BA3B8">' + ftNote + '</div>' +
+          (ftPrev ? '<div style="font-size:9px;color:#7A6A3A;margin:1px 0 2px">📜 '+ftPrev+'</div>' : '') +
           '<div style="font-size:11px;font-weight:500;color:'+ftRecCol+';margin-bottom:3px">' + ftRecLbl + '</div>' +
           '<div class="pt"><div class="pf" style="width:'+ftPct+'%;background:#00C896"></div></div>' +
         '</div>' +
