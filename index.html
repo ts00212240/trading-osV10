@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 72248.87,
-      buyingPower: 19942.47,
-      cash: 72249,
-      dayChange: -193.21,
-      lastUpdated: '2026-08-07 09:58',
+      nav: 72360.57,
+      buyingPower: 19967.21,
+      cash: 72361,
+      dayChange: 86.88,
+      lastUpdated: '2026-08-07 收盤 (08/08 06:21 檢視)',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 179664.21,
+      nav: 180870.71,
       buyingPower: 20994.90,
       cash: 80960.21,
-      dayChange: 535.00,
-      lastUpdated: '2026-08-07 10:00',
+      dayChange: 1741.84,
+      lastUpdated: '2026-08-07 收盤 (08/08 08:29 檢視)',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -399,26 +399,55 @@ const PORTFOLIO_STATE = {
   //  athHistory  = 所有重要 ATH 節點（不刪除，只 append）
   //  rollATH() 每日收盤後檢測 dailyEquity 峰值，破頂則滾動：舊 current → previous + history
   ath: {
+    // 2026-08-07 券商歷史圖校正 + 2022 資料降級：見 manualATHCorrection
     combined: {
-      currentATH:  { value: 252913.08, date: '2026-08-07' },
-      previousATH: { value: 252654.52, date: '2022-11-16' },
+      currentATH:  { value: 260876.14, date: '2025-02-21', source: 'broker historical chart manual verification',
+                     scValue: 203914.47, ftValue: 56961.67 },
+      previousATH: null,
+      unverifiedATH: { value: 252654.52, date: '2022-11-16',
+        note: '2026-08-07 重新檢查 2022 日記後，發現此 ATH 可能為資料誤植，暫不作為正式 ATH 基準。2022 年本金約 $147,000（嘉信約$100,000 + 第一約$47,000），無明確獲利紀錄達 $252,654。' },
       athHistory: [
-        { value: 252654.52, date: '2022-11-16', note: '2022 巔峰' },
-        { value: 252913.08, date: '2026-08-07', note: '修復後首破 · 相隔 3 年 8 個月' }
+        { value: 260876.14, date: '2025-02-21', note: '券商圖驗證 · 正式合計高點（嘉信203,914.47 + 第一56,961.67）' }
       ]
     },
     sc: {
-      currentATH:  { value: 202812, date: '2025-05-16' },
+      currentATH:  { value: 203914.47, date: '2025-02-21', source: 'broker historical chart manual verification' },
       previousATH: null,
-      athHistory: [ { value: 202812, date: '2025-05-16', note: '嘉信巔峰' } ]
+      athHistory: [
+        { value: 203914.47, date: '2025-02-21', note: '券商圖驗證 · 嘉信正式高點' },
+        { value: 202812,    date: '2025-05-16', note: '舊系統紀錄（實為次高）' }
+      ]
     },
     ft: {
       currentATH:  { value: 72420.31, date: '2026-08-06' },
       previousATH: { value: 71191, date: '2026-05-27' },
       athHistory: [
         { value: 71191,    date: '2026-05-27', note: '第一證券舊高' },
-        { value: 72420.31, date: '2026-08-06', note: '修復後首破' }
+        { value: 72420.31, date: '2026-08-06', note: '修復後首破（自動滾動）' }
       ]
+    },
+    // ── 出入金分類（Total Return ATH 計算用）────────────────────────
+    withdrawals: {
+      external: [
+        { date: '2024-10-21', account: 'sc', amount: 2000, to: 'E.SUN', type: 'externalWithdrawal' },
+        { date: '2025-03-17', account: 'sc', amount: 5000, to: 'E.SUN', type: 'externalWithdrawal' },
+        { date: '2026-02-26', account: 'ft', amount: 3000, to: null,    type: 'externalWithdrawal' }
+      ],
+      internalTransfers: [
+        { date: '2026', account: 'sc', amount: 1000, to: 'IBKR', note: '已在 IBKR NAV 記錄，不列入 externalWithdrawals（避免重複計算）' }
+      ],
+      fees: [
+        { date: '2026-02-26', account: 'ft', amount: 25, type: 'INTL WIRE FEE' }
+      ],
+      totalExternalAllTime: 10000,        // 2000+5000+3000
+      post2025ATH:          8000,         // 2025-02-21 之後：5000+3000（Total Return 基準）
+      internalTotal:        1000,         // sc→IBKR，不計入外部提款
+      feesTotal:            25
+    },
+    manualATHCorrection: {
+      date: '2026-08-07',
+      source: 'broker historical chart manual verification',
+      note: '2026-08-07 兩階段校正：(1) 券商歷史圖顯示 2025-02-21 合計 $260,876.14（嘉信$203,914.47 + 第一$56,961.67）為正式 combined ATH，sc 同步校正 $203,914.47。(2) 重查 2022 日記後，原 2022-11-16 $252,654.52 疑為資料誤植（2022本金僅約$147,000），降級為 unverifiedATH，不再作為正式基準。第一證券單帳戶維持 Auto-Derive/Rolling。新增 Total Return NAV = 目前合計 + 2025-02-21後外部提款$8,000，用以衡量真實投資績效（排除出金影響）。'
     }
   },
 
@@ -444,12 +473,12 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  768.56,   // 08/07 TOS top bar
-      QQQ:  714.65,   // 08/07 TOS watchlist
-      IBIT:  36.45,   // 08/07 第一證券 App
-      BRKB: 524.61,   // 08/07 TOS watchlist
-      MSFT: 499.86,   // 08/07 TOS watchlist（逼近500）
-      SPCX: 114.92,   // 08/07 TOS watchlist（反彈）
+      SPY:  773.26,   // 08/07 收盤定案 TradingView
+      QQQ:  723.03,   // 08/07 收盤 TOS watchlist
+      IBIT:  36.84,   // 08/07 收盤 第一證券 App
+      BRKB: 520.80,   // 08/07 收盤 第一證券 App
+      MSFT: 499.99,   // 08/07 收盤 站上500 TOS watchlist
+      SPCX: 133.11,   // 08/07 收盤 TOS watchlist
       updatedAt: '2026-08-07',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
@@ -583,7 +612,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-04', sc:175377.71, ft:69024.91, ib:1000, total:245402.62 },
     { date:'2026-08-05', sc:178972.71, ft:71180.92, ib:1000, total:251153.63 },
     { date:'2026-08-06', sc:179129.21, ft:72420.31, ib:1000, total:252549.52 },
-    { date:'2026-08-07', sc:179664.21, ft:72248.87, ib:1000, total:252913.08 },
+    { date:'2026-08-07', sc:180870.71, ft:72360.57, ib:1000, total:254231.28 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -1322,7 +1351,8 @@ const PORTFOLIO_STATE = {
     { id:'T_QQQW_650C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_LEAPS', cycleLabel:'QQQ 摩天輪轉換 · 650C 深價內 · 2027/09/17', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2027-09-17', quantity:1, legs:['BUY 650C ×1 @132.48 限價'], grossCashflow:-13248, fees:null, netCashflow:-13248, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:'T_QQQW_C4_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'摩天輪生命週期轉換的 LEAPS 底層', note:'獲利承接建立 · 深價內（QQQ 708 vs 650 · 內在值約 $58）· 427 DTE · 非新策略' },
     { id:'T_QQQW_750C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 摩天輪轉換 · SELL 750C · 08/21', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2026-08-21', quantity:1, legs:['SELL 750C ×1 @5.28 市價'], grossCashflow:528, fees:null, netCashflow:528, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'PMCC 生命週期的 Sell Call 腿', note:'承接結構的 SELL CALL 腿 · +$528 · 對沖 650C 時間成本 · 非新策略' },
     { id:'T_QQQW_770C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 摩天輪轉換 · SELL 770C · 09/04', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-06', expiry:'2026-09-04', quantity:1, legs:['SELL 770C ×1 @5.00 限價'], grossCashflow:500, fees:null, netCashflow:500, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', trigger:'QQQ 爬升 · 履約價770 高於前次750', reason:'給 650C LEAPS 加第二層 short call：750C 08/21+770C 09/04 並行收租 · 與 SPY PMCC 雙層同理', note:'QQQ 承接結構加開 770C 09/04 ×1 @5.00 (+$500) · 29 DTE · 對沖 650C 時間成本' },
-    { id:'T_QQQW_C5_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P × 1 · 08/07', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-03', expiry:'2026-08-07', quantity:1, legs:['SELL 680P','BUY 590P @9.53淨'], grossCashflow:953, fees:null, netCashflow:953, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_C3_C', note:'C3 平倉同日換開 · 2UP' },
+    { id:'T_QQQW_C5_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P × 1 · 08/07', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-03', expiry:'2026-08-07', quantity:1, legs:['SELL 680P','BUY 590P @9.53淨'], grossCashflow:953, fees:null, netCashflow:953, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_C', note:'C3 平倉同日換開 · 2UP · 08/07 到期歸零' },
+    { id:'T_QQQW_C5_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P · 08/07 到期歸零', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-07', expiry:'2026-08-07', quantity:1, legs:['680P/590P 08/07 到期 · QQQ 723 遠高於 680P · 雙腿歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:953, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_O', ledgerId:'CF_M08_001', note:'C5 680P/590P 08/07 到期 · QQQ 723 >> 680P 全OTM · 自動歸零收割 · Theta 完整落袋 +$953 (100%)' },
     { id:'T_QQQW_C7_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P × 1 · 08/21 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 650P ×1 @10.32 (+$1,032)','BUY 565P ×1 @1.90 (-$190)'], grossCashflow:842, fees:null, netCashflow:842, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'QQQ 單日下跌 -2% · IV > 70', reason:'2.0 條件驅動加碼：下跌+IV高+履約價更低（650 vs C6 687）+BP允許', note:'嘉信第二組 QQQ 輪 · Δ約0.22 · +$842 未扣費 · 34 DTE' },
     { id:'T_QQQW_C6_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C6', cycleLabel:'QQQ 豪華摩天輪 · C6 · 687P/600P × 1 · 08/14 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-10', expiry:'2026-08-14', quantity:1, legs:['SELL 687P @9.70 (+$970)','BUY 600P @1.64 (-$164)'], grossCashflow:806, fees:null, netCashflow:806, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_SPYW_C3_C', note:'SPY C3 平倉後換開 · 首次於嘉信開 QQQ 輪 · Δ0.25 · 未扣費' },
     // ── 其他 Wheel ──────────────────────────────────────────────
@@ -1761,7 +1791,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
   {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
   {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33},
-  {"date":"2026-08-06","close":769.79},{"date":"2026-08-07","close":768.56}
+  {"date":"2026-08-06","close":769.79},{"date":"2026-08-07","close":773.26}
 ]
 
 function fetchSPYHistory() {
@@ -2376,6 +2406,15 @@ function calculateMetrics() {
   var athFT       = _deriveATH(S.ath.ft,       ftNav,    _prevEq ? _prevEq.ft    : null)
   var athSC       = _deriveATH(S.ath.sc,       scNav,    _prevEq ? _prevEq.sc    : null)
   var athCombined = _deriveATH(S.ath.combined, combined, _prevEq ? _prevEq.total : null)
+  // ── Total Return NAV（排除出金，衡量真實投資績效）──────────────
+  // totalReturnNAV = 目前合計 + 2025-02-21 ATH 之後的外部提款（$8,000）
+  var _wd          = S.ath.withdrawals || {}
+  var _post2025Wd  = _wd.post2025ATH || 0
+  var _combATHval  = S.ath.combined.currentATH.value
+  var totalReturnNAV     = combined + _post2025Wd
+  var trBreakthrough     = totalReturnNAV > _combATHval
+  var trSurplus          = totalReturnNAV - _combATHval
+  var trProgressPct      = +Math.min(100, totalReturnNAV / _combATHval * 100).toFixed(2)
   // 相容舊欄位（其他地方若引用）
   var athCombinedGap = athCombined.gap
   var athCombinedPct = athCombined.progressPct
@@ -2472,7 +2511,11 @@ function calculateMetrics() {
       combinedGap: athCombinedGap, combinedPct: athCombinedPct,
       scGap: scAthGap, scPct: scAthPct,
       ftAthPct: ftAthPct, ftAtATH: ftAtATH,
-      ftD: athFT, scD: athSC, combinedD: athCombined   // V13.31 派生物件
+      ftD: athFT, scD: athSC, combinedD: athCombined,   // V13.31 派生物件
+      totalReturn: {                                     // V13.35 Total Return NAV
+        nav: totalReturnNAV, withdrawalsAdded: _post2025Wd, combinedATH: _combATHval,
+        breakthrough: trBreakthrough, surplus: trSurplus, progressPct: trProgressPct
+      }
     },
     ladder: {
       sc: { pct:scLadderPct, surplus:scLadderSurplus, met:scLadderMet, current:scNav, target:S.ladder.sc.target, start:S.ladder.sc.start },
@@ -3683,7 +3726,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.33 · build 2026-08-07 · ATH Rolling Update:currentATH滾動+previousATH可回溯+athHistory · 合計$252,913固化 前ATH2022-11-16 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.36 · build 2026-08-07收盤 · QQQ C5 08/07到期歸零+$953(100%) · 08/07收盤定案$254,231 · MSFT站上500 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
@@ -4433,6 +4476,7 @@ function renderATH(m) {
   if (!el) return
   // V13.33 分層：顯示層(Auto-Derive) + 歷史層(currentATH/previousATH)
   var cD = m.ath.combinedD, sD = m.ath.scD, fD = m.ath.ftD
+  var TR = m.ath.totalReturn   // V13.35 Total Return NAV
   // ATH 日期標籤：今日固化→🆕；盤中超越→盤中新高；否則→ currentATH 日期
   function _athDate(d){
     if (d.isATHToday) return d.savedDate + ' 🆕 今日創新高'
@@ -4471,8 +4515,20 @@ function renderATH(m) {
           '<span style="font-size:11px;font-weight:500;color:'+cRecCol+'">' + cRecLbl + '</span>' +
         '</div>' +
         '<div class="pt"><div class="pf" style="width:'+athCPct+'%;background:linear-gradient(90deg,#F0C040,#FFD700)"></div></div>' +
-        (cPrev ? '<div style="font-size:9px;color:#7A6A3A;margin-top:4px">📜 '+cPrev+'</div>' : '') +
-        '<div style="font-size:9px;color:#5A6278;margin-top:3px;text-align:right">'+((cD.current>=cD.savedValue)?'100% · 新巔峰':athCPct+'% recovered to combined ATH')+'</div>' +
+        '<div style="font-size:9px;color:#5A6278;margin-top:3px;text-align:right">'+((cD.current>=cD.savedValue)?'100% · 新巔峰':athCPct+'% · 帳面回撤 '+cRecLbl)+'</div>' +
+        // ── Total Return NAV（出金調整後真實績效）──────────────
+        '<div style="margin-top:8px;padding-top:8px;border-top:.5px dashed #2A3050">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">' +
+            '<span style="font-size:10px;color:#9BA3B8">📈 Total Return NAV <span style="color:#5A6278">(+出金 '+_fmt$(TR.withdrawalsAdded)+')</span></span>' +
+            '<span style="font-size:13px;font-weight:600;color:'+(TR.breakthrough?'#00C896':'#F0C040')+'">'+_fmt$(TR.nav)+'</span>' +
+          '</div>' +
+          '<div style="font-size:10px;font-weight:500;color:'+(TR.breakthrough?'#00C896':'#FF4B5C')+';text-align:right">' +
+            (TR.breakthrough ? '✅ 真實績效已突破 ATH　+'+_fmt$(TR.surplus) : '距真實突破還差 '+_fmt$(-TR.surplus)) +
+          '</div>' +
+          '<div style="font-size:8px;color:#5A6278;margin-top:2px">排除 2025-02-21 後出金 · 衡量純投資績效</div>' +
+        '</div>' +
+        (cPrev ? '<div style="font-size:9px;color:#7A6A3A;margin-top:5px">📜 '+cPrev+'</div>' : '') +
+        '<div style="font-size:8px;color:#4A4030;margin-top:2px">⚠ 2022-11-16 $252,654 已降級 unverifiedATH（疑資料誤植）</div>' +
       '</div>' +
       '<div class="ath-g">' +
         '<div class="ath-col">' +
