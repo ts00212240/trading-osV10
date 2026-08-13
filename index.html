@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 72007.53,
-      buyingPower: 33270.16,
-      cash: 72008,
-      dayChange: -527.85,
-      lastUpdated: '2026-08-12 08:21',
+      nav: 72351.08,
+      buyingPower: 33184.69,
+      cash: 72351,
+      dayChange: 382.12,
+      lastUpdated: '2026-08-13 05:52',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 181421.39,
+      nav: 181739.39,
       buyingPower: 25994.90,
       cash: 77156.89,
-      dayChange: -231.00,
-      lastUpdated: '2026-08-12 08:29',
+      dayChange: 318.00,
+      lastUpdated: '2026-08-13 09:57',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -474,13 +474,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  770.56,   // 08/12 TOS top bar
-      QQQ:  718.45,   // 08/12 TOS watchlist
-      IBIT:  36.01,   // 08/12 第一證券 App
-      BRKB: 516.38,   // 08/12 TOS watchlist
-      MSFT: 503.81,   // 08/12 TOS watchlist
-      SPCX: 133.29,   // 08/12 TOS watchlist
-      updatedAt: '2026-08-12',
+      SPY:  772.49,   // 08/13 TradingView
+      QQQ:  723.70,   // 08/13 TOS watchlist
+      IBIT:  35.93,   // 08/13 第一證券 App
+      BRKB: 510.00,   // 08/13 TOS watchlist
+      MSFT: 492.43,   // 08/13 TOS watchlist
+      SPCX: 146.15,   // 08/13 TOS watchlist
+      updatedAt: '2026-08-13',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -616,6 +616,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-07', sc:180870.71, ft:72360.57, ib:1000, total:254231.28 },
     { date:'2026-08-11', sc:181652.39, ft:72552.52, ib:1000, total:255204.91 },
     { date:'2026-08-12', sc:181421.39, ft:72007.53, ib:1000, total:254428.92 },
+    { date:'2026-08-13', sc:181739.39, ft:72351.08, ib:1000, total:255090.47 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -637,7 +638,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:2.22, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.85, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -645,7 +646,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.20, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:4.71, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -655,7 +656,7 @@ const PORTFOLIO_STATE = {
       note:'原第二組保護腿老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新保護腿，最後在約112DTE、08/10 21:31:29 @$7.60 成交 · 撮合耗時 33 天(07/08→08/10)' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.35, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.135, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1813,7 +1814,8 @@ var _TV_SPY_BARS = [
   {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
   {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33},
   {"date":"2026-08-06","close":769.79},{"date":"2026-08-07","close":773.26},
-  {"date":"2026-08-11","close":773.03},{"date":"2026-08-12","close":770.56}
+  {"date":"2026-08-11","close":773.03},{"date":"2026-08-12","close":770.56},
+  {"date":"2026-08-13","close":772.49}
 ]
 
 function fetchSPYHistory() {
@@ -3773,7 +3775,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.42 · build 2026-08-12 · QQQ承接750C平+$446→755C 09/11 roll · MSFT C2平+$536(99.6%) · NAV $254,429 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.44 · build 2026-08-13 · 08/13 NAV $255,090 · 上漲日+$662 · 無交易事件 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
@@ -5690,6 +5692,22 @@ function renderAlpha(m) {
         '<span style="font-size:10px;color:#2a2a3a">Genesis: ' + ca.genesis.date + ' · $' + ca.genesis.portfolio.toLocaleString() + '</span>' +
         '</div>'
     } else {
+      // ── 今日文明損益 / Daily Alpha（V13.43）──────────────────────
+      var _dd        = (typeof _derivedDayChange==='function') ? _derivedDayChange() : null
+      var myDailyPnL = _dd ? _dd.chg : 0
+      var _prevTot   = _dd ? _dd.prev : m.nav.combined
+      var myDailyPct = _prevTot>0 ? (myDailyPnL/_prevTot*100) : 0
+      var spyRet     = (typeof _todaySPYRetPct==='function') ? _todaySPYRetPct() : 0   // %
+      var spyShadowDailyPnL = ca.spyShadow ? Math.round(ca.spyShadow * spyRet/100) : 0  // 影子用 shadowValue
+      var sameCapSPYPnL     = Math.round(m.nav.combined * spyRet/100)                    // 同本金用 my NAV
+      var dailyDefenseAlpha = Math.round(myDailyPnL - sameCapSPYPnL)                     // 抗跌 alpha
+      var dailyRelPct       = myDailyPct - spyRet                                        // 相對報酬 %
+      function _sgn$(v){ return (v>=0?'+':'-')+'$'+Math.abs(Math.round(v)).toLocaleString() }
+      function _sgnP(v){ return (v>=0?'+':'')+v.toFixed(2)+'%' }
+      var _myCol   = myDailyPnL>=0 ? '#00C896' : '#FF4B5C'
+      var _spyCol  = spyShadowDailyPnL>=0 ? '#00C896' : '#FF4B5C'
+      var _defCol  = dailyDefenseAlpha>=0 ? '#00C896' : '#FF4B5C'
+      var _defLbl  = dailyDefenseAlpha>=0 ? '同本金抗跌' : '同本金落後'
       var civWin  = ca.alpha >= 0
       var civCol  = civWin ? '#00C896' : '#FF4B5C'
       var civBg   = civWin ? '#0A1A0A' : '#1A0A0A'
@@ -5735,6 +5753,23 @@ function renderAlpha(m) {
           '<div style="font-size:9px;color:#9BA3B8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Civilization Alpha</div>' +
           '<div style="font-size:30px;font-weight:700;color:' + civCol + '">' + civSign + '$' + Math.abs(ca.alpha).toLocaleString() + '</div>' +
           '<div style="font-size:12px;color:' + civCol + ';margin-top:3px">' + civSign + ca.alphaPct.toFixed(1) + '% vs SPY · ' + (civWin ? '文明正在超越平行宇宙 🚀' : '平行宇宙 SPY 仍在前方') + '</div>' +
+        '</div>' +
+        // ── Daily Alpha 今日文明損益 ──────────────────────────────
+        '<div style="background:#0C0E14;border-radius:10px;padding:11px 14px;margin-top:6px;border:0.5px solid #22283A">' +
+          '<div style="font-size:9px;color:#9BA3B8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px">📉 今日文明損益 · Daily Alpha</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0">' +
+            '<span style="font-size:11px;color:#5A6278">我的文明</span>' +
+            '<span style="font-size:12px;font-weight:600;color:'+_myCol+'">'+_sgn$(myDailyPnL)+'　'+_sgnP(myDailyPct)+'</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-top:.5px solid #14161E">' +
+            '<span style="font-size:11px;color:#5A6278">SPY 影子</span>' +
+            '<span style="font-size:12px;font-weight:600;color:'+_spyCol+'">'+_sgn$(spyShadowDailyPnL)+'　'+_sgnP(spyRet)+'</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0 2px;margin-top:2px;border-top:.5px solid #2A3050">' +
+            '<span style="font-size:11px;font-weight:600;color:'+_defCol+'">'+_defLbl+'</span>' +
+            '<span style="font-size:13px;font-weight:700;color:'+_defCol+'">'+_sgn$(dailyDefenseAlpha)+'　'+_sgnP(dailyRelPct)+'</span>' +
+          '</div>' +
+          '<div style="font-size:8px;color:#3A4055;margin-top:4px">同本金抗跌 = 我今日損益 − (我的NAV × SPY今日%) · 排除規模差異</div>' +
         '</div>'
     }
   }
