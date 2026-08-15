@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 72581.84,
-      buyingPower: 33169.13,
-      cash: 72582,
-      dayChange: 236.34,
-      lastUpdated: '2026-08-14 08:16',
+      nav: 72538.07,
+      buyingPower: 33092.20,
+      cash: 72538,
+      dayChange: -6.02,
+      lastUpdated: '2026-08-15 08:23',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 182266.86,
+      nav: 182310.36,
       buyingPower: 26132.87,
       cash: 77294.86,
-      dayChange: 527.47,
-      lastUpdated: '2026-08-14 11:08',
+      dayChange: 43.50,
+      lastUpdated: '2026-08-15 08:25',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -474,13 +474,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  777.88,   // 08/14 TOS top bar
-      QQQ:  732.07,   // 08/14 TOS watchlist
-      IBIT:  35.88,   // 08/14 TOS watchlist
-      BRKB: 506.93,   // 08/14 TOS watchlist
-      MSFT: 496.88,   // 08/14 TOS watchlist
-      SPCX: 141.29,   // 08/14 TOS watchlist
-      updatedAt: '2026-08-14',
+      SPY:  776.34,   // 08/15 週六·週五收盤 TOS
+      QQQ:  731.07,   // 08/15 TOS watchlist
+      IBIT:  35.63,   // 08/14 TradingView 收盤
+      BRKB: 504.03,   // 08/15 TOS watchlist
+      MSFT: 495.40,   // 08/15 TOS watchlist
+      SPCX: 140.00,   // 08/15 TOS watchlist
+      updatedAt: '2026-08-15',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -618,6 +618,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-12', sc:181421.39, ft:72007.53, ib:1000, total:254428.92 },
     { date:'2026-08-13', sc:181739.39, ft:72351.08, ib:1000, total:255090.47 },
     { date:'2026-08-14', sc:182266.86, ft:72581.84, ib:1000, total:255848.70 },
+    { date:'2026-08-15', sc:182310.36, ft:72538.07, ib:1000, total:255848.43 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -639,7 +640,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.615, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.525, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -647,7 +648,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:4.33, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:4.325, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -657,7 +658,7 @@ const PORTFOLIO_STATE = {
       note:'原第二組保護腿老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新保護腿，最後在約112DTE、08/10 21:31:29 @$7.60 成交 · 撮合耗時 33 天(07/08→08/10)' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.02, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.945, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1779,7 +1780,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-02-17","close":682.85},{"date":"2026-02-18","close":686.29},
   {"date":"2026-02-19","close":684.48},{"date":"2026-02-20","close":689.43},
   {"date":"2026-02-23","close":682.39},{"date":"2026-02-24","close":687.35},
-  {"date":"2026-02-25","close":693.15},{"date":"2026-02-26","close":689.30},
+  {"date":"2026-02-25","close":693.15},{"date":"2026-02-26","close":689.3},
   {"date":"2026-02-27","close":685.99},{"date":"2026-03-02","close":686.38},
   {"date":"2026-03-03","close":680.33},{"date":"2026-03-04","close":685.13},
   {"date":"2026-03-05","close":681.31},{"date":"2026-03-06","close":672.38},
@@ -1787,7 +1788,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-03-11","close":676.33},{"date":"2026-03-12","close":666.06},
   {"date":"2026-03-13","close":662.29},{"date":"2026-03-16","close":669.03},
   {"date":"2026-03-17","close":670.79},{"date":"2026-03-18","close":661.43},
-  {"date":"2026-03-19","close":659.80},{"date":"2026-03-20","close":648.57},
+  {"date":"2026-03-19","close":659.8},{"date":"2026-03-20","close":648.57},
   {"date":"2026-03-23","close":655.38},{"date":"2026-03-24","close":653.18},
   {"date":"2026-03-25","close":656.82},{"date":"2026-03-26","close":645.09},
   {"date":"2026-03-27","close":634.09},{"date":"2026-03-30","close":631.97},
@@ -1795,7 +1796,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-04-02","close":655.83},{"date":"2026-04-06","close":658.93},
   {"date":"2026-04-07","close":659.22},{"date":"2026-04-08","close":676.01},
   {"date":"2026-04-09","close":679.91},{"date":"2026-04-10","close":679.46},
-  {"date":"2026-04-13","close":686.10},{"date":"2026-04-14","close":694.46},
+  {"date":"2026-04-13","close":686.1},{"date":"2026-04-14","close":694.46},
   {"date":"2026-04-15","close":699.94},{"date":"2026-04-16","close":701.66},
   {"date":"2026-04-17","close":710.14},{"date":"2026-04-20","close":708.72},
   {"date":"2026-04-21","close":704.08},{"date":"2026-04-22","close":711.21},
@@ -1805,33 +1806,40 @@ var _TV_SPY_BARS = [
   {"date":"2026-05-01","close":720.65},{"date":"2026-05-04","close":718.01},
   {"date":"2026-05-05","close":723.77},{"date":"2026-05-06","close":733.83},
   {"date":"2026-05-07","close":731.58},{"date":"2026-05-08","close":737.62},
-  {"date":"2026-05-11","close":739.30},{"date":"2026-05-12","close":738.18},
+  {"date":"2026-05-11","close":739.3},{"date":"2026-05-12","close":738.18},
   {"date":"2026-05-13","close":742.31},{"date":"2026-05-14","close":748.17},
   {"date":"2026-05-15","close":739.17},{"date":"2026-05-18","close":738.65},
   {"date":"2026-05-19","close":733.73},{"date":"2026-05-20","close":741.25},
   {"date":"2026-05-21","close":742.72},{"date":"2026-05-22","close":745.64},
-  {"date":"2026-05-26","close":750.59},{"date":"2026-05-27","close":756.48},{"date":"2026-05-28","close":754.60},{"date":"2026-05-29","close":758.08},{"date":"2026-06-02","close":758.54},{"date":"2026-06-03","close":759.57},{"date":"2026-06-04","close":754.24},{"date":"2026-06-05","close":757.09},{"date":"2026-06-06","close":737.55},{"date":"2026-06-09","close":739.22},{"date":"2026-06-10","close":737.05},{"date":"2026-06-11","close":725.43},{"date":"2026-06-12","close":737.76},
-  // ── V12 手動補入（截圖收盤，解決大盤線斷點）──────────────────────
-  {"date":"2026-06-19","close":746.74},{"date":"2026-06-23","close":744.39},{"date":"2026-06-24","close":733.58},
-  {"date":"2026-06-25","close":733.24},{"date":"2026-06-26","close":734.30},
-  {"date":"2026-06-29","close":728.99},{"date":"2026-06-30","close":741.00},
-  {"date":"2026-07-01","close":746.77},{"date":"2026-07-02","close":745.76},
-  {"date":"2026-07-03","close":744.78},
-  // ── 07/09 TV MCP 恢復後補入（07/06 週一休市無bar）─────────────────
-  {"date":"2026-07-07","close":751.28},{"date":"2026-07-08","close":747.71},
-  {"date":"2026-07-09","close":745.40},{"date":"2026-07-10","close":751.71},
-  {"date":"2026-07-11","close":754.95},{"date":"2026-07-14","close":749.17},
-  {"date":"2026-07-15","close":751.83},{"date":"2026-07-16","close":754.81},
-  {"date":"2026-07-17","close":750.72},{"date":"2026-07-18","close":743.29},
-  {"date":"2026-07-21","close":742.09},{"date":"2026-07-22","close":748.28},
-  {"date":"2026-07-23","close":747.41},{"date":"2026-07-24","close":738.18},
-  {"date":"2026-07-25","close":738.93},{"date":"2026-07-28","close":739.09},
-  {"date":"2026-07-29","close":740.86},{"date":"2026-07-30","close":729.46},
-  {"date":"2026-07-31","close":741.69},{"date":"2026-08-01","close":747.03},
-  {"date":"2026-08-04","close":757.67},{"date":"2026-08-05","close":771.33},
-  {"date":"2026-08-06","close":769.79},{"date":"2026-08-07","close":773.26},
-  {"date":"2026-08-11","close":773.03},{"date":"2026-08-12","close":770.56},
-  {"date":"2026-08-13","close":772.49},{"date":"2026-08-14","close":777.88}
+  {"date":"2026-05-26","close":750.59},{"date":"2026-05-27","close":750.46},
+  {"date":"2026-05-28","close":754.6},{"date":"2026-05-29","close":756.48},
+  {"date":"2026-06-01","close":758.54},{"date":"2026-06-02","close":759.57},
+  {"date":"2026-06-03","close":754.24},{"date":"2026-06-04","close":757.09},
+  {"date":"2026-06-05","close":737.55},{"date":"2026-06-08","close":739.22},
+  {"date":"2026-06-09","close":737.05},{"date":"2026-06-10","close":725.43},
+  {"date":"2026-06-11","close":737.76},{"date":"2026-06-12","close":741.75},
+  {"date":"2026-06-15","close":754.83},{"date":"2026-06-16","close":750.33},
+  {"date":"2026-06-17","close":740.96},{"date":"2026-06-18","close":746.74},
+  {"date":"2026-06-22","close":744.39},{"date":"2026-06-23","close":733.58},
+  {"date":"2026-06-24","close":733.24},{"date":"2026-06-25","close":734.3},
+  {"date":"2026-06-26","close":728.99},{"date":"2026-06-29","close":741},
+  {"date":"2026-06-30","close":746.77},{"date":"2026-07-01","close":745.76},
+  {"date":"2026-07-02","close":744.78},{"date":"2026-07-06","close":751.28},
+  {"date":"2026-07-07","close":747.71},{"date":"2026-07-08","close":745.4},
+  {"date":"2026-07-09","close":751.71},{"date":"2026-07-10","close":754.95},
+  {"date":"2026-07-13","close":749.17},{"date":"2026-07-14","close":751.83},
+  {"date":"2026-07-15","close":754.81},{"date":"2026-07-16","close":750.72},
+  {"date":"2026-07-17","close":743.29},{"date":"2026-07-20","close":742.09},
+  {"date":"2026-07-21","close":748.28},{"date":"2026-07-22","close":747.41},
+  {"date":"2026-07-23","close":738.18},{"date":"2026-07-24","close":738.93},
+  {"date":"2026-07-27","close":739.09},{"date":"2026-07-28","close":740.86},
+  {"date":"2026-07-29","close":729.46},{"date":"2026-07-30","close":741.69},
+  {"date":"2026-07-31","close":747.03},{"date":"2026-08-03","close":757.67},
+  {"date":"2026-08-04","close":771.33},{"date":"2026-08-05","close":769.79},
+  {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
+  {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
+  {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
+  {"date":"2026-08-14","close":776.34}
 ]
 
 function fetchSPYHistory() {
@@ -3791,7 +3799,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.46 · build 2026-08-14 · SPY PMCC 770C外在值<1 roll→789C/790C 09/18(+$2,200) 770C realized-$612 · NAV $255,849新高 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.48 · build 2026-08-15 · TV官方重建_TV_SPY_BARS(131根·修5月底起系統性錯位+移除7根週末幽靈bar) · SPY收盤對齊TV · NAV $255,848持平 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
