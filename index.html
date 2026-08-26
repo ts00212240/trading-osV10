@@ -343,11 +343,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 73204.42,
-      buyingPower: 34215.60,
-      cash: 73204,
-      dayChange: -809.59,
-      lastUpdated: '2026-08-24 收盤',
+      nav: 73293.33,
+      buyingPower: 34440.45,
+      cash: 73293,
+      dayChange: 74.82,
+      lastUpdated: '2026-08-25 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +364,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 179826.02,
+      nav: 180572.02,
       buyingPower: 33996.53,
       cash: 77958.52,
-      dayChange: -599.00,
-      lastUpdated: '2026-08-24 收盤',
+      dayChange: 746.00,
+      lastUpdated: '2026-08-25 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -474,13 +474,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  763.47,   // 08/24 收盤 TV
-      QQQ:  706.32,   // 08/24 收盤 TV(-1%)
-      IBIT:  44.58,   // 08/24 收盤 TOS/FT
-      BRKB: 504.32,   // 08/24 收盤 TOS
-      MSFT: 487.31,   // 08/24 收盤 TOS
-      SPCX: 135.00,   // 08/24 收盤 TOS
-      updatedAt: '2026-08-24',
+      SPY:  765.91,   // 08/25 收盤 TV
+      QQQ:  710.72,   // 08/25 收盤 TV
+      IBIT:  44.72,   // 08/25 收盤 TV
+      BRKB: 504.50,   // 08/25 收盤 FT
+      MSFT: 491.71,   // 08/25 收盤 TOS
+      SPCX: 137.95,   // 08/25 收盤 TOS
+      updatedAt: '2026-08-25',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -624,6 +624,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-20', sc:178964.36, ft:73076.74, ib:1000, total:253041.10 },
     { date:'2026-08-21', sc:180425.02, ft:74505.42, ib:1000, total:255930.44 },
     { date:'2026-08-24', sc:179826.02, ft:73204.42, ib:1000, total:254030.44 },
+    { date:'2026-08-25', sc:180572.02, ft:73293.33, ib:1000, total:254865.35 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -645,7 +646,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.52, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.23, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -653,7 +654,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:4.605, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:4.165, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -663,7 +664,7 @@ const PORTFOLIO_STATE = {
       note:'原第二組保護腿老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新保護腿，最後在約112DTE、08/10 21:31:29 @$7.60 成交 · 撮合耗時 33 天(07/08→08/10)' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.85, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.685, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1388,11 +1389,12 @@ const PORTFOLIO_STATE = {
     { id:'T_QQQW_C3_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C3', cycleLabel:'QQQ 豪華摩天輪 C3 · 680P/590P · 獲利平倉', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-07-03', expiry:'2026-07-10', quantity:1, legs:['CLOSE @2.22'], grossCashflow:-222, fees:null, netCashflow:-222, realizedPnl:521, pct:70.1, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C3_O', ledgerId:'CF_M07_002', note:'QQQ連跌2日(-12觸2%警戒) · 70%獲利平倉@$2.22 · 換開C5' },
     { id:'T_QQQW_C4_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4', cycleLabel:'QQQ 豪華摩天輪 · C4 · 709P/630P × 1 · 07/17', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:null, expiry:'2026-07-17', quantity:1, legs:['SELL 709P','BUY 630P'], grossCashflow:761, fees:null, netCashflow:761, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C4_C', note:'開倉日待補 · FT 顯示 709P 成本 $9.30 與紀錄 credit 差異待對帳 · 07/17 獲利承接平倉' },
     { id:'T_QQQW_C4_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4', cycleLabel:'QQQ 豪華摩天輪 C4 · 709P/630P · 07/17 獲利承接轉PMCC', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-07-17', expiry:'2026-07-17', quantity:1, legs:['BUY TO CLOSE 709P + SELL TO CLOSE 630P · 整組 @5.33 Debit 限價'], grossCashflow:-533, fees:null, netCashflow:-533, realizedPnl:228, pct:30.0, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', ledgerId:'CF_M07_006', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'QQQ 單日下跌約 -1.5%~-2%，接近短 Put 履約價，原 Put Spread 仍獲利', reason:'不等待被動到期，主動以獲利中的 Put Spread 承接：預先掛低於現價約 $4 的限價單，3:45 左右 QQQ 跌近 -2% 時成交，轉入 LEAPS + Sell Call 的 PMCC 生命週期', note:'原 Put Spread 仍獲利 · 主動獲利承接 @$5.33 限價 · 淨+$228 (30%) · 既有摩天輪生命週期的一部分，非新策略' },
-    { id:'T_QQQW_650C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_LEAPS', cycleLabel:'QQQ 摩天輪轉換 · 650C 深價內 · 2027/09/17', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2027-09-17', quantity:1, legs:['BUY 650C ×1 @132.48 限價'], grossCashflow:-13248, fees:null, netCashflow:-13248, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:'T_QQQW_C4_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'摩天輪生命週期轉換的 LEAPS 底層', note:'獲利承接建立 · 深價內（QQQ 708 vs 650 · 內在值約 $58）· 427 DTE · 非新策略' },
-    { id:'T_QQQW_750C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 摩天輪轉換 · SELL 750C · 08/21', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2026-08-21', quantity:1, legs:['SELL 750C ×1 @5.28 市價'], grossCashflow:528, fees:null, netCashflow:528, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_750C_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'PMCC 生命週期的 Sell Call 腿', note:'承接結構 SELL CALL 腿 · +$528 · 08/12 買回 roll 到 755C 09/11' },
-    { id:'T_QQQW_750C_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 承接結構 · 750C 08/21 · 買回 roll', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-12', expiry:'2026-08-21', quantity:1, legs:['BUY TO CLOSE 750C ×1 @0.82 限價'], grossCashflow:-82, fees:null, netCashflow:-82, realizedPnl:446, pct:84.5, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_755C_O', ledgerId:'CF_M08_002', note:'750C 08/21 · 07/17開@5.28 (+$528) · 08/12買回@0.82 (-$82) · 實現 +$446 (84.5%) · roll up/out 到 755C 09/11' },
-    { id:'T_QQQW_755C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_755C', cycleLabel:'QQQ 承接結構 · SELL 755C · 09/11', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-12', expiry:'2026-09-11', quantity:1, legs:['SELL 755C ×1 @4.86 市價'], grossCashflow:486, fees:null, netCashflow:486, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', reason:'承接結構 sell call roll up/out · 750C 08/21平→755C 09/11', note:'承接結構 SELL CALL 腿(roll) · +$486 · 30 DTE · 與 770C 09/04 並行' },
-    { id:'T_QQQW_770C_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 摩天輪轉換 · SELL 770C · 09/04', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-06', expiry:'2026-09-04', quantity:1, legs:['SELL 770C ×1 @5.00 限價'], grossCashflow:500, fees:null, netCashflow:500, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', trigger:'QQQ 爬升 · 履約價770 高於前次750', reason:'給 650C LEAPS 加第二層 short call：750C 08/21+770C 09/04 並行收租 · 與 SPY PMCC 雙層同理', note:'QQQ 承接結構加開 770C 09/04 ×1 @5.00 (+$500) · 29 DTE · 對沖 650C 時間成本' },
+    { id:'T_QQQW_650C_O', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_LEAPS', cycleLabel:'QQQ 摩天輪轉換 · 650C 深價內 · 2027/09/17', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2027-09-17', quantity:1, legs:['BUY 650C ×1 @132.48 限價'], grossCashflow:-13248, fees:null, netCashflow:-13248, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:'T_QQQW_C4_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'摩天輪生命週期轉換的 LEAPS 底層', note:'獲利承接建立 · 深價內（QQQ 708 vs 650 · 內在值約 $58）· 427 DTE · 非新策略' },
+    { id:'T_QQQW_750C_O', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 摩天輪轉換 · SELL 750C · 08/21', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-17', expiry:'2026-08-21', quantity:1, legs:['SELL 750C ×1 @5.28 市價'], grossCashflow:528, fees:null, netCashflow:528, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_750C_C', lifecycleStage:'Wheel承接轉PMCC', entryUnderlyingPrice:708, trigger:'C4 獲利承接', reason:'PMCC 生命週期的 Sell Call 腿', note:'承接結構 SELL CALL 腿 · +$528 · 08/12 買回 roll 到 755C 09/11' },
+    { id:'T_QQQW_750C_C', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C4CONV_750C', cycleLabel:'QQQ 承接結構 · 750C 08/21 · 買回 roll', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-12', expiry:'2026-08-21', quantity:1, legs:['BUY TO CLOSE 750C ×1 @0.82 限價'], grossCashflow:-82, fees:null, netCashflow:-82, realizedPnl:446, pct:84.5, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_755C_O', ledgerId:'CF_M08_002', note:'750C 08/21 · 07/17開@5.28 (+$528) · 08/12買回@0.82 (-$82) · 實現 +$446 (84.5%) · roll up/out 到 755C 09/11' },
+    { id:'T_QQQW_755C_O', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_755C', cycleLabel:'QQQ 承接結構 · SELL 755C · 09/11', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-12', expiry:'2026-09-11', quantity:1, legs:['SELL 755C ×1 @4.86 市價'], grossCashflow:486, fees:null, netCashflow:486, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_QQQW_650C_O', lifecycleStage:'Wheel承接轉PMCC', reason:'承接結構 sell call roll up/out · 750C 08/21平→755C 09/11', note:'承接結構 SELL CALL 腿(roll) · +$486 · 30 DTE · 與 770C 09/04 並行' },
+    { id:'T_QQQW_770C_O', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 摩天輪轉換 · SELL 770C · 09/04', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-06', expiry:'2026-09-04', quantity:1, legs:['SELL 770C ×1 @5.00 限價'], grossCashflow:500, fees:null, netCashflow:500, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_770C_C', lifecycleStage:'Wheel承接轉PMCC', trigger:'QQQ 爬升 · 履約價770 高於前次750', reason:'給 650C LEAPS 加第二層 short call：750C 08/21+770C 09/04 並行收租 · 與 SPY PMCC 雙層同理', note:'QQQ 承接結構加開 770C 09/04 ×1 @5.00 (+$500) · 08/25 買回@0.02 平倉' },
+    { id:'T_QQQW_770C_C', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 承接後PMCC · 770C 09/04 · 買回平倉', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-25', expiry:'2026-09-04', quantity:1, legs:['BUY TO CLOSE 770C ×1 @0.02'], grossCashflow:-2, fees:null, netCashflow:-2, realizedPnl:498, pct:99.6, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_770C_O', ledgerId:'CF_M08_007', note:'770C 09/04 · 08/06開@5.00 (+$500) · 08/25買回@0.02 (-$2) · 實現 +$498 (99.6%) · QQQ 711<<770 近乎歸零 · 提前落袋釋放 · 650C LEAPS 續留' },
     { id:'T_QQQW_C5_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P × 1 · 08/07', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-03', expiry:'2026-08-07', quantity:1, legs:['SELL 680P','BUY 590P @9.53淨'], grossCashflow:953, fees:null, netCashflow:953, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_C', note:'C3 平倉同日換開 · 2UP · 08/07 到期歸零' },
     { id:'T_QQQW_C5_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P · 08/07 到期歸零', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-07', expiry:'2026-08-07', quantity:1, legs:['680P/590P 08/07 到期 · QQQ 723 遠高於 680P · 雙腿歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:953, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_O', ledgerId:'CF_M08_001', note:'C5 680P/590P 08/07 到期 · QQQ 723 >> 680P 全OTM · 自動歸零收割 · Theta 完整落袋 +$953 (100%)' },
     { id:'T_QQQW_C7_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P × 1 · 08/21 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 650P ×1 @10.32 (+$1,032)','BUY 565P ×1 @1.90 (-$190)'], grossCashflow:842, fees:null, netCashflow:842, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C7_C', trigger:'QQQ 單日下跌 -2% · IV > 70', reason:'2.0 條件驅動加碼：下跌+IV高+履約價更低（650 vs C6 687）+BP允許', note:'嘉信第二組 QQQ 輪 · Δ約0.22 · +$842 未扣費 · 08/21 到期歸零' },
@@ -1847,7 +1849,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91}
 ]
 
 function fetchSPYHistory() {
@@ -2080,6 +2082,10 @@ var V13_CUR_MONTH = (function(){
 function _r2(x){ return Math.round(x*100)/100 }
 function _tMonth(t){ return t.tradeDate ? t.tradeDate.slice(0,7) : null }
 function _tRealized(t){ return (t.rollNetPnl != null) ? t.rollNetPnl : t.realizedPnl }
+// V13.62 策略歸屬分離：Origin(出生地,strategyId 不動) vs Current(現在執行的策略)
+//   績效/EV/Premium/分類 一律以 currentStrategy 為準；未標記者退回 strategyId。
+//   例：QQQ 承接後 650C LEAPS + 後續 Short Call → originStrategy=QQQ_豪華摩天輪, currentStrategy=QQQ_PMCC
+function _effStrat(t){ return (t && t.currentStrategy) ? t.currentStrategy : (t ? t.strategyId : null) }
 
 function deriveOpenPositions(trades) {
   return (trades||[]).filter(function(t){ return t.action==='OPEN' && t.status==='open' })
@@ -2094,6 +2100,7 @@ function deriveClosedCycles(trades) {
       var openGross = opens.reduce(function(s,o){ return s + (typeof o.netCashflow==='number'?o.netCashflow:0) }, 0)
       var openDate  = opens.length ? opens[0].tradeDate : null
       return { tradeId:t.id, strategyId:t.strategyId, strategyName:t.strategyName, cycleId:t.cycleId,
+        currentStrategy:_effStrat(t), originStrategy:t.originStrategy||t.strategyId, structureType:t.structureType||null,
         label:t.cycleLabel, account:t.account, openDate:openDate, closeDate:t.tradeDate,
         openCredit:_r2(openGross), closeCost:t.netCashflow, realized:_tRealized(t), pct:(t.pct!=null?t.pct:null),
         ledgerType:t.ledgerType, excludeFromEV:!!t.excludeFromEV, isUnderlying:!!t.isUnderlying, note:t.note, ledgerId:t.ledgerId||null }
@@ -2117,8 +2124,10 @@ function deriveCashflowLedger(trades) {
       } else {
         sell = c.openCredit; buyback = c.closeCost
       }
+      // V13.62 承接後PMCC：現金流群組改歸 pmcc（依 currentStrategy），strategy 顯示為 currentStrategy
+      var _grp = (/_PMCC/i.test(c.currentStrategy||'') && c.ledgerType==='wheel') ? 'pmcc' : c.ledgerType
       var entry = { id:c.ledgerId, date:c.closeDate, month:(c.closeDate||'').slice(0,7),
-        strategy:c.strategyId, strategyName:c.strategyName, type:c.ledgerType,
+        strategy:c.currentStrategy||c.strategyId, strategyName:c.strategyName, type:_grp,
         label:c.label, sell:_r2(sell), buyback:_r2(buyback), realized:_r2(c.realized), pct:c.pct, note:c.note }
       if (c.ledgerType==='hedge_roll') entry.legPnl = -1305
       return entry
@@ -2128,6 +2137,10 @@ function deriveCashflowLedger(trades) {
 
 // ── V13.1 已平倉分類統計（唯一分類函式）─────────────────────────
 function getClosedCategory(t) {
+  // V13.62 currentStrategy 優先：承接後轉 PMCC 的短Call 歸 PMCC 分類（出生地 strategyId 不影響分類）
+  var cs = (t && t.currentStrategy) || ''
+  if (/_PMCC/i.test(cs)) return 'pmcc'
+  if (/Wheel|摩天輪/.test(cs)) return 'wheel'
   var lt = t.ledgerType || ''
   if (lt==='pmcc' || lt==='leaps_roll') return 'pmcc'
   if (lt==='wheel') return 'wheel'
@@ -2177,10 +2190,11 @@ function deriveStrategyStats(trades, curMonth) {
   var map = {}, openCyc = {}, closedCyc = {}
   function ent(id){ if(!map[id]) map[id]={open:0,closed:0,totalProfit:0,totalLoss:0,evProfit:0,evLoss:0,currentPrem:0,monthPnl:0}; return map[id] }
   ;(trades||[]).forEach(function(t){
-    var e = ent(t.strategyId), m = _tMonth(t)
+    var sid = _effStrat(t)                       // V13.62 以 currentStrategy 歸屬（出生地 strategyId 不動）
+    var e = ent(sid), m = _tMonth(t)
     if (t.action==='OPEN') {
       if (t.status==='open') {
-        openCyc[t.strategyId] = openCyc[t.strategyId] || {}; openCyc[t.strategyId][t.cycleId] = 1
+        openCyc[sid] = openCyc[sid] || {}; openCyc[sid][t.cycleId] = 1
         if (!t.isUnderlying && typeof t.netCashflow==='number') {
           e.currentPrem += t.netCashflow
           if (m===curMonth && t.netCashflow>0) e.monthPnl += t.netCashflow
@@ -2197,7 +2211,7 @@ function deriveStrategyStats(trades, curMonth) {
           if (r>=0) e.evProfit += r; else e.evLoss += -r
         }
       }
-      if (!t.excludeFromEV && !t.isUnderlying) { closedCyc[t.strategyId]=closedCyc[t.strategyId]||{}; closedCyc[t.strategyId][t.cycleId]=1 }
+      if (!t.excludeFromEV && !t.isUnderlying) { closedCyc[sid]=closedCyc[sid]||{}; closedCyc[sid][t.cycleId]=1 }
     }
   })
   Object.keys(map).forEach(function(id){
@@ -2441,7 +2455,7 @@ function _deriveStratWinRate(trades, sid){
 // 只作用於「有 active open SELL PUT 循環」的 wheel；已全平倉的 wheel 卡片保持原樣（早退）
 function _deriveWheelCard(s, trades){
   var opens = (trades||[]).filter(function(t){
-    return t.strategyId===s.id && t.action==='OPEN' && t.status==='open' })
+    return _effStrat(t)===s.id && t.action==='OPEN' && t.status==='open' })   // V13.62 承接後PMCC 不再顯示於摩天輪卡
   if (!opens.length) return
   var putTrades = opens.filter(function(t){
     return !t.isUnderlying && (t.legs||[]).some(function(L){ return /^SELL\s+\d+P/.test(L) }) })
@@ -2485,7 +2499,7 @@ function _deriveWheelCard(s, trades){
   s.expiry = expMMDD
   s.exp = active.expiry
   var closedSorted = (trades||[]).filter(function(t){
-    return t.strategyId===s.id && (t.action==='CLOSE'||t.action==='ROLL') && (t.pct===100 || /到期歸零/.test(t.cycleLabel||'')) })
+    return _effStrat(t)===s.id && (t.action==='CLOSE'||t.action==='ROLL') && (t.pct===100 || /到期歸零/.test(t.cycleLabel||'')) })
     .sort(function(a,b){ return (a.tradeDate||'')<(b.tradeDate||'')?1:-1 })
   var recentTags=[]; closedSorted.forEach(function(t){ var tag=(/·\s*(C\d+)/.exec(t.cycleLabel||'')||[])[1]; if(tag&&recentTags.indexOf(tag)<0&&recentTags.length<2) recentTags.push(tag) })
   recentTags.sort()
@@ -3914,7 +3928,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.60 · build 2026-08-25 · 08-24週一收盤 · SPY763.47/QQQ706.32(-1%) · NAV $254,030(-$1,900) · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.62 · build 2026-08-26 · Origin/Current策略分離:07/17承接後650C LEAPS+短Call(750C/770C/755C)歸QQQ_PMCC(出生地留摩天輪) · EV/Premium/分類依currentStrategy · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
