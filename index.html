@@ -191,26 +191,9 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
 <div class="page" id="pg-strategy">
   <div class="nb"><span style="font-weight:500;font-size:18px">策略</span><div class="nb-r"><span>🔄</span></div></div>
   <div class="scroll">
-    <div class="sec">策略配置</div>
-    <div class="pie-wrap">
-      <svg width="120" height="120" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#1A1F2B" stroke-width="20"/>
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#388BFD" stroke-width="20" stroke-dasharray="96.8 179.6" stroke-dashoffset="44.9" transform="rotate(-90 60 60)"/>
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#3FB950" stroke-width="20" stroke-dasharray="55.3 221.1" stroke-dashoffset="-51.9" transform="rotate(-90 60 60)"/>
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#D29922" stroke-width="20" stroke-dasharray="49.8 226.6" stroke-dashoffset="-107.2" transform="rotate(-90 60 60)"/>
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#F85149" stroke-width="20" stroke-dasharray="33.2 243.2" stroke-dashoffset="-157" transform="rotate(-90 60 60)"/>
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#444C56" stroke-width="20" stroke-dasharray="41.5 234.9" stroke-dashoffset="-190.2" transform="rotate(-90 60 60)"/>
-        <text x="60" y="56" text-anchor="middle" font-size="11" fill="#8B949E">配置</text>
-        <text x="60" y="70" text-anchor="middle" font-size="13" font-weight="500" fill="#E6EDF3">100%</text>
-      </svg>
-      <div class="pie-leg">
-        <div class="pie-li"><div style="display:flex;align-items:center"><div class="pie-dot" style="background:#388BFD"></div><span style="color:#9BA3B8">PMCC</span></div><span style="font-weight:500">35%</span></div>
-        <div class="pie-li"><div style="display:flex;align-items:center"><div class="pie-dot" style="background:#3FB950"></div><span style="color:#9BA3B8">LEAPS</span></div><span style="font-weight:500">20%</span></div>
-        <div class="pie-li"><div style="display:flex;align-items:center"><div class="pie-dot" style="background:#D29922"></div><span style="color:#9BA3B8">豪華摩天輪</span></div><span style="font-weight:500">18%</span></div>
-        <div class="pie-li"><div style="display:flex;align-items:center"><div class="pie-dot" style="background:#F85149"></div><span style="color:#9BA3B8">黑天鵝</span></div><span style="font-weight:500">12%</span></div>
-        <div class="pie-li"><div style="display:flex;align-items:center"><div class="pie-dot" style="background:#444C56"></div><span style="color:#9BA3B8">現金</span></div><span style="font-weight:500">15%</span></div>
-      </div>
-    </div>
+    <div class="sec">策略部署資本</div>
+    <!-- V13.68 刪除未定義的策略配置圓餅；改為由 trades[] 派生的「策略部署資本」清單（不同口徑不強湊 100%） -->
+    <div id="strat-capital"></div>
     <div class="sec">策略 EV 統計</div>
     <div id="strat-list"></div>
   </div>
@@ -343,11 +326,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 74739.33,
-      buyingPower: 34407.70,
-      cash: 74739,
-      dayChange: 1473.17,
-      lastUpdated: '2026-08-27 收盤',
+      nav: 74044.17,
+      buyingPower: 34350.41,
+      cash: 74044,
+      dayChange: -659.76,
+      lastUpdated: '2026-08-28 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -364,11 +347,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 182552.02,
-      buyingPower: 33996.53,
-      cash: 77958.52,
-      dayChange: 1414.00,
-      lastUpdated: '2026-08-27 收盤',
+      nav: 183020.60,
+      buyingPower: 33997.11,
+      cash: 77959.10,
+      dayChange: 468.58,
+      lastUpdated: '2026-08-28 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -474,13 +457,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  771.10,   // 08/27 收盤 TV
-      QQQ:  721.11,   // 08/27 收盤 TV(+1.4%)
-      IBIT:  45.29,   // 08/27 收盤 TV
-      BRKB: 503.70,   // 08/27 收盤 TOS
-      MSFT: 505.06,   // 08/27 收盤 TOS
-      SPCX: 140.87,   // 08/27 收盤 TOS
-      updatedAt: '2026-08-27',
+      SPY:  769.35,   // 08/28 收盤 TV
+      QQQ:  716.43,   // 08/28 收盤 TV
+      IBIT:  43.90,   // 08/28 收盤 TV
+      BRKB: 505.00,   // 08/28 收盤 TOS
+      MSFT: 513.53,   // 08/28 收盤 TOS
+      SPCX: 140.95,   // 08/28 收盤 TOS
+      updatedAt: '2026-08-28',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -627,6 +610,8 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-25', sc:180572.02, ft:73293.33, ib:1000, total:254865.35 },
     { date:'2026-08-26', sc:181138.02, ft:73310.05, ib:1000, total:255448.07 },
     { date:'2026-08-27', sc:182552.02, ft:74739.33, ib:1000, total:258291.35 },
+    { date:'2026-08-28', sc:183020.60, ft:74044.17, ib:1000, total:258064.77 },
+    { date:'2026-08-28', sc:182552.02, ft:74739.33, ib:1000, total:258291.35 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -648,7 +633,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.785, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.73, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -656,7 +641,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.405, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:3.42, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -666,7 +651,7 @@ const PORTFOLIO_STATE = {
       note:'原第二組保護腿老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新保護腿，最後在約112DTE、08/10 21:31:29 @$7.60 成交 · 撮合耗時 33 天(07/08→08/10)' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.455, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.425, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1356,7 +1341,7 @@ const PORTFOLIO_STATE = {
   // ══════════════════════════════════════════════════════════════
   trades: [
     // ── SPY PMCC (嘉信) ─────────────────────────────────────────
-    { id:'T_SPYPMCC_LEAPS_O',  strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_LEAPS', cycleLabel:'SPY LEAPS 730C × 6 · 2028/12', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2028-12-15', quantity:6, legs:['BUY 730C ×6 · 2028/12'], grossCashflow:null, fees:null, netCashflow:null, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:null, note:'缺：730C×6 買入日期與價格，待補' },
+    { id:'T_SPYPMCC_LEAPS_O',  strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_LEAPS', cycleLabel:'SPY LEAPS 730C × 6 · 2028/12', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-05-06', expiry:'2028-12-15', quantity:6, legs:['BUY 730C ×6 · 2028/12 @124.87'], grossCashflow:-74922, fees:3.96, netCashflow:-74925.96, costBasis:74925.96, realizedPnl:null, status:'open', isUnderlying:true, linkedTradeId:null, note:'730C×6 · 2026-05-06 開倉 @124.87 (cost basis 124.8766) · 成本 $74,925.96 · SPY PMCC 6組長腿 · 券商 Lot Detail 補值' },
     { id:'T_SPYPMCC_745C_O',   strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_745C', cycleLabel:'SPY PMCC · 745C × 6', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2026-06-05', quantity:6, legs:['SELL 745C ×6'], grossCashflow:3990, fees:null, netCashflow:3990, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYPMCC_745C_C', note:'開倉日待補' },
     { id:'T_SPYPMCC_745C_C',   strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_745C', cycleLabel:'SPY PMCC · 745C × 6 · 淨虧（買回）', account:'sc', ticker:'SPY', action:'CLOSE', tradeDate:'2026-05-28', expiry:'2026-06-05', quantity:6, legs:['BUY TO CLOSE 745C ×6 @13.52'], grossCashflow:-8112, fees:null, netCashflow:-8112, realizedPnl:-4122, pct:null, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYPMCC_745C_O', ledgerId:'CF_M05_003', note:'745C ×6 買回 @13.52 · 淨虧 -$4,122 · 重置為 780C' },
     { id:'T_SPYPMCC_780C_O',   strategyId:'SPY_PMCC', strategyName:'SPY PMCC', ledgerType:'pmcc', cycleId:'SPY_PMCC_SC_780C', cycleLabel:'SPY PMCC · 780C × 6', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2026-06-26', quantity:6, legs:['SELL 780C ×6'], grossCashflow:1926, fees:null, netCashflow:1926, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYPMCC_780C_C', note:'開倉日待補（745C 買回後重置）' },
@@ -1432,10 +1417,10 @@ const PORTFOLIO_STATE = {
     { id:'T_BS_STEP123_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_STEP123', cycleLabel:'Black Swan Step1-3 · SEP18 主體', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2026-09-18', quantity:null, legs:['SELL 745P ×6 (+$17,208)','BUY 690P ×12 (-$16,632)','SELL 685P ×3 (+$3,915)'], grossCashflow:4491, fees:null, netCashflow:4491, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, note:'第一組主體 · 建倉日待補（約04月）· 淨信用 +$4,491' },
     { id:'T_BS_675P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PHASE2_SEP', cycleLabel:'Black Swan Phase2 · 675P × 5 · SEP18', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-05-29', expiry:'2026-09-18', quantity:5, legs:['BUY 675P ×5 @7.70'], grossCashflow:-3850, fees:null, netCashflow:-3850, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_BS_PHASE2_ROLL', note:'GTC#1 等14天成交 @7.70' },
     { id:'T_BS_PHASE2_ROLL', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'hedge_roll', cycleId:'BS_PHASE2_SEP', cycleLabel:'SPY Black Swan · Phase2 Roll · 675P SEP18 → 695P OCT30 × 5', account:'sc', ticker:'SPY', action:'ROLL', tradeDate:'2026-07-01', expiry:'2026-09-18', quantity:5, legs:['SELL TO CLOSE 675P ×5 @5.09 (+$2,545)','→ 新腿見 T_BS_695P_O'], grossCashflow:2545, fees:null, netCashflow:2545, realizedPnl:-1305, rollNetPnl:-2955, rollNewCost:-5500, pct:null, status:'closed', isUnderlying:false, excludeFromEV:true, linkedTradeId:'T_BS_695P_O', ledgerId:'CF_M07_001', note:'單腿realized -$1,305（會計）· 淨Roll -$2,955 含新腿 · 保護延至 OCT30 · 氧氣費' },
-    { id:'T_BS_695P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PHASE2_OCT', cycleLabel:'Black Swan Phase2 · 695P × 5 · OCT30', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-07-01', expiry:'2026-10-30', quantity:5, legs:['BUY 695P ×5 @11.00'], grossCashflow:-5500, fees:null, netCashflow:-5500, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_BS_PHASE2_ROLL', note:'Phase2 新腿 · 121 DTE' },
+    { id:'T_BS_695P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PHASE2_OCT', cycleLabel:'Black Swan Phase2 · 695P × 5 · OCT30', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-07-01', armedDate:null, completeDate:'2026-07-01', buildDays:null, expiry:'2026-10-30', quantity:5, legs:['BUY 695P ×5 @11.00'], grossCashflow:-5500, fees:null, netCashflow:-5500, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_BS_PHASE2_ROLL', note:'Phase2 新腿 · 121 DTE' },
     { id:'T_BS_710P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_0604', cycleLabel:'Black Swan 第二組 · 710P × 3 SELL · SEP18', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-06-04', expiry:'2026-09-18', quantity:3, legs:['SELL 710P ×3 @11.78'], grossCashflow:3534, fees:null, netCashflow:3534, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, note:'SPY -1% 觸發 · GTC@0.20 買回等待中' },
     { id:'T_BS_698P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_0708', cycleLabel:'Black Swan 第三組 · 698P × 3 SELL · OCT30', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-07-08', expiry:'2026-10-30', quantity:3, legs:['SELL 698P ×3 @12.80'], grossCashflow:3840, fees:null, netCashflow:3840, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:'T_BS_700P_O', note:'SPY -1% 觸發(11:24 EDT) · 收租腿 · 對應 BUY 700P NOV30 尾部保護' },
-    { id:'T_BS_700P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PROTECTION_ROLL', cycleLabel:'Black Swan · 第二組保護腿 rollover · 700P NOV30 × 5 · 生命週期延續', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-08-10', expiry:'2026-11-30', quantity:5, legs:['BUY 700P ×5 @7.60 (112 DTE)'], grossCashflow:-3800, fees:null, netCashflow:-3800, realizedPnl:null, status:'open', isUnderlying:false, lifecycleStage:'保護腿 rollover / 生命週期延續', linkedTradeId:'T_BS_710P_O', note:'⚠️非第三組新增保護，勿重複計算部位。這是第二組保護腿的 rollover：原第二組 BUY PUT 已老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新腿，08/10 @7.60 成交(112 DTE)。舊 PUT 賣出釋放資金 → 換入更長天期 700P NOV30 ×5，維持中期尾部保護不中斷。生命週期規則：<90 DTE 不再視為完整中期保護，需 rollover 至 110~130 DTE。' },
+    { id:'T_BS_700P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PROTECTION_ROLL', cycleLabel:'Black Swan · 第二組保護腿 rollover · 700P NOV30 × 5 · 生命週期延續', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-08-10', armedDate:null, completeDate:'2026-08-10', buildDays:null, expiry:'2026-11-30', quantity:5, legs:['BUY 700P ×5 @7.60 (112 DTE)'], grossCashflow:-3800, fees:null, netCashflow:-3800, realizedPnl:null, status:'open', isUnderlying:false, lifecycleStage:'保護腿 rollover / 生命週期延續', linkedTradeId:'T_BS_710P_O', note:'⚠️非第三組新增保護，勿重複計算部位。這是第二組保護腿的 rollover：原第二組 BUY PUT 已老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新腿，08/10 @7.60 成交(112 DTE)。舊 PUT 賣出釋放資金 → 換入更長天期 700P NOV30 ×5，維持中期尾部保護不中斷。生命週期規則：<90 DTE 不再視為完整中期保護，需 rollover 至 110~130 DTE。' },
     // ── IBIT 和牛 (第一) ────────────────────────────────────────
     { id:'T_IBIT_WAGYU_O', strategyId:'IBIT_和牛', strategyName:'IBIT 和牛策略', ledgerType:'other', cycleId:'IBIT_WAGYU_FT_C1', cycleLabel:'IBIT 和牛 · 30C BUY + 35P SELL · 2028/06', account:'ft', ticker:'IBIT', action:'OPEN', tradeDate:null, expiry:'2028-06-16', quantity:1, legs:['BUY 30C ×1','SELL 35P ×1'], grossCashflow:null, fees:null, netCashflow:null, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, note:'缺：30C/35P 開倉價與日期（FT成本 30C $19.30 · 35P $9.65 vs 卡片 14.10/8.00，待對帳）· 長線持有' },
   ],
@@ -1864,7 +1849,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35}
 ]
 
 function fetchSPYHistory() {
@@ -3984,7 +3969,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.66 · build 2026-08-28 · 手記EV_LIFE4寫入:不舒服是我系統進步的引擎(07-31單日+$18,061·跨月入40萬夢想線)+導師評語 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.70 · build 2026-08-29 · 08-28週五收盤 · SPY769.35/QQQ716.43 · NAV \$258,065(高點-\$227) · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
@@ -5237,7 +5222,49 @@ function _strategyStatusBadge(s) {
   return badge('監控中', '#5A6278', 'rgba(90,98,120,0.08)', '#2A2F3E')
 }
 
+// V13.68 策略部署資本（取代未定義的圓餅）——全由 trades[] 派生，不同口徑不強湊 100%
+//  PMCC = open LEAPS 現金成本(cost basis) · 豪華摩天輪 = open 淨現金流 · Black Swan = $0 現金(Premium-funded,佔BP)
+//  現股底倉 / Cash / BP 口徑不同 → 明確標「不納入合計」，指回首頁 Oxygen，不重算
+function renderStrategyCapital() {
+  var el = document.getElementById('strat-capital'); if (!el) return
+  var S = PORTFOLIO_STATE, T = S.trades || []
+  function eff(t){ return _effStrat(t) || '' }
+  function fmt(n){ return (n<0?'-$':'$') + Math.abs(Math.round(n)).toLocaleString() }
+  function card(color,name,sub,val){
+    return '<div style="margin:0 16px 6px;background:#141820;border:.5px solid #1A2235;border-radius:10px;padding:10px 12px">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center">'
+      + '<div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:2px;background:'+color+'"></div><span style="font-size:13px;font-weight:500;color:#E6EDF3">'+name+'</span></div>'
+      + '<span style="font-size:14px;font-weight:600;color:'+color+'">'+val+'</span></div>'
+      + '<div style="font-size:9px;color:#5A6278;margin-top:3px;padding-left:16px">'+sub+'</div></div>'
+  }
+  var leaps = T.filter(function(t){ return t.action==='OPEN'&&t.status==='open'&&t.isUnderlying&&/_PMCC/i.test(eff(t)) })
+  leaps.sort(function(a,b){ return Math.abs(b.netCashflow||0)-Math.abs(a.netCashflow||0) })
+  var pmcc = leaps.reduce(function(s,t){ return s + Math.abs((typeof t.netCashflow==='number'?t.netCashflow:t.costBasis)||0) }, 0)
+  var pmccNull = leaps.some(function(t){ return t.netCashflow==null && t.costBasis==null })
+  var wheel = T.filter(function(t){ return t.action==='OPEN'&&t.status==='open'&&!t.isUnderlying&&/Wheel|摩天輪/.test(eff(t)) })
+  var wheelNet = wheel.reduce(function(s,t){ return s + (typeof t.netCashflow==='number'?t.netCashflow:0) }, 0)
+  var wagyu = T.filter(function(t){ return t.action==='OPEN'&&t.status==='open'&&/和牛/.test(eff(t)) })
+  var wagyuNull = wagyu.some(function(t){ return t.netCashflow==null })
+  var wagyuNet = wagyu.reduce(function(s,t){ return s + (typeof t.netCashflow==='number'?t.netCashflow:0) }, 0)
+  var bsN = T.filter(function(t){ return t.action==='OPEN'&&t.status==='open'&&/BlackSwan/i.test(eff(t)) }).length
+  var h = ''
+  h += card('#388BFD','PMCC','部署資本 · '+leaps.length+'× LEAPS 長腿'+(pmccNull?' ⚠️部分成本待補':'')+' · 現金成本基礎(trades[]派生)', fmt(pmcc))
+  leaps.forEach(function(t){
+    var c = Math.abs((typeof t.netCashflow==='number'?t.netCashflow:t.costBasis)||0)
+    h += '<div style="margin:0 24px 4px;display:flex;justify-content:space-between;font-size:11px;color:#9BA3B8"><span>↳ '+t.ticker+' '+((t.legs&&t.legs[0]||'').replace('BUY ','').split(' @')[0])+'</span><span>'+(c?fmt(c):'—')+'</span></div>'
+  })
+  h += card('#D29922','豪華摩天輪','收租型 · 淨現金流（非資本支出）· 依 trades[] 實際現金流，不估保證金', (wheelNet>=0?'+':'')+fmt(wheelNet))
+  h += card('#9C6ADE','IBIT 和牛','獨立期權策略 30C+35P（不歸 PMCC）· '+(wagyuNull?'trades[] 未記成本（待補）':'選擇權淨現金流'), wagyuNull?'—':((wagyuNet>=0?'+':'')+fmt(wagyuNet)))
+  h += card('#F85149','Black Swan','Premium-funded Hedge · '+bsN+' 腿 open · 佔用 BP → 見首頁 Oxygen', '$0 現金')
+  h += '<div style="font-size:9px;color:#5A6278;padding:4px 16px 2px">── 以下不納入策略資本合計（不同口徑）──</div>'
+  h += card('#6E7681','現股底倉','IBIT 250股 + BRK.B 13股 · 資產市值，與策略資本不同口徑', '見券商')
+  h += card('#6E7681','Cash / BP','可動用 Oxygen · Cash Balance / Cash BP / Margin BP 由券商，不在策略頁重算', '見首頁')
+  h += '<div style="font-size:9px;color:#5A6278;padding:6px 16px;line-height:1.6">口徑：PMCC=LEAPS 現金成本 · 豪華摩天輪=淨現金流 · Black Swan=$0現金(Premium-funded,佔BP)。各口徑不同，不強湊 100%。LEAPS 為 PMCC 長腿，非獨立策略。</div>'
+  el.innerHTML = h
+}
+
 function renderStrategy(m) {
+  try { renderStrategyCapital() } catch(e) { console.error('[renderStrategyCapital]', e) }
   var sl = document.getElementById('strat-list')
   sl.innerHTML = ''
   PORTFOLIO_STATE.strategies.forEach(function(s) {
