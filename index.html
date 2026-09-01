@@ -180,9 +180,9 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
     <div id="home-ladder-section"></div>
     <div id="home-recovery-section"></div>
     <div id="home-oxygen-section"></div>
-    <div class="sec">持倉</div>
-    <div class="ph"><span></span><span style="padding-left:8px">代號</span><span style="text-align:center">走勢</span><span style="text-align:right">價格</span></div>
-    <div id="pl"></div>
+    <div class="sec">月度結果 / Monthly Results</div>
+    <!-- V13.74 首頁「持倉」改為「月度結果」accordion（券商持倉改在持倉頁看）· 由 civilizationArchive + dailyEquity + ladder 派生，零硬編月份 -->
+    <div id="home-monthly"></div>
     <div class="updated" id="home-updated">最後更新 —</div>
   </div>
 </div>
@@ -326,11 +326,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 74044.17,
-      buyingPower: 34350.41,
-      cash: 74044,
-      dayChange: -659.76,
-      lastUpdated: '2026-08-28 收盤',
+      nav: 74108.73,
+      buyingPower: 34329.25,
+      cash: 74109,
+      dayChange: 109.40,
+      lastUpdated: '2026-08-31 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -347,11 +347,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 183020.60,
+      nav: 182026.60,
       buyingPower: 33997.11,
       cash: 77959.10,
-      dayChange: 468.58,
-      lastUpdated: '2026-08-28 收盤',
+      dayChange: -994.00,
+      lastUpdated: '2026-08-31 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -440,15 +440,18 @@ const PORTFOLIO_STATE = {
     sc: { bottomValue: 125725, bottomDate: '2026-03-29', targetValue: 202812 }
   },
 
-  // ── 月度 2% 梯形目標 ──────────────────────────────────────────
-  // Rollover 規則：每月切換時 JS 自動更新，上月 target → 新月 start，新 target = Math.round(start × 1.02)
-  // lastRolloverMonth 防止同月重複 rollover；sc / ft 分開計算
-  ladder: {
-    label: '7月',
-    lastRolloverMonth: '2026-07',            // 最後一次 rollover 的月份
-    sc: { start: 160140, target: 163343 },  // 7月 sc：上月達成 $160,140 × 1.02 = $163,343
-    ft: { start: 73318,  target: 74784  }   // 7月 ft：上月達成 $73,318  × 1.02 = $74,784
+  // ── Monthly 2% Fixed Target Schedule（V13.75）─────────────────────
+  //  固定計畫線：以 2026-05 為基準，每月 target = 上月(四捨五入後)×1.02，生成 12 個月後永久固定。
+  //  ⚠️ Actual 永不寫回 target；render 日期只決定「本月是哪個月」，不改 target 數值。
+  //  分帳戶建立（sc/ft），合計為派生（sc+ft），不另存第三套。
+  targetSchedule: {
+    baseMonth: '2026-05',
+    months: 12,
+    sc: 160000,   // 嘉信 2026-05 固定基準（使用者指定，非由 Actual 推導）
+    ft: 70000     // 第一證券 2026-05 固定基準（使用者指定，非由 Actual 推導）
   },
+  // S.ladder 已退化為「targetSchedule[本月] 的唯讀派生結果」，由 _applyLadderRollover() 於 render 前填入，不再自存 seed
+  ladder: {},
 
   // ── Alpha 基準 ────────────────────────────────────────────────
   // 數據來源：TradingView 週線 2026-05-05 開盤（真實）
@@ -457,13 +460,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  769.35,   // 08/28 收盤 TV
-      QQQ:  716.43,   // 08/28 收盤 TV
-      IBIT:  43.90,   // 08/28 收盤 TV
-      BRKB: 505.00,   // 08/28 收盤 TOS
-      MSFT: 513.53,   // 08/28 收盤 TOS
-      SPCX: 140.95,   // 08/28 收盤 TOS
-      updatedAt: '2026-08-28',
+      SPY:  767.05,   // 08/31 收盤 TOS(TV離線)
+      QQQ:  716.76,   // 08/31 收盤 TOS
+      IBIT:  44.67,   // 08/31 收盤 TOS
+      BRKB: 504.03,   // 08/31 收盤 TOS
+      MSFT: 507.29,   // 08/31 收盤 TOS
+      SPCX: 143.69,   // 08/31 收盤 TOS
+      updatedAt: '2026-08-31',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -611,7 +614,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-08-26', sc:181138.02, ft:73310.05, ib:1000, total:255448.07 },
     { date:'2026-08-27', sc:182552.02, ft:74739.33, ib:1000, total:258291.35 },
     { date:'2026-08-28', sc:183020.60, ft:74044.17, ib:1000, total:258064.77 },
-    { date:'2026-08-28', sc:182552.02, ft:74739.33, ib:1000, total:258291.35 },
+    { date:'2026-08-31', sc:182026.60, ft:74108.73, ib:1000, total:257135.33 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -633,7 +636,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.73, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.685, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -641,7 +644,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.42, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:3.345, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -651,7 +654,7 @@ const PORTFOLIO_STATE = {
       note:'原第二組保護腿老化(<90 DTE)，於第三組建立期間(07/08)改掛約120DTE新保護腿，最後在約112DTE、08/10 21:31:29 @$7.60 成交 · 撮合耗時 33 天(07/08→08/10)' },
     { id:'GTC_685P', desc:'SPY 685P BUY BACK × 3 · 自動平倉',
       type:'buyback', orderDate:'2026-05-16', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.425, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.385, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
   ],
@@ -1150,23 +1153,6 @@ const PORTFOLIO_STATE = {
         '下跌時我是真的能加碼，還是只能看著？'
       ],
       status: 'archived', archivedAt: '2026-07-31'
-    },
-    {
-      month: '2026-06', label: '6月', emoji: '🎡', theme: 'QQQ 2UP · 系統條件優先',
-      startNAV: 225322, targetNAV: 230000, actualNAV: 235438,
-      get surplus()     { return this.actualNAV - this.targetNAV },
-      get achieveRate() { return +(this.actualNAV / this.targetNAV * 100).toFixed(2) },
-      biggestProgress: 'QQQ 豪華摩天輪 2UP 部署 — 下跌觸發系統條件，果斷執行新一輪 Put Spread',
-      biggestMistake:  'SPCX 無法貫徹豪華摩天輪策略。錯誤不是進場虧損，而是進場前沒有確認「是否願意承接」。只看到 IV 高、權利金豐厚、報酬率漂亮，卻忽略 SPCX 財報仍虧損、公司品質不符合豪華摩天輪承接條件。持有五天確認無法承接後迅速出場，淨虧 -$1,168。',
-      wouldChange:     '豪華摩天輪進場前必須先回答：「如果被打穿，我願不願意承接？」答案是否定，就不能因為 IV 高而進場。高權利金不是進場理由，可承接才是。',
-      systemUpgrade:   'QQQ 2UP 下跌部署規則化',
-      noteToFuture:    '下跌不是自動恐慌，是候選訊號。\n\n觸發後先檢查：IV、Credit、Delta、DTE、舊輪獲利。訊號可以果斷，成交可以耐心。不追價，但要有理想掛單。\n\n有系統條件時，恐懼不是停止理由。\n\n你在 QQQ 單日明顯下跌時，怕沒成交、反覆改單、擔心下跌延續。但你還是執行了。系統開始產生成效。這就是對的。\n\n黑天鵝不是買保險而已，它是生命循環。\n\n資產只有 16 萬時，不能用無限購買力去硬做新一輪 4 個月黑天鵝。當舊 BUY PUT 剩餘 79 天，新保護腿需要延長到 122 天，就必須把舊 PUT 的殘值轉成新 PUT 的氧氣。這次你不是亂換倉，而是在做保護腿接力。這代表你開始理解：避險不是單筆交易，而是週期工程。',
-      milestones: [
-        { icon:'🎡', label:'QQQ 2UP 首次部署 — 下跌觸發系統條件，雙輪同開' },
-        { icon:'📋', label:'認知節點建立 — 恐懼不是停止理由，系統條件才是' },
-        { icon:'🦢', label:'黑天鵝保護腿接力 — 舊 79 天 PUT 轉新 122 天，維持尾部防線不中斷' }
-      ],
-      status: 'active', archivedAt: null
     },
     {
       month: '2026-06', label: '6月', emoji: '🚀', theme: 'PMCC V2',
@@ -1849,7 +1835,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05}
 ]
 
 function fetchSPYHistory() {
@@ -2033,38 +2019,48 @@ function _nearestSpy(dateStr, map) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// 月度 Ladder 自動 Rollover
-// 規則：偵測到月份切換時，將上月 target 作為新月 start，target = Math.round(start × 1.02)
-// sc 與 ft 分開計算；lastRolloverMonth 防止同月重複執行
+// 月度 Ladder（V13.75 已改為 Fixed Target Schedule 查表；不再動態 rollover、不再用 Actual）
+// target 一律來自 buildTargetSchedule()；牆上日期只決定「本月是哪個月」
 // ══════════════════════════════════════════════════════════════
+// V13.75 固定計畫表生成器（純函式：只依 targetSchedule base，不依 Actual、不依 render 日期步數）
+//  規則：base × 1.02 逐月，每月先 Math.round，再以四捨五入後的值作為下月 base（round-then-compound）
+function buildTargetSchedule() {
+  var cfg = PORTFOLIO_STATE.targetSchedule || {}
+  var out = { sc:{}, ft:{}, combined:{}, keys:[] }
+  if (!cfg.baseMonth || cfg.sc==null || cfg.ft==null) return out
+  var y = +cfg.baseMonth.slice(0,4), mo = +cfg.baseMonth.slice(5,7)
+  var sc = cfg.sc, ft = cfg.ft, n = cfg.months || 12
+  for (var i=0; i<n; i++) {
+    if (i>0) { sc = Math.round(sc * 1.02); ft = Math.round(ft * 1.02) }
+    var key = y + '-' + String(mo).padStart(2,'0')
+    out.sc[key] = sc; out.ft[key] = ft; out.combined[key] = sc + ft; out.keys.push(key)
+    mo++; if (mo>12){ mo=1; y++ }
+  }
+  return out
+}
+
+// V13.75 S.ladder 退化為唯讀派生：本月/上月 target 一律查固定計畫表
+//  牆上日期只決定「現在是哪個月」；target 數值來自 targetSchedule[月]，不再 ×1.02 即時推算、不受 Actual 影響
 function _applyLadderRollover() {
   var S = PORTFOLIO_STATE
+  var sched = buildTargetSchedule()
+  S._targetSchedule = sched
   var now = new Date()
-  var curMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0')
-  var lastRollover = S.ladder.lastRolloverMonth || ''
-
-  // 本月已 rollover → 不重複執行
-  if (curMonth <= lastRollover) return
-
-  // 月份已切換：上月 target → 新月 start，新 target = start × 1.02
-  var newScStart  = S.ladder.sc.target
-  var newFtStart  = S.ladder.ft.target
-  var newScTarget = Math.round(newScStart * 1.02)
-  var newFtTarget = Math.round(newFtStart * 1.02)
-
+  var cm = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0')      // 本月
+  var pd = new Date(now.getFullYear(), now.getMonth()-1, 1)
+  var pm = pd.getFullYear() + '-' + String(pd.getMonth()+1).padStart(2,'0')         // 上月
+  // 本月若超出計畫表範圍 → 退回最後一個有計畫的月（不外插、不猜）
+  if (sched.sc[cm]==null && sched.keys.length) cm = sched.keys[sched.keys.length-1]
+  var scT = sched.sc[cm], ftT = sched.ft[cm]
+  var scS = (sched.sc[pm]!=null) ? sched.sc[pm] : scT   // 起始 = 上月 target（首月則同本月）
+  var ftS = (sched.ft[pm]!=null) ? sched.ft[pm] : ftT
   var monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-  var newLabel = monthNames[now.getMonth()]
-
-  // 更新 in-memory state（不修改 HTML 原始碼，每次 load 自動重算）
-  S.ladder.lastRolloverMonth = curMonth
-  S.ladder.label             = newLabel
-  S.ladder.sc = { start: newScStart, target: newScTarget }
-  S.ladder.ft = { start: newFtStart, target: newFtTarget }
-
-  console.log('[Ladder Rollover] ' + lastRollover + ' → ' + curMonth
-    + ' | SC: $' + newScStart.toLocaleString() + ' → $' + newScTarget.toLocaleString()
-    + ' | FT: $' + newFtStart.toLocaleString() + ' → $' + newFtTarget.toLocaleString()
-    + ' | Combined: $' + (newScTarget + newFtTarget).toLocaleString())
+  S.ladder = {
+    label:    monthNames[now.getMonth()],
+    curMonth: cm,
+    sc: { start: (scS!=null?scS:0), target: (scT!=null?scT:0) },
+    ft: { start: (ftS!=null?ftS:0), target: (ftT!=null?ftT:0) }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -2075,7 +2071,11 @@ function _applyLadderRollover() {
 // ═══════════════════════════════════════════════════════════════
 // V13.57 本月自動派生：取最新 dailyEquity 交易日所屬月份（不再硬編），退而求其次用系統時鐘
 var V13_CUR_MONTH = (function(){
-  try { var eq = PORTFOLIO_STATE.dailyEquity; if (eq && eq.length) return eq[eq.length-1].date.slice(0,7) } catch(e){}
+  // V13.73 取「最大日期」的月份（不用最後一筆——排序若亂會取錯，例如 8/28 排在 8/31 之後）
+  try { var eq = PORTFOLIO_STATE.dailyEquity; if (eq && eq.length) {
+    var mx = eq[0].date; for (var i=1;i<eq.length;i++){ if (eq[i].date > mx) mx = eq[i].date }
+    return mx.slice(0,7)
+  } } catch(e){}
   try { return new Date().toISOString().slice(0,7) } catch(e){}
   return '2026-08'
 })()
@@ -2678,7 +2678,8 @@ function calculateMetrics() {
   var ftLadderMet     = ftNav >= S.ladder.ft.target
 
   var combinedTarget  = S.ladder.sc.target + S.ladder.ft.target
-  var combinedSurplus = combined - combinedTarget
+  var combinedSCFT    = scNav + ftNav   // V13.76 Monthly 2% Fixed Target scope = SC+FT only（排除 IBKR）
+  var combinedSurplus = combinedSCFT - combinedTarget
 
   // ── Ladder Daily Pace ─────────────────────────────────────────
   var _lnow      = new Date()
@@ -2688,9 +2689,9 @@ function calculateMetrics() {
   var _cStart    = S.ladder.sc.start + S.ladder.ft.start
   var _reqGain   = combinedTarget - _cStart
   var _theorNAV  = Math.round(_cStart + (_dayOfMon / _daysInMon) * _reqGain)
-  var _paceGap   = Math.round(combined - _theorNAV)
-  var _gapToTgt  = Math.round(combinedTarget - combined)
-  var _dailyReqd = _daysLeft > 0 ? Math.round((combinedTarget - combined) / _daysLeft) : 0
+  var _paceGap   = Math.round(combinedSCFT - _theorNAV)
+  var _gapToTgt  = Math.round(combinedTarget - combinedSCFT)
+  var _dailyReqd = _daysLeft > 0 ? Math.round((combinedTarget - combinedSCFT) / _daysLeft) : 0
 
   // ── Recovery ─────────────────────────────────────────────────
   var recBottom    = S.recovery.sc.bottomValue
@@ -2763,7 +2764,7 @@ function calculateMetrics() {
     ladder: {
       sc: { pct:scLadderPct, surplus:scLadderSurplus, met:scLadderMet, current:scNav, target:S.ladder.sc.target, start:S.ladder.sc.start },
       ft: { pct:ftLadderPct, surplus:ftLadderSurplus, met:ftLadderMet, current:ftNav, target:S.ladder.ft.target, start:S.ladder.ft.start },
-      combined: { current:combined, target:combinedTarget, surplus:combinedSurplus },
+      combined: { current:combinedSCFT, target:combinedTarget, surplus:combinedSurplus },
       pace: {
         dayOfMonth:_dayOfMon, daysInMonth:_daysInMon, daysLeft:_daysLeft,
         combinedStart:_cStart, requiredGain:_reqGain,
@@ -3969,7 +3970,7 @@ function renderCivJourneyV11(m) {
 
   // ── 6. Full HTML shell ─────────────────────────────────────
   var _dbgLastEq = history[history.length-1]
-  var _dbgBuild  = 'v13.70 · build 2026-08-29 · 08-28週五收盤 · SPY769.35/QQQ716.43 · NAV \$258,065(高點-\$227) · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
+  var _dbgBuild  = 'v13.75 · build 2026-09-01 · Monthly 2% Fixed Target Schedule(SC\$160k/FT\$70k@2026-05·×1.02固定12月) · S.ladder退化為查表 · 移除dynamic rollover+Actual污染 · Archive保留為歷史 · eq:'+(_dbgLastEq?_dbgLastEq.date+' $'+Math.round(_dbgLastEq.total/1000)+'K':'—')
   el.innerHTML =
     '<div style="background:rgba(56,139,253,0.07);border-bottom:.5px solid rgba(56,139,253,0.2);padding:3px 14px;font-size:9px;color:#388BFD;font-family:monospace" id="jc-debug-banner">🔧 '+_dbgBuild+'</div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;flex-wrap:wrap;gap:6px">'
@@ -4618,7 +4619,7 @@ function renderHome(m) {
   renderLadder(m)
   renderRecovery(m)
   renderOxygenMeter(m)
-  renderPositions()
+  renderMonthlyResults()   // V13.74 首頁月度結果 accordion（取代持倉）
   buildMainChart(curAcct, curRange)
 }
 
@@ -4892,9 +4893,18 @@ function renderLadder(m) {
 
       // ── 上月結果（從 civilizationArchive 讀取最新封存）────────
       (function() {
-        var arc = (PORTFOLIO_STATE.civilizationArchive || []).slice().sort(function(a,b){ return b.month < a.month ? -1 : 1 })
-        var prev = arc[0]
-        if (!prev) return ''
+        // V13.73 上月結果：有正式封存優先用；沒有 → 自動從 dailyEquity 結算上月（上月目標 = 本月 ladder start）
+        var _n = new Date(), _pd = new Date(_n.getFullYear(), _n.getMonth()-1, 1)
+        var pm = _pd.getFullYear() + '-' + String(_pd.getMonth()+1).padStart(2,'0')
+        var prev = (PORTFOLIO_STATE.civilizationArchive || []).filter(function(a){ return a.month===pm })[0]
+        if (!prev) {
+          var eqPm = (PORTFOLIO_STATE.dailyEquity || []).filter(function(e){ return (e.date||'').slice(0,7)===pm })
+          if (!eqPm.length) return ''
+          eqPm.sort(function(a,b){ return a.date < b.date ? -1 : 1 })
+          var _tgt = Math.round((S.ladder.sc.start||0) + (S.ladder.ft.start||0))  // 本月 start = 上月目標
+          prev = { month: pm, emoji:'📊 自動', theme:'自動結算（尚未正式封存）',
+                   targetNAV: _tgt, actualNAV: Math.round(eqPm[eqPm.length-1].total) }
+        }
         var surplus = prev.surplus !== undefined ? prev.surplus : (prev.actualNAV - prev.targetNAV)
         var rate    = prev.achieveRate !== undefined ? prev.achieveRate : (prev.actualNAV / prev.targetNAV * 100).toFixed(2)
         var sCol    = surplus >= 0 ? '#00C896' : '#FF4B5C'
@@ -5086,9 +5096,103 @@ function _statusBadge(status) {
   return ''
 }
 
+// ══ V13.74 月度結果 Monthly Results（accordion）══════════════════════════
+//  資料流：civilizationArchive（正式封存月）+ dailyEquity + ladder（自動結算月）→ 派生 → Accordion
+//  零硬編月份；不改 trades/NAV/EV/Premium/分類；當月(進行中)不列入；未封存月只顯示數字+派生Cycle，不虛構敘事
+function _mrMoney(n){ return (n<0?'-$':'$') + Math.abs(Math.round(n)).toLocaleString() }
+function _toggleMonthly(i){
+  var d=document.getElementById('mo-detail-'+i), ar=document.getElementById('mo-arrow-'+i)
+  if(!d) return
+  var open = d.style.display==='none'
+  d.style.display = open?'block':'none'
+  if(ar) ar.style.transform = open?'rotate(180deg)':''
+}
+function _mrMonthCat(S, mo){
+  var c={pmcc:0,wheel:0,blackSwan:0,other:0}
+  deriveClosedCycles(S.trades).forEach(function(x){
+    if((x.closeDate||'').slice(0,7)!==mo) return
+    if(x.excludeFromEV||x.isUnderlying||typeof x.realized!=='number') return
+    c[getClosedCategory(x)] += x.realized })
+  return c
+}
+function _mrAutoEvents(S, mo){
+  var rows=deriveClosedCycles(S.trades).filter(function(c){ return (c.closeDate||'').slice(0,7)===mo && !c.isUnderlying && typeof c.realized==='number' })
+  if(!rows.length) return '<div style="font-size:10px;color:#5A6278">尚未正式封存 · 無敘事事件（僅顯示派生數字）</div>'
+  return rows.sort(function(a,b){return a.closeDate<b.closeDate?-1:1}).map(function(c){
+    var col=c.realized>=0?'#00C896':'#FF4B5C'
+    return '<div style="font-size:11px;color:#B8C8D8;padding:2px 0;line-height:1.5">'+(c.realized>=0?'✅':'❌')+' '+c.label+' <span style="color:'+col+'">'+(c.realized>=0?'+':'')+'$'+Math.round(c.realized).toLocaleString()+'</span></div>'
+  }).join('') + '<div style="font-size:9px;color:#5A6278;margin-top:4px">（'+mo+' 尚未正式封存 · 以上為 trades[] 派生的當月完成 Cycle）</div>'
+}
+function renderMonthlyResults(){
+  var el=document.getElementById('home-monthly'); if(!el) return
+  var S=PORTFOLIO_STATE
+  // 1. Archive 去重（同月 status:'archived' 優先）
+  var arc={}
+  ;(S.civilizationArchive||[]).forEach(function(a){ var ex=arc[a.month]; if(!ex||(a.status==='archived'&&ex.status!=='archived')) arc[a.month]=a })
+  // 2. dailyEquity 依月分組（排序）
+  var bm={}
+  ;(S.dailyEquity||[]).forEach(function(e){ var mo=(e.date||'').slice(0,7); (bm[mo]=bm[mo]||[]).push(e) })
+  Object.keys(bm).forEach(function(mo){ bm[mo].sort(function(a,b){return a.date<b.date?-1:1}) })
+  // 3. 上一個完整月（本月-1，用系統時鐘）
+  var _n=new Date(), _pd=new Date(_n.getFullYear(), _n.getMonth()-1, 1)
+  var pm=_pd.getFullYear()+'-'+String(_pd.getMonth()+1).padStart(2,'0')
+  // 4. 可顯示月份 = 所有 Archive 月 + 上一個完整月（有 dailyEquity>=5 筆且無 Archive）
+  var set={}; Object.keys(arc).forEach(function(mo){ set[mo]=1 })
+  if(bm[pm] && bm[pm].length>=5 && !arc[pm]) set[pm]=1
+  var months=Object.keys(set).sort(function(a,b){ return a<b?1:-1 })  // desc（最新在上）
+  if(!months.length){ el.innerHTML=''; return }
+  function catRows(c){
+    var names={pmcc:'PMCC',wheel:'豪華摩天輪',blackSwan:'黑天鵝',other:'其他'}, out=''
+    ;['pmcc','wheel','blackSwan','other'].forEach(function(k){
+      if(Math.abs(c[k])<0.5) return
+      var col=c[k]>=0?'#00C896':'#FF4B5C'
+      out+='<div style="display:flex;justify-content:space-between;font-size:11px;padding:2px 0"><span style="color:#9BA3B8">'+names[k]+'</span><span style="color:'+col+';font-weight:500">'+(c[k]>=0?'+':'')+_mrMoney(c[k])+'</span></div>'
+    })
+    return out||'<div style="font-size:10px;color:#5A6278">當月無完成 Cycle</div>'
+  }
+  var html='<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 16px 5px;color:#4A9EFF"><span style="font-size:13px">📅</span> 月度時間膠囊 · 點擊展開</div>'
+  var sched = S._targetSchedule || buildTargetSchedule()   // V13.75 Fixed 2% Plan = 唯一 target 來源
+  months.forEach(function(mo,idx){
+    var a=arc[mo], isArc=!!a, start,target,actual,emoji,theme,mile,histT
+    var fixedT=(sched.combined[mo]!=null)?sched.combined[mo]:null
+    if(isArc){ start=a.startNAV; target=(fixedT!=null?fixedT:a.targetNAV); emoji=a.emoji; theme=a.theme; mile=a.milestones||[]; histT=a.targetNAV
+      // V13.77 顯示層 Actual 統一 SC+FT 月末（排除 IBKR）；Archive 物件不改，僅顯示派生
+      var _dzA=bm[mo], _leA=(_dzA&&_dzA.length)?_dzA[_dzA.length-1]:null
+      actual=(_leA && _leA.sc!=null && _leA.ft!=null) ? ((_leA.sc||0)+(_leA.ft||0)) : a.actualNAV }
+    else { var dz=bm[mo], _d0=dz[0], _dL=dz[dz.length-1]; start=(_d0.sc||0)+(_d0.ft||0); actual=(_dL.sc||0)+(_dL.ft||0); target=(fixedT!=null?fixedT:0); emoji='📊'; theme='自動結算（尚未正式封存）'; mile=[]; histT=null }   // V13.76 SC+FT scope（排除 IBKR，對稱 Fixed 2% Target）
+    var rate=target?(actual/target*100):0, surplus=actual-target, mp=actual-start
+    var lbl=parseInt(mo.slice(5),10)+'月', cats=_mrMonthCat(S,mo), open=(idx===0)
+    var rCol=rate>=100?'#00C896':'#F0C040', sCol=surplus>=0?'#00C896':'#FF4B5C', mCol=mp>=0?'#00C896':'#FF4B5C'
+    html+='<div class="card" style="background:#0F1420;border:.5px solid #1E3040;margin:6px 16px;padding:0;overflow:hidden">'
+      +'<div onclick="_toggleMonthly('+idx+')" style="padding:11px 14px;cursor:pointer;user-select:none">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'
+          +'<span style="font-size:12px;font-weight:600;color:#8AAAC8">📅 '+mo+' · '+lbl+'結果 '+emoji+(isArc?'':' <span style="font-size:9px;color:#F0A500">自動</span>')+'</span>'
+          +'<span id="mo-arrow-'+idx+'" style="font-size:11px;color:#5A7AA0;transition:transform .2s'+(open?';transform:rotate(180deg)':'')+'">▼</span>'
+        +'</div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'
+          +'<div><div style="font-size:9px;color:#5A6278">完成率</div><div style="font-size:14px;font-weight:700;color:'+rCol+'">'+rate.toFixed(1)+'%</div></div>'
+          +'<div><div style="font-size:9px;color:#5A6278">月度損益</div><div style="font-size:14px;font-weight:700;color:'+mCol+'">'+(mp>=0?'+':'')+_mrMoney(mp)+'</div></div>'
+          +'<div><div style="font-size:9px;color:#5A6278">相對目標</div><div style="font-size:14px;font-weight:700;color:'+sCol+'">'+(surplus>=0?'+':'')+_mrMoney(surplus)+'</div></div>'
+        +'</div>'
+      +'</div>'
+      +'<div id="mo-detail-'+idx+'" style="display:'+(open?'block':'none')+';border-top:.5px solid #16233A;padding:10px 14px;background:#0A0F1C">'
+        +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px"><span style="color:#5A6278">月度 NAV</span><span style="color:#D8E8F8">$'+Math.round(start).toLocaleString()+' → $'+Math.round(actual).toLocaleString()+'</span></div>'
+        +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:'+((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'3':'8')+'px"><span style="color:#5A6278">Fixed 2% 目標 / 達成率</span><span style="color:#C0CDE0">$'+Math.round(target).toLocaleString()+' · '+rate.toFixed(2)+'%</span></div>'
+        +((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:8px"><span style="color:#5A6278">歷史 Archive 目標</span><span style="color:#6A7A8A">$'+Math.round(histT).toLocaleString()+'（當時紀錄，未覆蓋）</span></div>':'')
+        +'<div style="font-size:10px;color:#6A8AAA;margin-bottom:3px">當月策略已實現（trades[] 派生）</div>'+catRows(cats)
+        +'<div style="font-size:10px;color:#6A8AAA;margin:8px 0 3px">重要事件</div>'
+        +(isArc && mile.length ? mile.map(function(x){ return '<div style="font-size:11px;color:#B8C8D8;padding:2px 0;line-height:1.5">'+(x.icon||'•')+' '+x.label+'</div>' }).join('') : _mrAutoEvents(S,mo))
+        +(theme?'<div style="font-size:10px;color:#7A9AB8;margin-top:8px;font-style:italic">'+theme+'</div>':'')
+      +'</div>'
+    +'</div>'
+  })
+  el.innerHTML=html
+}
+
 function renderPositions() {
   var d   = PORTFOLIO_STATE.accounts[curAcct]
   var pl  = document.getElementById('pl')
+  if (!pl) return   // V13.74 首頁 #pl 已移除（改為月度結果），保留函式相容但安全早退
   pl.innerHTML = ''
 
   // ── 1. Routing filter: state-driven, no hardcode ─────────────
