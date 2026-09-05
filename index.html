@@ -1226,7 +1226,7 @@ const PORTFOLIO_STATE = {
     { id:'ARM_Wheel',      acct:'嘉信', type:'Put Spread',     col:'#F0A500', typeGroup:'wheel',       open:0, closed:1, totalProfit:32,   totalLoss:0,   currentPrem:32,  monthPnl:32,    monthNote:'C1 淨利 $32', note:'[C1] 370P/325P·06/05 ✅ 1天平倉 淨利$32（收$1,234·還$1,202）' },
     { id:'QQQ_PMCC',       acct:'第一', type:'PMCC',           col:'#3FB950', typeGroup:'pmcc',       open:2, closed:2, totalProfit:15412, totalLoss:0,  currentPrem:715, monthPnl:2073,  monthNote:'690C LEAPS +$3,956(方向性) + 710C −$2,016 + 770C +$490(80%) + 775C +$548(76.6%)', note:'690C→685C LEAPS換約：690C平倉 realized +$3,956（proceeds17806−cost13850）· 710C短Call realized −$2,016 · 770C +$490 · 775C +$548 · 685C 新底層 cost $17,950' , broker:'第一', emoji:'📈', iconColor:'#3FB950', iconBg:'rgba(56,139,253,0.12)', name:'QQQ PMCC', sub:'LEAPS 685C (5/28) + SELL 775C (07/17) · ×1', cashflow:'+$2,073', totalPnl:2978, expiry:'07/17', exp:'2026-07-17', status:'ok', statusLabel:'正常', civBeta:{val:0.02,bm:'QQQ'}, legs:[{type:'BUY CALL',strike:'685C · 2028/12 · ×1 · 買@$179.50',pnl:'新底層 成本 $17,950 (2026-05-28)',pos:false},{type:'SELL CALL',strike:'775C · 07/17 · ×1 · 賣@$7.15',pnl:'+$715 已收 (2026-06-17)',pos:true},{type:'CLOSED',strike:'770C 06/26·×1 · 買回 06/09 @$1.20',pnl:'+$490 已實現 (80%)',pos:true},{type:'CLOSED',strike:'690C LEAPS 平倉 06/01 @178.06',pnl:'+$3,956 資本利得(方向性)',pos:true},{type:'CLOSED',strike:'710C 06/05 · 買回 06/01 @28.84',pnl:'−$2,016 已實現(短Call)',pos:false}], details:[{label:'LEAPS',val:'685C × 1 · 2028/12 持倉中 · 舊690C已換 +$3,956',cls:''},{label:'SELL CALL',val:'775C × 1 · 07/17 · @$7.15 = +$715 · 06/17成交',cls:'pos'},{label:'口徑① 策略總損益',val:'+$2,978（含690C資本利得3956−710C 2016+770C 490+775C 548）',cls:'pos'},{label:'口徑② EV(可重複Cycle)',val:'−$978（710C−2016+770C490+775C548 · 不含LEAPS方向性）',cls:'warn'},{label:'770C 已平',val:'+$490 (80%) · 06/09',cls:'pos'}] },
     { id:'QQQ_豪華摩天輪', acct:'第一', type:'Wheel/Put Spread',col:'#D29922', typeGroup:'wheel',      open:3, closed:3, totalProfit:1525, totalLoss:0,  currentPrem:2520, monthPnl:4045,  monthNote:'C1 $491 + C2 $513(已平 06/15 80%) + C3 $521(07/03@2.22平 70%) + C4 $761 + C5 $953 + C6 $806(08/14到期歸零100%)', note:'[C1] 665P/598P·06/05 ✅淨$491 | [C2] 688P/620P·06/26 ✅淨$513(80%) | [C3] 680P/590P·07/10 ✅07/03@2.22平 淨$521(70%) | [C4] 709P/630P·07/17 OTM+14 | [C5] 680P/590P·08/07 | [C6] 687P/600P·08/14 ×1 嘉信 ✅08/14到期歸零 +$806(100%)' , broker:'第一', emoji:'🎡', iconColor:'#D29922', iconBg:'rgba(210,153,34,0.12)', name:'QQQ 豪華摩天輪 · C6+C7 + 承接結構', sub:'C7 650P·08/21(嘉信) + 承接650C/750C/770C · C6已歸零✅', cashflow:'+$4,843', totalPnl:6068, expiry:'08/21', exp:'2026-08-21', status:'ok', sellStrike:687, underlying:'QQQ', statusLabel:'C6到期歸零+$806✅ · C7收租中·08/21到期', civBeta:{val:0.09,bm:'QQQ'}, legs:[{type:'CLOSED',strike:'C3 680P/590P · 07/10 · 07/03@$2.22平',pnl:'+$521 已實現(70%)',pos:false},{type:'CLOSED',strike:'C4 709P/630P · 07/17 獲利承接@5.33',pnl:'+$228 已實現 (30%)',pos:true},{type:'BUY CALL',strike:'650C · 2027/09/17 · ×1 · 買@132.48',pnl:'深價內轉換 · 內在$58 · 427DTE',pos:true},{type:'SELL CALL',strike:'750C · 08/21 · ×1 · 賣@5.28',pnl:'+$528 已收 · 現$4.97',pos:true},{type:'CLOSED',strike:'C5 680P/590P · 08/07 到期歸零',pnl:'+$953 已實現 (100%) · Theta完整收割',pos:true},{type:'SELL PUT',strike:'687P · 08/14 · ×1 · C6 嘉信',pnl:'credit $806 · 現$16.49 ⚠️OTM+8',pos:true},{type:'BUY PUT',strike:'600P · 08/14 · ×1 · C6保護 嘉信',pnl:'保護腿 · 現$2.38',pos:false},{type:'SELL PUT',strike:'650P · 08/21 · ×1 · C7 嘉信',pnl:'+$1,032收 · 淨credit $842 · 07/18新開',pos:true},{type:'BUY PUT',strike:'565P · 08/21 · ×1 · C7保護 嘉信',pnl:'保護腿 · 買@$1.90',pos:false}], details:[{label:'C4 結算 ✅',val:'原Spread仍獲利 · 主動限價承接@5.33 · 淨+$228 (30%) · QQQ@708',cls:'pos'},{label:'承接結構',val:'BUY 650C 27/09(@132.48·深價內) + SELL 750C 08/21(@5.28)',cls:'warn'},{label:'生命週期',val:'Wheel承接轉PMCC · 既有摩天輪的生命週期轉換 · 非新策略',cls:''},{label:'平倉規則',val:'外在價值 < $1（深度ITM）才平倉 → 轉深價內 BUY CALL',cls:''},{label:'開倉規則 2.0',val:'高獲利→觀察期 · 下跌+IV高+更低履約+BP允許 才開新組（07/15備忘錄）',cls:''},{label:'C6 現況',val:'08/14 · 687P/600P · QQQ 723 · OTM+36(5.2%) · 收租中 · Phase自動追蹤',cls:'pos'},{label:'C7 新開',val:'08/21 · 650P/565P ×1 · 嘉信 · QQQ-2%+IV>70 條件驅動 · 淨收$842 · 34 DTE',cls:'pos'},{label:'C5 結算 ✅',val:'08/07 到期 · 680P/590P · QQQ 723 全OTM · 自動歸零 · +$953 (100%)',cls:'pos'},{label:'C3 結算',val:'+$521 已實現(70%) · 07/03@$2.22平倉 · QQQ-12觸2%警戒',cls:'pos'},{label:'Cycle 2',val:'淨利 $513 ✅',cls:'pos'},{label:'Cycle 1',val:'淨利 $491 ✅',cls:'pos'},{label:'EV/Trade',val:'+$508 avg (3 closed)',cls:'pos'}] },
-    { id:'SPY_BlackSwan',  acct:'嘉信', type:'黑天鵝避險',     col:'#F85149', typeGroup:'blackswan',  open:1, closed:0, totalProfit:576,  totalLoss:0,  currentPrem:576, monthPnl:576,   monthNote:'Step2 685P 淨信用 $576 · Phase2 Roll -$2,955（保護層成本，另計）', note:'【第一組】GTC#1 675P 成交 05/29 · Phase2: 675P@7.70→5.09(回收$2,545) · 換入695P OCT30@$11.00(成本$5,500) · 淨Roll -$2,955 / 單腿realized -$1,305(會計) | 【第二組】710P ×3 SELL ✅ · GTC@0.20待平 | 【第三組 07/08】698P ×3 SELL @12.80 ✅(+$3,840) | 【保護腿 rollover】原第二組保護腿老化→改掛120DTE→08/10 BUY 700P NOV30 ×5 @7.60 成交(撮合33天·生命週期延續) · 規則:<90DTE需rollover至110~130DTE' , broker:'嘉信', emoji:'🦢', iconColor:'#E24B4A', iconBg:'rgba(226,75,74,0.12)', name:'SPY Black Swan', sub:'Step 1-3 · SEP18/OCT30/NOV30 · 保護腿已 rollover', cashflow:'中性', totalPnl:576, expiry:'SEP18', exp:'2026-09-18', status:'ok', statusLabel:'保護腿rollover✅700P NOV30(112DTE) · 生命週期延續', civBeta:{val:0.0,bm:'SPY'}, legs:[{type:'SELL PUT',strike:'745P × 6 · SEP18',pnl:'+$17,208',pos:true},{type:'BUY PUT',strike:'690P × 12 · SEP18',pnl:'-$16,632',pos:false},{type:'SELL PUT',strike:'685P × 3 · SEP18',pnl:'+$3,915 · GTC@0.20待平',pos:true},{type:'SELL PUT',strike:'710P × 3 · SEP18',pnl:'GTC @0.20 待平倉',pos:true},{type:'CLOSED',strike:'675P × 5 · SEP18 · 07/01@$5.09賣出',pnl:'-$1,305 已實現'},{type:'BUY PUT',strike:'695P × 5 · OCT30 · Phase2',pnl:'✅ 07/01 @$11.00 · 121 DTE',pos:true},{type:'SELL PUT',strike:'698P × 3 · OCT30 · 第三組',pnl:'+$3,840 已收 · 07/08 @$12.80',pos:true},{type:'BUY PUT',strike:'695P × 5 · OCT30 · 第三組',pnl:'GTC @7.56 待成交 · mark $10.96',pos:false}], details:[{label:'第三組 07/08',val:'SPY -1%觸發 · 698P×3 SELL @12.80 (+$3,840) · 695P×5 BUY GTC@7.56 待成交',cls:'warn'},{label:'主體到期',val:'SEP18 · Phase2保護延至 OCT30',cls:''},{label:'Phase2滾倉',val:'675P@7.70→@5.09平(-$1,305) · 換入695P OCT30@$11.00',cls:'warn'},{label:'GTC待平',val:'685P×3 + 710P×3 + 698P×3 各@0.20 等待中',cls:'warn'},{label:'結構狀態',val:'第一組完整 · 第二三組 SELL✅/BUY待成交 · 保護延至 OCT30',cls:'pos'}] },
+    { id:'SPY_BlackSwan',  acct:'嘉信', type:'黑天鵝避險',     col:'#F85149', typeGroup:'blackswan',  open:1, closed:0, totalProfit:576,  totalLoss:0,  currentPrem:576, monthPnl:576,   monthNote:'Step2 685P 淨信用 $576 · Phase2 Roll -$2,955（保護層成本，另計）', note:'【第一組】GTC#1 675P 成交 05/29 · Phase2: 675P@7.70→5.09(回收$2,545) · 換入695P OCT30@$11.00(成本$5,500) · 淨Roll -$2,955 / 單腿realized -$1,305(會計) | 【第二組】710P ×3 SELL ✅ · GTC@0.20待平 | 【第三組 07/08】698P ×3 SELL @12.80 ✅(+$3,840) | 【保護腿 rollover】原第二組保護腿老化→改掛120DTE→08/10 BUY 700P NOV30 ×5 @7.60 成交(撮合33天·生命週期延續) · 規則:<90DTE需rollover至110~130DTE' , broker:'嘉信', emoji:'🦢', iconColor:'#E24B4A', iconBg:'rgba(226,75,74,0.12)', name:'SPY Black Swan', sub:'Step 1-3 · SEP18/OCT30/NOV30 · 保護腿已 rollover', cashflow:'中性', totalPnl:576, expiry:'SEP18', exp:'2026-09-18', status:'ok', statusLabel:'保護腿rollover✅700P NOV30(112DTE) · 生命週期延續', civBeta:{val:0.0,bm:'SPY'}, legs:[{type:'SELL PUT',strike:'745P × 6 · SEP18',pnl:'+$17,208',pos:true},{type:'BUY PUT',strike:'690P × 6 · SEP18（原×12，09/04賣6@.195）',pnl:'長保護腿 · 減半維持組合平衡',pos:false},{type:'CLOSED',strike:'685P × 3 · SEP18 · 09/03 @0.20 買回',pnl:'收租腿鎖利 · 買回$60'},{type:'SELL PUT',strike:'710P × 3 · SEP18',pnl:'GTC @0.20 待平倉',pos:true},{type:'CLOSED',strike:'675P × 5 · SEP18 · 07/01@$5.09賣出',pnl:'-$1,305 已實現'},{type:'BUY PUT',strike:'695P × 5 · OCT30 · Phase2',pnl:'✅ 07/01 @$11.00 · 121 DTE',pos:true},{type:'SELL PUT',strike:'698P × 3 · OCT30 · 第三組',pnl:'+$3,840 已收 · 07/08 @$12.80',pos:true},{type:'BUY PUT',strike:'695P × 5 · OCT30 · 第三組',pnl:'GTC @7.56 待成交 · mark $10.96',pos:false}], details:[{label:'第三組 07/08',val:'SPY -1%觸發 · 698P×3 SELL @12.80 (+$3,840) · 695P×5 BUY GTC@7.56 待成交',cls:'warn'},{label:'主體到期',val:'SEP18 · Phase2保護延至 OCT30',cls:''},{label:'Phase2滾倉',val:'675P@7.70→@5.09平(-$1,305) · 換入695P OCT30@$11.00',cls:'warn'},{label:'GTC待平',val:'685P×3 + 710P×3 + 698P×3 各@0.20 等待中',cls:'warn'},{label:'結構狀態',val:'第一組完整 · 第二三組 SELL✅/BUY待成交 · 保護延至 OCT30',cls:'pos'}] },
     { id:'IBIT_和牛',      acct:'第一', type:'和牛策略',        col:'#BC8CFF', typeGroup:'other',      open:1, closed:0, totalProfit:0,    totalLoss:0,  currentPrem:0,   monthPnl:0,     monthNote:'長線持有，不計入月現金流', note:'35C/30P·2028/06·長線持有' , broker:'第一', emoji:'🐂', iconColor:'#BC8CFF', iconBg:'rgba(188,140,255,0.12)', name:'IBIT 和牛策略', sub:'35C BUY + 30P SELL · 2028/06', cashflow:'+$459', expiry:'2028/06', exp:'2028-06-16', status:'ok', statusLabel:'長線持有', civBeta:{val:0.02,bm:'IBIT'}, legs:[{type:'BUY CALL',strike:'35C · 2028/06 · Δ0.85',pnl:'+$260 浮盈',pos:true},{type:'SELL PUT',strike:'30P · 2028/06 · Δ-0.14',pnl:'+$199 浮盈',pos:true}], details:[{label:'到期日',val:'2028-06-16 · 長線',cls:''},{label:'接貨準備金',val:'$3,000 鎖定',cls:''},{label:'決策',val:'IBIT > 35 最理想，持有',cls:''}] },
     { id:'IBIT_PMCC',      acct:'第一', type:'PMCC SELL',      col:'#7B8EC8', typeGroup:'other',       open:0, closed:1, totalProfit:96,   totalLoss:0,  currentPrem:96,  monthPnl:96,    monthNote:'46C 到期 $96', note:'46C·05/15到期收割 ✅' },
     { id:'MSFT_Wheel',     acct:'嘉信', type:'Put Spread',     col:'#0277BD', typeGroup:'other',      open:0, closed:1, totalProfit:60,   totalLoss:0,  currentPrem:60,  monthPnl:60,    monthNote:'平倉 $60', note:'400P/345P·05/13提前平倉 ✅ 淨得$60' },
@@ -1271,7 +1271,7 @@ const PORTFOLIO_STATE = {
       netEntry: 581,   // 建倉時的淨信用
       legs: {
         sell745P: { qty:6,  entry:28.68, close:null, closeDate:null },
-        buy690P:  { qty:12, entry:13.86, close:null, closeDate:null },
+        buy690P:  { qty:12, entry:13.86, close:null, closeDate:null, soldEarly:6, soldAvg:0.195, soldDate:'2026-09-04', remaining:6, soldNote:'對應 685P SELL×3 買回，賣出對應長腿維持 BUY/SELL 組數平衡；深OTM(SPY770>>690)風險已低可提前出售；掛單+手機重複成交共賣 6 口(3@.19 + 3@.20)，回收約$117' },
         sell685P: { qty:3,  entry:13.05, close:0.20, closeDate:'2026-09-03', gtcTarget:0.20, gtcFilled:true },
         buy675P:  { qty:5,  entry:7.70,  close:7.70, closeDate:'2026-05-29', daysHeld:14 }  // GTC#1 成交
       },
@@ -1283,7 +1283,7 @@ const PORTFOLIO_STATE = {
       vixAtClose: null,
       completedGroups: 1,   // GTC#1 675P 已成交 2026-05-29
       outcome: 'open',
-      notes: 'Step1 RBS資金層 + Step2 黑天鵝點火 + GTC#1 675P 成交 2026-05-29 · GTC#2 685P ×3 買回 @0.20 成交 2026-09-03（收租腿鎖利 · 買回成本已於建倉時計入）· 745P/690P 續持'
+      notes: 'Step1 RBS資金層 + Step2 黑天鵝點火 + GTC#1 675P 成交 2026-05-29 · GTC#2 685P ×3 買回 @0.20 成交 2026-09-03（收租腿鎖利 · 買回成本已於建倉時計入）· 745P → 續持6口SELL；690P ×12 → ×6：09-04 賣出 6 口 @avg .195（對應 685P 買回維持組合平衡）'
     },
     {
       id: 'BS_0604',
@@ -5171,7 +5171,6 @@ function _mrClosedCycles(S, mo){
   var rows=deriveClosedCycles(S.trades).filter(function(c){
     return (c.closeDate||'').slice(0,7)===mo && !c.isUnderlying && typeof c.realized==='number' })
     .sort(function(a,b){ return a.closeDate<b.closeDate?-1:1 })
-  if(!rows.length) return '<div style="font-size:10px;color:#5A6278">本月無完成策略</div>'
   function item(c){
     var pos=c.realized>=0, col=pos?'#00C896':'#FF4B5C'
     var sn=c.strategyName||c.currentStrategy||''
@@ -5185,11 +5184,38 @@ function _mrClosedCycles(S, mo){
       +'<div style="font-size:11px;color:'+col+';font-weight:600;padding-left:15px">'+(pos?'+':'')+_mrMoney(c.realized)+pct+'</div>'
       +'</div>'
   }
-  var head=rows.slice(0,8).map(item).join('')
-  if(rows.length<=8) return head
-  return head
-    +'<div id="mc-more-'+mo+'" style="display:none">'+rows.slice(8).map(item).join('')+'</div>'
-    +'<div onclick="_mrMoreCycles(\''+mo+'\',this)" style="font-size:10px;color:#4A9EFF;cursor:pointer;padding:4px 0;user-select:none">＋'+(rows.length-8)+' 個完成策略 ▾</div>'
+  var listHtml=''
+  if(rows.length){
+    listHtml=rows.slice(0,8).map(item).join('')
+    if(rows.length>8){
+      listHtml+='<div id="mc-more-'+mo+'" style="display:none">'+rows.slice(8).map(item).join('')+'</div>'
+        +'<div onclick="_mrMoreCycles(\''+mo+'\',this)" style="font-size:10px;color:#4A9EFF;cursor:pointer;padding:4px 0;user-select:none">＋'+(rows.length-8)+' 個完成策略 ▾</div>'
+    }
+  }
+  // ── V13.82 完整策略結案摘要（純視覺化，不進 EV / 不進月度 realized；不改 trades / 計算邏輯）──
+  // 觸發：某 strategyId 的 underlying LEAPS 於本月平倉，且該策略已無任何 open 腿（生命週期完結）
+  var allCyc=deriveClosedCycles(S.trades)
+  var monthCyc=allCyc.filter(function(c){ return (c.closeDate||'').slice(0,7)===mo && typeof c.realized==='number' })
+  var openStrat={}
+  ;(S.trades||[]).forEach(function(t){ if(t.action==='OPEN' && t.status==='open') openStrat[t.strategyId]=1 })
+  var doneSids={}
+  monthCyc.forEach(function(c){ if(c.isUnderlying && !openStrat[c.strategyId]) doneSids[c.strategyId]=1 })
+  var sumHtml=Object.keys(doneSids).map(function(sid){
+    var comps=monthCyc.filter(function(c){ return c.strategyId===sid })
+    var leaps=comps.filter(function(c){return c.isUnderlying}).reduce(function(s,c){return s+c.realized},0)
+    var shortR=comps.filter(function(c){return !c.isUnderlying}).reduce(function(s,c){return s+c.realized},0)
+    var net=leaps+shortR
+    var sn=(comps.filter(function(c){return c.isUnderlying})[0]||comps[0]||{}).strategyName||sid
+    var nc=net>=0?'#00C896':'#FF4B5C', lc=leaps>=0?'#7EE787':'#FF4B5C', sc=shortR>=0?'#00C896':'#FF4B5C'
+    return '<div style="margin-top:8px;padding:8px 10px;border:.5px solid #2A3550;border-radius:8px;background:linear-gradient(135deg,#0C1220,#0A0E18)">'
+      +'<div style="font-size:11px;color:#BC8CFF;font-weight:600;margin-bottom:3px">🎯 完整策略結案 · '+sn+'</div>'
+      +'<div style="font-size:10px;color:#8A96AD;line-height:1.7">LEAPS 資本利得 <span style="color:'+lc+'">'+(leaps>=0?'+':'')+_mrMoney(leaps)+'</span> · Short Call <span style="color:'+sc+'">'+(shortR>=0?'+':'')+_mrMoney(shortR)+'</span></div>'
+      +'<div style="font-size:12px;font-weight:700;color:'+nc+';margin-top:2px">完整策略淨結果 '+(net>=0?'+':'')+_mrMoney(net)+'</div>'
+      +'<div style="font-size:8px;color:#5A6278;margin-top:2px">（策略層視覺化摘要 · 不重複計入 EV / 月度 realized）</div>'
+    +'</div>'
+  }).join('')
+  if(!listHtml && !sumHtml) return '<div style="font-size:10px;color:#5A6278">本月無完成策略</div>'
+  return listHtml + sumHtml
 }
 function _mrMoreCycles(mo, elx){
   var d=document.getElementById('mc-more-'+mo); if(!d) return
