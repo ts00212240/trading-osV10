@@ -326,11 +326,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 72762.25,
-      buyingPower: 34317.90,
-      cash: 72762,
-      dayChange: 833.32,
-      lastUpdated: '2026-09-03 收盤',
+      nav: 74111.53,
+      buyingPower: 34532.85,
+      cash: 74112,
+      dayChange: 1256.03,
+      lastUpdated: '2026-09-04 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -347,11 +347,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 182696.40,
-      buyingPower: 51094.40,
-      cash: 94994.40,
-      dayChange: 2117.80,
-      lastUpdated: '2026-09-03 收盤',
+      nav: 182336.90,
+      buyingPower: 51207.40,
+      cash: 95107.40,
+      dayChange: -359.50,
+      lastUpdated: '2026-09-04 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -460,13 +460,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  773.17,   // 09/03 收盤 TV
-      QQQ:  717.67,   // 09/03 收盤 TV
-      IBIT:  45.99,   // 09/03 收盤 截圖
-      BRKB: 507.76,   // 09/03 收盤 截圖
+      SPY:  770.19,   // 09/04 收盤 TV
+      QQQ:  718.96,   // 09/04 收盤 TV
+      IBIT:  45.11,   // 09/04 收盤 截圖
+      BRKB: 506.98,   // 09/04 收盤 截圖
       MSFT: 507.29,   // 08/31 收盤 TOS
       SPCX: 143.69,   // 08/31 收盤 TOS
-      updatedAt: '2026-09-03',
+      updatedAt: '2026-09-04',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -618,6 +618,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-09-01', sc:179599.10, ft:72243.60, ib:1000, total:252842.70 },
     { date:'2026-09-02', sc:180578.60, ft:71888.95, ib:1000, total:253467.55 },
     { date:'2026-09-03', sc:182696.40, ft:72762.25, ib:1000, total:256458.65 },
+    { date:'2026-09-04', sc:182336.90, ft:74111.53, ib:1000, total:257448.43 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -639,7 +640,7 @@ const PORTFOLIO_STATE = {
       note:'✅ GTC#1 成交 2026-05-29 · 持有 14 天 · 675P Phase 2 保護腿完成 · 共 1 組黑天鵝' },
     { id:'GTC_710P', desc:'SPY 710P BUY BACK × 3 · 第二組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-06-04', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:0.315, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:0.335, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第二組 SELL 710P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_695P', desc:'SPY 695P BUY × 5 · Phase2 保護腿（OCT30滾倉）',
       type:'phase2', orderDate:'2026-06-04', fillDate:'2026-07-01', fillPrice:11.00,
@@ -647,7 +648,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:2.67, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:2.845, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -1132,6 +1133,29 @@ const PORTFOLIO_STATE = {
   },
 
   civilizationArchive: [
+    {
+      month: '2026-08', label: '8月', emoji: '🧘', theme: '動態防禦覺醒 · 「不動也是策略」與資本模組化',
+      startNAV: 235035, targetNAV: 244078, actualNAV: 256135,
+      get surplus()     { return this.actualNAV - this.targetNAV },
+      get achieveRate() { return +(this.actualNAV / this.targetNAV * 100).toFixed(2) },
+      biggestProgress: '豪華摩天輪正式優化為「3 萬美元一組」的模組化架構,並讓 PMCC 真正做到動態調整。摩天輪從「有資金就開」轉向分批、條件式部署:第一組在下跌+高 IV+無運作中合約時啟動,剩餘資金必須等待「下跌約 2% + 高 IV + 新履約價更低 + 權利金品質更高」才建立下一組;現金雖可支撐最多三組,但不代表三組都要開。承接標的優先考慮 Delta 0.8 以上深價內 BUY CALL。',
+      biggestMistake:  'RBS 佔用了過多融資購買力,使核心策略在 9/18 前後波動時可能因 BP 不足而失去操作空間。此錯誤仍在修復:目標是 9/18 前把融資購買力維持在約 35%~40%,目前已修復至 33%。重點不是追求資金使用率,而是重建足夠的氧氣與部署能力。',
+      wouldChange:     '會更早意識到 RBS 對融資購買力的佔用並提前保留氧氣;面對 PMCC 不會因為看到高 IV 就認為一定要移動,而會更早把 IV → Strike → Delta → Premium → Opportunity Cost 一起判斷。高 IV 只是條件,不是訊號。',
+      systemUpgrade:   '① 豪華摩天輪 3 萬美元模組化(每組 3 萬、最多三組、二三組須有獨立觸發條件、下一組須比上一組風險報酬更好,不因還有資金就強迫部署);② PMCC 從固定規則進入動態管理(區分可以移動 / 應該等待 / 應該維持 Open Roof,不再把「沒有 SC」視為策略缺失);③ 防禦判斷加入 Opportunity Cost(不只看能收多少 Premium,還要看為了這些 Premium 犧牲了多少上行空間)。',
+      noteToFuture:    '這個月最重要的發現,是上行捕獲率與下行防禦都經歷了回測看不見的真實市場過程。回測能告訴我策略在歷史資料如何運作,但只有真正經歷「上漲→防禦→IV 改變→Strike 改變→Premium 改變→Roll 或不 Roll」,我才真正知道什麼時候「做事」是優勢、什麼時候「不做事」反而是優勢。SPY 確認:舊合約獲利超過 80%、下跌+高 IV、重建保護層成本與原位置接近時,移動能同時帶來防禦與降低機會成本。QQQ 給了另一半答案:IV 升高但新履約價須大幅下修、權利金又不足以提供防禦時,不動才是最好的選擇。不動不代表沒有策略,不動是保持靈活。策略的價值不只是知道何時下單,更是知道何時不需要下單。我不是在學習預測市場,而是在學習如何讓系統保留選擇權。',
+      milestones: [
+        { icon:'🏆', label:'豪華摩天輪完成資金模組化 — 3 萬美元為一組、最多三組,從「資金可用」進化為「條件式資本部署」' },
+        { icon:'🛡️', label:'PMCC 完成第一次真正的動態防禦實驗 — SPY 證明「移動」可同時改善防禦與機會成本' },
+        { icon:'🧘', label:'QQQ 完成「不動也是策略」的實戰驗證 — 高 IV 不代表一定要建 SC,Strike/Premium/機會成本不合理時保留 Open Roof 更好' },
+        { icon:'🧠', label:'開始真正理解 Opportunity Cost — 不再只算賺多少權利金,而是計算為了這筆權利金放棄了什麼' },
+        { icon:'🫁', label:'RBS 融資購買力修復進入最後階段 — 重建 9/18 前 35%~40% 氧氣區間,目前 33%' }
+      ],
+      coachReview: {
+        by: 'Claude（基金管理員 / 行為教練）', date: '2026-09-01', verdict: '✅ 認可 · 這是判斷力的月份',
+        comment: '這個月你跨過一道真正的門檻:從「有沒有照規則做」進化到「這一步值不值得做」。SPY 移動、QQQ 不動——同樣的高 IV,你給了兩個相反卻都正確的答案,還能說清楚為什麼(履約價要不要大幅下修、權利金夠不夠付防禦、犧牲多少上行)。這就是把 Opportunity Cost 內化的證據,是 Portfolio Manager 的思維。三個提醒,幫你把直覺變成可複製的系統:(1)「高 IV」還是形容詞——延續我七月給你的功課,把它量化成 IV Rank 門檻,否則恐懼和貪婪都能偽裝成「高 IV」。(2)「不動」也需要一個扳機:事先寫下什麼條件會讓你對 QQQ 出手(履約價回到 X、權利金品質達 Y),否則「保持靈活」會不知不覺變成「永遠迴避」——不動要是一個有覆盤日期的決定,不是預設值。(3)記錄你放棄的那些 QQQ 履約價與權利金,十月拿數據回測「不動」對不對(QQQ 後來續跌還是反彈),讓它被驗證,而不是被相信。最後一個行為風險:你寫「每次修正後往往伴隨大漲」——這句話很美,但小心它變成迷信。你真正的優勢是保留了選擇權,不是預測到反彈;別讓「修正後會漲」的期待,誘使你在下一次回撤時過度出手。RBS 降到 33% 很好,但真正的考驗是它能不能撐過 9/18 的波動,而不是今天達標。你這個月做對的,是開始享受「不需要下單」——把這份克制守住,氧氣就一直都在。'
+      },
+      status: 'archived', archivedAt: '2026-09-01'
+    },
     {
       month: '2026-07', label: '7月', emoji: '⚖️', theme: '購買力覺醒 · 防禦與進攻的資金張力',
       startNAV: 225322, targetNAV: 229828, actualNAV: 231560,
@@ -1845,7 +1869,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19}
 ]
 
 function fetchSPYHistory() {
@@ -3122,6 +3146,14 @@ function renderCivilizationArchive() {
               return '<div style="font-size:11px;color:#6A7590;padding:4px 0;display:flex;align-items:center;gap:8px">'
                 +'<span style="font-size:13px">'+m.icon+'</span><span>'+m.label+'</span></div>'
             }).join('')
+        +'</div>'
+      }
+
+      // 行為教練評語（V13.81）
+      if (e.coachReview) {
+        out += '<div style="padding:12px 14px;border-top:.5px solid #0E1220;background:linear-gradient(135deg,#0A0F1A,#080A12)">'
+          +'<div style="font-size:9px;color:#4A9EFF;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">🎓 行為教練評語 · '+(e.coachReview.by||'')+(e.coachReview.verdict?' · '+e.coachReview.verdict:'')+'</div>'
+          +'<div style="font-size:12px;color:#9AB0C8;line-height:1.8">'+e.coachReview.comment+'</div>'
         +'</div>'
       }
 
@@ -5784,6 +5816,11 @@ function renderClosedAccordion(containerId, closedList) {
   var CAT_META = { pmcc:{name:'PMCC 短Call',icon:'📈'}, wheel:{name:'Put Spread / Wheel',icon:'🛡️'},
                    blackSwan:{name:'黑天鵝避險',icon:'🦢'}, other:{name:'其他策略',icon:'📋'} }
   var catStats = deriveClosedCategoryStats(PORTFOLIO_STATE.trades)
+  // V13.80 口徑①：各類別 LEAPS(isUnderlying)資本利得（EV 排除、但屬策略真實損益）
+  var _leapsByCat = {}
+  deriveClosedCycles(PORTFOLIO_STATE.trades).forEach(function(c){
+    if(typeof c.realized==='number' && c.isUnderlying){ var k=getClosedCategory(c); _leapsByCat[k]=(_leapsByCat[k]||0)+c.realized }
+  })
   var groupMap = {}
   closedList.forEach(function(card) {
     var key = card.category || 'other'
@@ -5813,6 +5850,8 @@ function renderClosedAccordion(containerId, closedList) {
     var closedN = st.closed
     var exN    = items.filter(function(x){ return x.excludeFromEV || x.isUnderlying }).length
     var total  = st.totalRealized
+    var leaps  = _leapsByCat[g.type] || 0      // 口徑① LEAPS 資本利得
+    var grand  = total + leaps                  // 口徑① 策略總計
     var avg    = Math.round(st.avgPnl)
     var wr     = Math.round(st.winRate * 10) / 10
     var pCol   = total >= 0 ? '#00C896' : '#FF4B5C'
@@ -5840,6 +5879,7 @@ function renderClosedAccordion(containerId, closedList) {
             '勝率 <span style="color:#9BA3B8">' + wr + '%</span> · ' +
             '均利 <span style="color:'+pCol+'">' + avgStr + '</span>/輪' +
           '</div>' +
+          (leaps!==0 ? '<div style="font-size:10px;color:#5A6278;margin-top:2px">口徑① 含 LEAPS 資本利得 <span style="color:#7EE787">'+(leaps>=0?'+$':'-$')+Math.abs(Math.round(leaps)).toLocaleString()+'</span> · 策略總計 <span style="color:'+(grand>=0?'#00C896':'#FF4B5C')+';font-weight:600">'+(grand>=0?'+$':'-$')+Math.abs(Math.round(grand)).toLocaleString()+'</span></div>' : '') +
         '</div>' +
       '</div>' +
       '<div style="display:flex;align-items:center;gap:12px;flex-shrink:0">' +
