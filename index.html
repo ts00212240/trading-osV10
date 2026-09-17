@@ -239,6 +239,7 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
     <div class="chart-card"><div class="chart-title"><span>Portfolio vs SPY Benchmark</span><div style="display:flex;gap:10px;font-size:10px"><span style="color:#00C896">● Portfolio</span><span style="color:#F0A500">● SPY</span></div></div><div class="chart-h"><canvas id="ec-chart"></canvas></div></div>
     <div class="sec">最大回撤 Drawdown</div>
     <div class="chart-card"><div class="chart-title"><span>Drawdown %</span><span id="kpi-mxdd-title" style="font-size:11px;color:#FF4B5C">—</span></div><div class="chart-h"><canvas id="dd-chart"></canvas></div></div>
+    <div id="home-drawdown-detail" style="padding:0 16px 4px"></div>
     <div class="sec">月度權利金 · Collected vs Realized</div>
     <div class="chart-card"><div class="chart-title"><span>Premium Collected vs Realized P/L</span><span id="kpi-prem-title" style="font-size:11px;color:#00C896">—</span></div><div class="chart-h"><canvas id="pm-chart"></canvas></div><div style="font-size:9px;color:#5A6278;padding:2px 4px 0;line-height:1.5">🟢 Collected = 當月開倉實收 credit（現金已進帳，未實現）· 🔵 Realized = 當月完成交易實現損益（含負數）· Cash received ≠ realized profit</div></div>
     <div class="sec">績效指標</div>
@@ -326,11 +327,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 71378.69,
-      buyingPower: 34259.57,
-      cash: 71379,
-      dayChange: -2231.97,
-      lastUpdated: '2026-09-15 收盤',
+      nav: 71802.58,
+      buyingPower: 34328.22,
+      cash: 71803,
+      dayChange: 338.89,
+      lastUpdated: '2026-09-16 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -347,11 +348,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 179593.95,
-      buyingPower: 84087.46,
-      cash: 94149.45,
-      dayChange: -961.46,
-      lastUpdated: '2026-09-15 收盤',
+      nav: 177877.89,
+      buyingPower: 75445.09,
+      cash: 96970.39,
+      dayChange: -1716.06,
+      lastUpdated: '2026-09-16 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -468,13 +469,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  757.39,   // 09/15 收盤 TV
-      QQQ:  704.54,   // 09/15 收盤 TV
-      IBIT:  43.11,   // 09/15 收盤 截圖
-      BRKB: 516.76,   // 09/15 收盤 截圖
+      SPY:  754.05,   // 09/16 收盤 TV
+      QQQ:  704.72,   // 09/16 收盤 TV
+      IBIT:  43.17,   // 09/16 收盤 截圖
+      BRKB: 519.29,   // 09/16 收盤 截圖
       MSFT: 507.29,   // 08/31 收盤 TOS
       SPCX: 143.69,   // 08/31 收盤 TOS
-      updatedAt: '2026-09-15',
+      updatedAt: '2026-09-16',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -633,6 +634,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-09-11', sc:181968.41, ft:73551.62, ib:1000, total:256520.03 },
     { date:'2026-09-12', sc:180555.41, ft:73546.96, ib:1000, total:255102.37 },
     { date:'2026-09-15', sc:179593.95, ft:71378.69, ib:1000, total:251972.64 },
+    { date:'2026-09-16', sc:177877.89, ft:71802.58, ib:1000, total:250680.47 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -662,7 +664,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:3.54, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:3.865, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -675,6 +677,12 @@ const PORTFOLIO_STATE = {
       limitPrice:0.20, currentMark:0.20, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'Short PUT 買回單，Theta 自然吃掉後自動成交，偏差高屬預期行為',
       deviationNote: 'Theta 歸零策略 · 合約尚未大幅吃值，偏差屬預期行為，無需審查' },
+    { id:'GTC_705P_JAN', desc:'SPY 705P JAN15 BUY × 5 · 第四組尾部保護腿',
+      type:'phase2', purpose:'第四組黑天鵝尾部保護（配 729P 收租腿）', action:'BUY TO OPEN',
+      contract:'SPY 705P', expiration:'2027-01-15', quantity:5,
+      orderDate:'2026-09-16', fillDate:null, fillPrice:null,
+      limitPrice:5.52, currentMark:11.795, broker:'嘉信', strategy:'SPY_BlackSwan',
+      note:'BS_0916 尾部保護腿 · BUY 705P ×5 @5.52 GTC · 歷史新低權利金掛單 · 可能很晚才成交 · 配 729P ×3 SELL 收租腿(已成交 @9.41)' },
   ],
 
   // ── 文明旅程 事件（重大節點）──────────────────────────────────
@@ -1342,6 +1350,28 @@ const PORTFOLIO_STATE = {
       completedGroups: 0,
       outcome: 'open',
       notes: '第三組黑天鵝 2026-07-08 · SPY -1% 警示觸發(11:24 EDT) · 698P ×3 SELL @12.80 成交(+$3,840) · 695P ×5 BUY GTC @7.56 待成交'
+    },
+    {
+      id: 'BS_0916',
+      startDate: '2026-09-16',
+      expiry: '2027-01-15',   // 705P 保護腿到期（15 JAN 27）
+      spyAtTrigger: 754.05,   // 09/16 收盤 · 盤中一度 -1% 觸發
+      vixAtTrigger: null,
+      trigger: 'SPY -1%',
+      netEntry: null,   // 待 705P BUY GTC 成交後計算：3×9.41×100 − 5×cost
+      legs: {
+        sell729P: { qty:3,  entry:9.41, close:null, closeDate:null, gtcTarget:0.20, gtcFilled:false },   // 30 NOV 26 · 收租腿 · 2026-09-16 成交 @9.41 (+$2,823)
+        buy705P:  { qty:5,  entry:null, close:null, closeDate:null, gtcTarget:5.52, gtcFilled:false }    // 15 JAN 27 · 尾部保護 · BUY GTC @5.52 掛單中（歷史新低權利金，可能很晚才成交）
+      },
+      sellClosed21DTE: false,
+      sellCloseCost: null,
+      buyFinalPnl: null,
+      cyclePnl: null,
+      spyAtClose: null,
+      vixAtClose: null,
+      completedGroups: 0,
+      outcome: 'open',
+      notes: '第四組黑天鵝 2026-09-16 · SPY -1% 觸發 · 延伸週期：SELL 729P ×3 @9.41 成交(+$2,823 · 30 NOV 26 收租腿) · BUY 705P ×5 @5.52 GTC 掛單中(15 JAN 27 尾部保護 · 歷史新低權利金 · 可能很晚才成交) · 用途：此收租可抵扣 BS_0516 RBS 買回成本 -$895，並以 PMCC 金額補黑天鵝承接'
     }
   ],
 
@@ -1883,7 +1913,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05}
 ]
 
 function fetchSPYHistory() {
@@ -4674,6 +4704,7 @@ function renderHome(m) {
   renderATH(m)
   renderLadder(m)
   renderRecovery(m)
+  try { renderDrawdownDetail(m) } catch(e) { console.error('[renderDrawdownDetail]', e) }   // V13.84
   renderOxygenMeter(m)
   renderMonthlyResults()   // V13.74 首頁月度結果 accordion（取代持倉）
   buildMainChart(curAcct, curRange)
@@ -5030,6 +5061,82 @@ function renderLadder(m) {
     '</div>'
 }
 
+// V13.84 資產里程碑首次突破日期（SC NAV，只鎖第一次，永不覆蓋）+ Recovery ATH（皆由 dailyEquity 自動推導，零硬編）
+function deriveMilestoneBreakthroughs(S){
+  var eq=(S.dailyEquity||[]).slice().sort(function(a,b){return a.date<b.date?-1:1})
+  var out={}
+  ;(S.milestones||[]).forEach(function(m){
+    if(m.isATH) return
+    var hit=null
+    for(var i=0;i<eq.length;i++){ if(eq[i].sc>=m.target){ hit={date:eq[i].date,value:eq[i].sc}; break } }
+    out[m.target]=hit
+  })
+  return out
+}
+function deriveRecoveryATH(S){
+  var eq=(S.dailyEquity||[]).slice().sort(function(a,b){return a.date<b.date?-1:1})
+  var peak=-Infinity, hist=[]
+  for(var i=0;i<eq.length;i++){ if(eq[i].sc>peak){ peak=eq[i].sc; hist.push({date:eq[i].date,value:eq[i].sc}) } }
+  return { current: hist.length?hist[hist.length-1]:null, history:hist }   // history 每筆 = 一個 Recovery Event（創追蹤期新高）
+}
+// V13.84 Drawdown Events：peak→trough→recovery 自動推導（合計 total 基準，沿用 _computeEquityHistory 的 drawdownPct/running-peak；未恢復 recovered=false）
+function deriveDrawdownEvents(S, minDepth){
+  minDepth=(minDepth==null)?2:minDepth
+  var h=(typeof _computeEquityHistory==='function')?_computeEquityHistory():[]
+  var events=[], cur=null
+  for(var i=0;i<h.length;i++){
+    var d=h[i]
+    if(d.drawdownPct<0){
+      if(!cur){ cur={peakNAV:d.ath,peakDate:null,startDate:d.date,troughDate:d.date,troughNAV:d.total,troughDD:d.drawdownPct,recoveryDate:null,recovered:false}
+        for(var j=i-1;j>=0;j--){ if(h[j].total>=d.ath){ cur.peakDate=h[j].date; break } } }
+      if(d.drawdownPct<cur.troughDD){ cur.troughDD=d.drawdownPct; cur.troughDate=d.date; cur.troughNAV=d.total }
+    } else if(cur){ cur.recoveryDate=d.date; cur.recovered=true; if(-cur.troughDD>=minDepth) events.push(cur); cur=null }
+  }
+  if(cur && -cur.troughDD>=minDepth) events.push(cur)
+  return events
+}
+// V13.84 Drawdown 完整日期顯示（Max DD + Current DD + 事件列表；Portfolio=total、Shadow=SPY，基準不混）
+function renderDrawdownDetail(m){
+  var el=document.getElementById('home-drawdown-detail'); if(!el) return
+  var S=PORTFOLIO_STATE
+  var events=deriveDrawdownEvents(S,2)
+  var h=(typeof _computeEquityHistory==='function')?_computeEquityHistory():[]
+  var last=h.length?h[h.length-1]:null
+  function f$(v){ return '$'+Math.round(v).toLocaleString() }
+  function dd(a,b){ return (typeof _daysBetween==='function')?_daysBetween(a,b):'' }
+  var maxE=null; events.forEach(function(e){ if(!maxE||e.troughDD<maxE.troughDD) maxE=e })
+  var curE=events.filter(function(e){ return !e.recovered })[0]
+  var html=''
+  if(maxE){
+    html+='<div style="background:#0F1420;border:.5px solid #2A1822;border-radius:8px;padding:9px 12px;margin-bottom:6px">'
+      +'<div style="font-size:10px;color:#FF6B7A;font-weight:600;margin-bottom:4px">📉 最大回撤 '+maxE.troughDD.toFixed(2)+'%'+(maxE.recovered?'':' <span style="color:#F0A500">· 進行中</span>')+'</div>'
+      +'<div style="font-size:10px;color:#8A96AD;line-height:1.75">'
+        +'Peak '+f$(maxE.peakNAV)+' · '+maxE.peakDate+'<br>'
+        +'Trough '+f$(maxE.troughNAV)+' · '+maxE.troughDate+'　(歷時 '+dd(maxE.peakDate,maxE.troughDate)+' 天)<br>'
+        +'Recovery '+(maxE.recovered?('<span style="color:#00C896">'+maxE.recoveryDate+'</span>'):'<span style="color:#F0A500">進行中</span>')
+      +'</div></div>'
+  }
+  if(curE){
+    html+='<div style="background:#0F1420;border:.5px solid #2A2418;border-radius:8px;padding:9px 12px;margin-bottom:6px">'
+      +'<div style="font-size:10px;color:#F0A500;font-weight:600;margin-bottom:4px">⏳ 目前回撤 '+(last?last.drawdownPct.toFixed(2):curE.troughDD.toFixed(2))+'%</div>'
+      +'<div style="font-size:10px;color:#8A96AD;line-height:1.75">Current Peak '+f$(curE.peakNAV)+' · '+curE.peakDate+'<br>DD Start '+curE.startDate+' · 尚未收復</div>'
+    +'</div>'
+  } else {
+    html+='<div style="font-size:10px;color:#00C896;padding:2px 2px 6px">✅ 目前位於歷史高點附近，無進行中回撤</div>'
+  }
+  if(events.length){
+    html+='<div style="font-size:9px;color:#6A8AAA;margin:2px 0 3px">回撤事件（trades[]/dailyEquity 自動推導 · 深度≥2%）</div>'
+    html+=events.slice().sort(function(a,b){return a.peakDate<b.peakDate?1:-1}).map(function(e){
+      var col=e.troughDD<=-8?'#FF4B5C':'#F0A500'
+      return '<div style="font-size:10px;color:#7A8AA0;padding:2px 0;line-height:1.5">'
+        +'<span style="color:'+col+';font-weight:600">'+e.troughDD.toFixed(2)+'%</span> · '
+        +e.peakDate+'→'+e.troughDate+(e.recovered?('→<span style="color:#00C896">'+e.recoveryDate+'</span>'):'→<span style="color:#F0A500">進行中</span>')
+        +' <span style="color:#5A6278">('+f$(e.peakNAV)+'→'+f$(e.troughNAV)+')</span></div>'
+    }).join('')
+  }
+  html+='<div style="font-size:8px;color:#5A6278;margin-top:4px">Portfolio 基準=合計 total NAV · Shadow 對照=SPY '+(S.benchmarks?S.benchmarks.maxDD:'')+'%（基準不混）</div>'
+  el.innerHTML=html
+}
 function renderRecovery(m) {
   var S = PORTFOLIO_STATE
   var el = document.getElementById('home-recovery-section')
@@ -5038,15 +5145,27 @@ function renderRecovery(m) {
   var recTarget = S.recovery.sc.targetValue
   var barPct = Math.min(100, Math.max(0, m.recovery.pct)).toFixed(1)
 
+  var _bt   = deriveMilestoneBreakthroughs(S)              // V13.84 首次突破日期
+  var _rath = deriveRecoveryATH(S)                         // V13.84 Recovery ATH
+  var _athSc= (S.ath && S.ath.sc && S.ath.sc.currentATH) ? S.ath.sc.currentATH : null
   var msHTML = m.milestones.map(function(ms) {
+    if (ms.isATH) {   // ATH 特別處理：官方 SC ATH（目標）+ Recovery ATH（追蹤期回升高點）並列
+      var offi = _athSc ? ('👑 官方 SC ATH　<span style="color:#F0C040;font-weight:600">$'+Math.round(_athSc.value).toLocaleString()+'</span> · '+_athSc.date) : ''
+      var rec  = _rath.current ? ('🔄 Recovery ATH　<span style="color:#7EE787;font-weight:600">$'+Math.round(_rath.current.value).toLocaleString()+'</span> · '+_rath.current.date+' <span style="color:#5A6278">追蹤期回升高點</span>') : ''
+      return '<div class="ms ms-wait" style="flex-direction:column;align-items:flex-start;gap:4px">'
+        + '<div style="font-size:11px;color:#F0C040">'+offi+'</div>'
+        + '<div style="font-size:11px;color:#7EE787">'+rec+'</div>'
+        + '</div>'
+    }
     var cls   = ms.achieved ? 'ms-done' : ms.status === 'current' ? 'ms-now' : 'ms-wait'
-    var emoji = ms.achieved ? '✅' : ms.status === 'current' ? '🔄' : (ms.isATH ? '👑' : '⏳')
+    var emoji = ms.achieved ? '💰' : ms.status === 'current' ? '🔄' : '⏳'
     var col   = ms.achieved ? '#7EE787' : ms.status === 'current' ? '#4A9EFF' : '#5A6278'
-    var lbl   = ms.isATH ? ('回到 ATH $' + recTarget.toLocaleString()) : ms.label
+    var bt    = _bt[ms.target]
     var right = ms.achieved
-      ? '<span style="font-size:10px;color:#5A6278">已達成</span>'
+      ? (bt ? '<span style="font-size:9px;color:#5A6278">'+bt.date+' · 首次突破 $'+Math.round(bt.value).toLocaleString()+'</span>'
+            : '<span style="font-size:10px;color:#5A6278">已達成</span>')
       : '<span style="font-size:10px;color:#FF4B5C">還差 $' + Math.round(ms.gap).toLocaleString() + '</span>'
-    return '<div class="ms '+cls+'"><div style="display:flex;align-items:center;gap:6px"><span>'+emoji+'</span><span style="font-size:11px;color:'+col+'">'+lbl+'</span></div>'+right+'</div>'
+    return '<div class="ms '+cls+'"><div style="display:flex;align-items:center;gap:6px"><span>'+emoji+'</span><span style="font-size:11px;color:'+col+'">'+ms.label+'</span></div>'+right+'</div>'
   }).join('')
 
   el.innerHTML =
