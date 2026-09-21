@@ -4820,7 +4820,7 @@ function renderATH(m) {
   // ATH 日期標籤：今日固化→🆕；盤中超越→盤中新高；否則→ currentATH 日期
   function _athDate(d){
     if (d.isATHToday) return d.savedDate + ' 🆕 今日創新高'
-    if (d.isNewHigh)  return today + ' 盤中新高（收盤固化）'
+    if (d.isNewHigh)  return m.today + ' 盤中新高（收盤固化）'
     return d.savedDate
   }
   // 前 ATH + 耗時
