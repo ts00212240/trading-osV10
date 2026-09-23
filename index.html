@@ -327,11 +327,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 79898.58,
-      buyingPower: 35050.29,
-      cash: 79899,
-      dayChange: 3275.24,
-      lastUpdated: '2026-09-22 收盤',
+      nav: 79064.84,
+      buyingPower: 36344.39,
+      cash: 79065,
+      dayChange: -825.74,
+      lastUpdated: '2026-09-23 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -348,11 +348,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 186502.39,
+      nav: 185018.39,
       buyingPower: 75445.09,
       cash: 96970.39,
-      dayChange: 193.50,
-      lastUpdated: '2026-09-22 收盤',
+      dayChange: -1484.00,
+      lastUpdated: '2026-09-23 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -469,13 +469,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  773.38,   // 09/22 收盤 TV
-      QQQ:  747.46,   // 09/22 收盤 TV
-      IBIT:  48.85,   // 09/22 收盤 截圖
-      BRKB: 503.53,   // 09/22 收盤 截圖
+      SPY:  767.81,   // 09/23 收盤 TV
+      QQQ:  741.21,   // 09/23 收盤 TV
+      IBIT:  47.79,   // 09/23 收盤 截圖
+      BRKB: 508.41,   // 09/23 收盤 截圖
       MSFT: 507.29,   // 08/31 收盤 TOS
       SPCX: 143.69,   // 08/31 收盤 TOS
-      updatedAt: '2026-09-22',
+      updatedAt: '2026-09-23',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -641,6 +641,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-09-18', sc:182565.89, ft:73701.18, ib:1000, total:257267.07 },
     { date:'2026-09-19', sc:186308.89, ft:76643.71, ib:1000, total:263952.60 },
     { date:'2026-09-22', sc:186502.39, ft:79898.58, ib:1000, total:267400.97 },
+    { date:'2026-09-23', sc:185018.39, ft:79064.84, ib:1000, total:265083.23 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -670,7 +671,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.295, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.675, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -687,11 +688,11 @@ const PORTFOLIO_STATE = {
       type:'phase2', purpose:'第四組黑天鵝尾部保護（配 729P 收租腿）', action:'BUY TO OPEN',
       contract:'SPY 705P', expiration:'2027-01-15', quantity:5,
       orderDate:'2026-09-16', fillDate:null, fillPrice:null,
-      limitPrice:5.52, currentMark:7.15, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:5.52, currentMark:8.17, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 尾部保護腿 · BUY 705P ×5 @5.52 GTC · 歷史新低權利金掛單 · 可能很晚才成交 · 配 729P ×3 SELL 收租腿(已成交 @9.41)' },
     { id:'GTC_729P_BUYBACK', desc:'SPY 729P NOV30 BUY BACK × 3 · 收租腿自動平倉',
       type:'buyback', orderDate:'2026-09-17', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.50, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:6.65, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 收租腿 729P ×3 買回單 · GTC @0.20 · Theta 歸零等待中' },
   ],
 
@@ -1446,6 +1447,7 @@ const PORTFOLIO_STATE = {
     // ── IBIT PMCC (第一) ────────────────────────────────────────
     { id:'T_IBITPMCC_46C_O',  strategyId:'IBIT_PMCC', strategyName:'IBIT PMCC', ledgerType:'pmcc', cycleId:'IBIT_PMCC_FT_46C', cycleLabel:'IBIT PMCC · 46C × 1', account:'ft', ticker:'IBIT', action:'OPEN', tradeDate:null, expiry:'2026-05-15', quantity:1, legs:['SELL 46C ×1'], grossCashflow:96, fees:null, netCashflow:96, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_IBITPMCC_46C_C', note:'開倉日待補' },
     { id:'T_IBITPMCC_46C_C',  strategyId:'IBIT_PMCC', strategyName:'IBIT PMCC', ledgerType:'pmcc', cycleId:'IBIT_PMCC_FT_46C', cycleLabel:'IBIT PMCC · 46C × 1 · 自然到期', account:'ft', ticker:'IBIT', action:'CLOSE', tradeDate:'2026-05-15', expiry:'2026-05-15', quantity:1, legs:['46C 到期歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:96, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_IBITPMCC_46C_O', ledgerId:'CF_M05_002', note:'46C · 05/15 到期收割 · Theta 完整歸零' },
+    { id:'T_IBITPMCC_55C_O', strategyId:'IBIT_PMCC', strategyName:'IBIT PMCC', ledgerType:'pmcc', cycleId:'IBIT_PMCC_FT_55C_OCT', cycleLabel:'IBIT PMCC · 55C × 3 · 10/30', account:'ft', ticker:'IBIT', action:'OPEN', tradeDate:'2026-09-23', expiry:'2026-10-30', quantity:3, legs:['SELL 55C ×3 @0.60'], grossCashflow:180, fees:null, netCashflow:180, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'IBIT 反彈 · covered call 收租', reason:'IBIT 250股 + 30C LEAPS 掩護，賣 55C ×3 遠OTM收租(IBIT 47.79)', note:'IBIT covered call · 55C 10/30 ×3 @0.60 (+$180) · 37 DTE · 掩護:250股 + 30C(06/16/28) LEAPS' },
     // ── SPY 豪華摩天輪 (嘉信) ───────────────────────────────────
     { id:'T_SPYW_C1_O', strategyId:'SPY_Wheel', strategyName:'SPY 豪華摩天輪', ledgerType:'wheel', cycleId:'SPY_WHEEL_SC_C1', cycleLabel:'SPY 豪華摩天輪 · C1 · 711P/650P × 2', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2026-06-05', quantity:2, legs:['SELL 711P ×2','BUY 650P ×2'], grossCashflow:1097, fees:null, netCashflow:1097, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYW_C1_C', note:'開倉日待補' },
     { id:'T_SPYW_C1_C', strategyId:'SPY_Wheel', strategyName:'SPY 豪華摩天輪', ledgerType:'wheel', cycleId:'SPY_WHEEL_SC_C1', cycleLabel:'SPY 豪華摩天輪 · C1 · 711P/650P × 2', account:'sc', ticker:'SPY', action:'CLOSE', tradeDate:'2026-06-05', expiry:'2026-06-05', quantity:2, legs:['CLOSE 711P/650P ×2'], grossCashflow:-429, fees:null, netCashflow:-429, realizedPnl:669, pct:61, status:'closed', isUnderlying:false, linkedTradeId:'T_SPYW_C1_O', ledgerId:'CF_M06_004', note:'711P/650P · 06/05 提早平倉轉倉 → C2 · 實際淨 +$668.68' },
@@ -1469,6 +1471,7 @@ const PORTFOLIO_STATE = {
     { id:'T_QQQW_770C_O', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 摩天輪轉換 · SELL 770C · 09/04', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-06', expiry:'2026-09-04', quantity:1, legs:['SELL 770C ×1 @5.00 限價'], grossCashflow:500, fees:null, netCashflow:500, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_770C_C', lifecycleStage:'Wheel承接轉PMCC', trigger:'QQQ 爬升 · 履約價770 高於前次750', reason:'給 650C LEAPS 加第二層 short call：750C 08/21+770C 09/04 並行收租 · 與 SPY PMCC 雙層同理', note:'QQQ 承接結構加開 770C 09/04 ×1 @5.00 (+$500) · 08/25 買回@0.02 平倉' },
     { id:'T_QQQW_770C_C', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_770C', cycleLabel:'QQQ 承接後PMCC · 770C 09/04 · 買回平倉', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-25', expiry:'2026-09-04', quantity:1, legs:['BUY TO CLOSE 770C ×1 @0.02'], grossCashflow:-2, fees:null, netCashflow:-2, realizedPnl:498, pct:99.6, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_770C_O', ledgerId:'CF_M08_007', note:'770C 09/04 · 08/06開@5.00 (+$500) · 08/25買回@0.02 (-$2) · 實現 +$498 (99.6%) · QQQ 711<<770 近乎歸零 · 提前落袋釋放 · 650C LEAPS 續留' },
     { id:'T_QQQW_755C_C', originStrategy:'QQQ_豪華摩天輪', currentStrategy:'QQQ_PMCC', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', structureType:'PMCC_AFTER_ASSIGNMENT', cycleId:'QQQ_WHEEL_FT_C4CONV_755C', cycleLabel:'QQQ 承接後PMCC · 755C 09/11 · 買回平倉', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-09-01', expiry:'2026-09-11', quantity:1, legs:['BUY TO CLOSE 755C ×1 @0.04'], grossCashflow:-4, fees:null, netCashflow:-4, realizedPnl:482, pct:99.2, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_755C_O', ledgerId:'CF_M09_004', note:'755C 09/11 · 08/12開@4.86×1 (+$486) · 09/01買回@0.04×1 (-$4) · 實現 +$482 (99.2%) · QQQ short call 買回不再開新 · 650C/685C LEAPS 續留(裸長)' },
+    { id:'T_QQQPMCC_775COCT_O', strategyId:'QQQ_PMCC', strategyName:'QQQ PMCC', ledgerType:'pmcc', cycleId:'QQQ_PMCC_FT_775C_OCT', cycleLabel:'QQQ PMCC · 775C × 2 · 10/30', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-09-23', expiry:'2026-10-30', quantity:2, legs:['SELL 775C ×2 @6.30'], grossCashflow:1260, fees:null, netCashflow:1260, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'QQQ 反彈至高檔 · 重掛短Call收租', reason:'QQQ 650C/685C 雙 LEAPS 完整吃到上行後，於高檔重建 PMCC 短腿 ×2 收租 · 履約價 775 遠OTM(QQQ 741)', note:'QQQ PMCC 短腿 · 775C 10/30 ×2 @6.30 (+$1,260) · 37 DTE · 底層 650C(09/17/27)+685C(12/15/28)' },
     { id:'T_QQQW_C5_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P × 1 · 08/07', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-03', expiry:'2026-08-07', quantity:1, legs:['SELL 680P','BUY 590P @9.53淨'], grossCashflow:953, fees:null, netCashflow:953, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_C', note:'C3 平倉同日換開 · 2UP · 08/07 到期歸零' },
     { id:'T_QQQW_C5_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C5', cycleLabel:'QQQ 豪華摩天輪 · C5 · 680P/590P · 08/07 到期歸零', account:'ft', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-07', expiry:'2026-08-07', quantity:1, legs:['680P/590P 08/07 到期 · QQQ 723 遠高於 680P · 雙腿歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:953, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C5_O', ledgerId:'CF_M08_001', note:'C5 680P/590P 08/07 到期 · QQQ 723 >> 680P 全OTM · 自動歸零收割 · Theta 完整落袋 +$953 (100%)' },
     { id:'T_QQQW_C7_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P × 1 · 08/21 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 650P ×1 @10.32 (+$1,032)','BUY 565P ×1 @1.90 (-$190)'], grossCashflow:842, fees:null, netCashflow:842, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C7_C', trigger:'QQQ 單日下跌 -2% · IV > 70', reason:'2.0 條件驅動加碼：下跌+IV高+履約價更低（650 vs C6 687）+BP允許', note:'嘉信第二組 QQQ 輪 · Δ約0.22 · +$842 未扣費 · 08/21 到期歸零' },
@@ -1923,7 +1926,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38},{"date":"2026-09-23","close":767.81}
 ]
 
 function fetchSPYHistory() {
