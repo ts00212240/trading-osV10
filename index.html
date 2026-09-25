@@ -244,6 +244,7 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
     <div class="chart-card"><div class="chart-title"><span>Premium Collected vs Realized P/L</span><span id="kpi-prem-title" style="font-size:11px;color:#00C896">—</span></div><div class="chart-h"><canvas id="pm-chart"></canvas></div><div style="font-size:9px;color:#5A6278;padding:2px 4px 0;line-height:1.5">🟢 Collected = 當月開倉實收 credit（現金已進帳，未實現）· 🔵 Realized = 當月完成交易實現損益（含負數）· Cash received ≠ realized profit</div></div>
     <div class="sec">績效指標</div>
     <div id="kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 12px"></div>
+    <div id="home-perf-review" style="padding:0 16px 12px"></div>
     <div class="updated">資料截至 <span id="analytics-updated">—</span></div>
   </div>
 </div>
@@ -327,11 +328,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 79064.84,
-      buyingPower: 36344.39,
-      cash: 79065,
-      dayChange: -825.74,
-      lastUpdated: '2026-09-23 收盤',
+      nav: 79119.43,
+      buyingPower: 30256.71,
+      cash: 79119,
+      dayChange: 48.65,
+      lastUpdated: '2026-09-24 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -348,11 +349,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 185018.39,
-      buyingPower: 75445.09,
-      cash: 96970.39,
-      dayChange: -1484.00,
-      lastUpdated: '2026-09-23 收盤',
+      nav: 184578.55,
+      buyingPower: 69047.75,
+      cash: 97573.05,
+      dayChange: -439.84,
+      lastUpdated: '2026-09-24 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -469,13 +470,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  767.81,   // 09/23 收盤 TV
-      QQQ:  741.21,   // 09/23 收盤 TV
-      IBIT:  47.79,   // 09/23 收盤 截圖
-      BRKB: 508.41,   // 09/23 收盤 截圖
+      SPY:  767.18,   // 09/24 收盤 TV（事後驗證，與截圖一致）
+      QQQ:  741.10,   // 09/24 收盤 TV（事後驗證，與截圖一致）
+      IBIT:  47.81,   // 09/24 收盤 截圖
+      BRKB: 505.18,   // 09/24 收盤 截圖
       MSFT: 507.29,   // 08/31 收盤 TOS
       SPCX: 143.69,   // 08/31 收盤 TOS
-      updatedAt: '2026-09-23',
+      updatedAt: '2026-09-24',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -642,6 +643,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-09-19', sc:186308.89, ft:76643.71, ib:1000, total:263952.60 },
     { date:'2026-09-22', sc:186502.39, ft:79898.58, ib:1000, total:267400.97 },
     { date:'2026-09-23', sc:185018.39, ft:79064.84, ib:1000, total:265083.23 },
+    { date:'2026-09-24', sc:184578.55, ft:79119.43, ib:1000, total:264697.98 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -671,7 +673,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.675, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.725, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -688,11 +690,11 @@ const PORTFOLIO_STATE = {
       type:'phase2', purpose:'第四組黑天鵝尾部保護（配 729P 收租腿）', action:'BUY TO OPEN',
       contract:'SPY 705P', expiration:'2027-01-15', quantity:5,
       orderDate:'2026-09-16', fillDate:null, fillPrice:null,
-      limitPrice:5.52, currentMark:8.17, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:5.52, currentMark:8.465, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 尾部保護腿 · BUY 705P ×5 @5.52 GTC · 歷史新低權利金掛單 · 可能很晚才成交 · 配 729P ×3 SELL 收租腿(已成交 @9.41)' },
     { id:'GTC_729P_BUYBACK', desc:'SPY 729P NOV30 BUY BACK × 3 · 收租腿自動平倉',
       type:'buyback', orderDate:'2026-09-17', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:6.65, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:6.94, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 收租腿 729P ×3 買回單 · GTC @0.20 · Theta 歸零等待中' },
   ],
 
@@ -1477,6 +1479,8 @@ const PORTFOLIO_STATE = {
     { id:'T_QQQW_C7_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P × 1 · 08/21 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 650P ×1 @10.32 (+$1,032)','BUY 565P ×1 @1.90 (-$190)'], grossCashflow:842, fees:null, netCashflow:842, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C7_C', trigger:'QQQ 單日下跌 -2% · IV > 70', reason:'2.0 條件驅動加碼：下跌+IV高+履約價更低（650 vs C6 687）+BP允許', note:'嘉信第二組 QQQ 輪 · Δ約0.22 · +$842 未扣費 · 08/21 到期歸零' },
     { id:'T_QQQW_C7_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C7', cycleLabel:'QQQ 豪華摩天輪 · C7 · 650P/565P · 08/21 到期歸零', account:'sc', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-21', expiry:'2026-08-21', quantity:1, legs:['650P/565P 08/21 到期 · QQQ 713.44 遠高於 650P · 雙腿歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:842, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C7_O', ledgerId:'CF_M08_006', note:'C7 650P/565P 08/21 到期 · QQQ 713.44 >> 650P 全OTM · 自動歸零收割 · Theta 完整落袋 +$842 (100%)' },
     { id:'T_QQQW_C8_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C8', cycleLabel:'QQQ 豪華摩天輪 · C8 · 680P/580P × 1 · 09/25 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-08-21', expiry:'2026-09-25', quantity:1, legs:['SELL 680P ×1 @7.65 (+$765)','BUY 580P ×1 @1.00 (-$100)'], grossCashflow:665, fees:null, netCashflow:665, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'原QQQ輪(C6/C7)全數乾淨結算 · 保留一組維持現金流運作', reason:'Sell Put Spread 收租 · 履約價 680(Δ約0.3) · 下方 580P 保護 · 維持 QQQ 輪現金流不中斷', note:'C8 新循環 · SELL 680P @7.65 + BUY 580P @1.00 · 淨 credit +$665 · 35 DTE · 嘉信' },
+    { id:'T_QQQW_C9_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_FT_C9', cycleLabel:'QQQ 豪華摩天輪 · C9 · 707P/640P × 1 · 10/30 · 第一證券', account:'ft', ticker:'QQQ', action:'OPEN', tradeDate:'2026-09-24', expiry:'2026-10-30', quantity:1, legs:['SELL 707P ×1','BUY 640P ×1 · 淨@6.10 Credit'], grossCashflow:610, fees:null, netCashflow:610, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'QQQ 連兩日跌 >2% · 高IV · C8 到期前', reason:'2.0 條件驅動:下跌+高IV+C8即將到期,加開新組收租 · 707P/640P bull put spread', note:'第一組(FT) · 707P/640P 10/30 · 淨 credit +$610 · 36 DTE' },
+    { id:'T_QQQW_C10_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C10', cycleLabel:'QQQ 豪華摩天輪 · C10 · 707P/636P × 1 · 10/30 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-09-24', expiry:'2026-10-30', quantity:1, legs:['SELL 707P ×1','BUY 636P ×1 · 淨@6.04 Credit'], grossCashflow:604, fees:null, netCashflow:604, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'QQQ 連兩日跌 >2% · 高IV · C8 到期前', reason:'2.0 條件驅動:下跌+高IV,加開第二組(嘉信) · 707P/636P bull put spread', note:'第二組(嘉信) · 707P/636P 10/30 · 淨 credit +$604 · 36 DTE · 券商部位顯示706、成交明細707,以成交明細為準' },
     { id:'T_QQQW_C6_O', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C6', cycleLabel:'QQQ 豪華摩天輪 · C6 · 687P/600P × 1 · 08/14 · 嘉信', account:'sc', ticker:'QQQ', action:'OPEN', tradeDate:'2026-07-10', expiry:'2026-08-14', quantity:1, legs:['SELL 687P @9.70 (+$970)','BUY 600P @1.64 (-$164)'], grossCashflow:806, fees:null, netCashflow:806, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C6_C', note:'SPY C3 平倉後換開 · 首次於嘉信開 QQQ 輪 · Δ0.25 · 未扣費 · 08/14 到期歸零' },
     { id:'T_QQQW_C6_C', strategyId:'QQQ_豪華摩天輪', strategyName:'QQQ 豪華摩天輪', ledgerType:'wheel', cycleId:'QQQ_WHEEL_SC_C6', cycleLabel:'QQQ 豪華摩天輪 · C6 · 687P/600P · 08/14 到期歸零', account:'sc', ticker:'QQQ', action:'CLOSE', tradeDate:'2026-08-14', expiry:'2026-08-14', quantity:1, legs:['687P/600P 08/14 到期 · QQQ 731.07 遠高於 687P · 雙腿歸零'], grossCashflow:0, fees:null, netCashflow:0, realizedPnl:806, pct:100, status:'closed', isUnderlying:false, linkedTradeId:'T_QQQW_C6_O', ledgerId:'CF_M08_005', note:'C6 687P/600P 08/14 到期 · QQQ 731.07 >> 687P 全OTM · 自動歸零收割 · Theta 完整落袋 +$806 (100%)' },
     // ── 其他 Wheel ──────────────────────────────────────────────
@@ -1926,7 +1930,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38},{"date":"2026-09-23","close":767.81}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38},{"date":"2026-09-23","close":767.81},{"date":"2026-09-24","close":767.18}
 ]
 
 function fetchSPYHistory() {
@@ -6701,6 +6705,74 @@ function renderGTCWidget(m) {
   })
 }
 
+// ══ V13.85 績效觀測 Performance Observatory：月/季「截至期末累積」績效 ══
+// 全部由既有 dailyEquity + calcSharpe/calcCAGR/calcMXDD 即時派生；不改 SSOT、不參與交易邏輯
+function derivePeriodReviews(S, mode){
+  var eq=(S.dailyEquity||[]).slice().sort(function(a,b){return a.date<b.date?-1:1})
+  if(eq.length<2) return []
+  var h=(typeof _computeEquityHistory==='function')?_computeEquityHistory():[]
+  var shadow={}; h.forEach(function(d){ if(d.spyShadow!=null) shadow[d.date]=d.spyShadow })
+  function qKey(dstr){ return dstr.slice(0,4)+'-Q'+Math.ceil((+dstr.slice(5,7))/3) }
+  var keyFn=(mode==='quarter')?qKey:function(d){return d.slice(0,7)}
+  var lastIdx={}, order=[]
+  eq.forEach(function(e,i){ var k=keyFn(e.date); if(lastIdx[k]==null) order.push(k); lastIdx[k]=i })
+  var prev=null
+  return order.map(function(k){
+    var slice=eq.slice(0,lastIdx[k]+1), end=slice[slice.length-1]
+    var days=_daysBetween(slice[0].date,end.date)
+    var sh=calcSharpe(slice), ca=calcCAGR(slice), md=calcMXDD(slice)
+    var ret=(end.total/slice[0].total-1)*100
+    var sS=slice.map(function(e){return {date:e.date,total:shadow[e.date]}}).filter(function(x){return x.total!=null})
+    var sSh=sS.length>=3?calcSharpe(sS):null, sRet=sS.length>=2?(sS[sS.length-1].total/sS[0].total-1)*100:null, sMd=sS.length>=2?calcMXDD(sS):null
+    var o={key:k,end:end.date,days:days,insufficient:days<180,sharpe:sh,cagr:ca,maxDD:md,ret:ret,spySharpe:sSh,spyRet:sRet,spyMaxDD:sMd,
+      dSharpe:(prev&&prev.sharpe!=null&&sh!=null)?(sh-prev.sharpe):null,
+      dMaxDD:(prev&&prev.maxDD!=null&&md!=null)?(md-prev.maxDD):null,
+      dRet:(prev&&prev.ret!=null)?(ret-prev.ret):null}
+    prev=o; return o
+  })
+}
+function _qDiag(q){
+  if(q.dSharpe==null) return '首季基準 · 無前季可比'
+  var p=[]
+  p.push('Sharpe '+(q.dSharpe>=0?'上升 +':'下降 ')+q.dSharpe.toFixed(2))
+  if(q.dMaxDD!=null) p.push('MaxDD '+(q.dMaxDD<0?('擴大 '+q.dMaxDD.toFixed(1)):('收斂 +'+q.dMaxDD.toFixed(1)))+'pp')
+  if(q.dRet!=null) p.push('累積報酬 '+(q.dRet>=0?'+':'')+q.dRet.toFixed(1)+'pp')
+  var note=(q.dRet>0&&q.dSharpe<0)?' · 報酬增加但伴隨更高波動':((q.dRet>0&&q.dSharpe>0)?' · 報酬增加且風險調整效率同步提升':'')
+  return p.join(' · ')+note
+}
+function renderPerfReview(){
+  var el=document.getElementById('home-perf-review'); if(!el) return
+  var S=PORTFOLIO_STATE
+  var mos=derivePeriodReviews(S,'month'), qs=derivePeriodReviews(S,'quarter')
+  function n2(v){return v==null?'—':v.toFixed(2)}
+  function p1(v){return v==null?'—':(v>=0?'+':'')+v.toFixed(1)+'%'}
+  var band='<div style="margin:2px 0 8px;padding:8px 10px;border:.5px solid #2A3550;border-radius:8px;background:linear-gradient(135deg,#0C1220,#0A0E18)">'
+    +'<div style="font-size:10px;color:#4A9EFF;font-weight:600">🎯 第一組系統長期 Sharpe 觀察區間 0.65～0.85</div>'
+    +'<div style="font-size:9px;color:#5A6278;margin-top:2px">觀察區間,非獲利門檻、非交易觸發</div></div>'
+  var mtab='<div style="font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#4A9EFF;margin:4px 0 4px">📈 月度績效觀察 · 截至月底累積</div>'
+    +'<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">'
+    +'<tr style="color:#5A6278;text-align:right"><td style="text-align:left">月份</td><td>樣本</td><td>Sharpe</td><td>CAGR</td><td>MaxDD</td><td>總報酬</td><td>SPY報酬</td></tr>'
+    + mos.map(function(m){
+        var shc=m.insufficient?'#F0A500':(m.sharpe>=0?'#00C896':'#FF4B5C')
+        var shTxt=(m.sharpe==null?'—':n2(m.sharpe))+(m.insufficient?' ⚠':'')
+        return '<tr style="text-align:right;border-top:.5px solid #16233A"><td style="text-align:left;color:#C0CDE0">'+m.key+'</td>'
+          +'<td style="color:#5A6278">'+m.days+'天</td><td style="color:'+shc+';font-weight:600">'+shTxt+'</td>'
+          +'<td style="color:#8A96AD">'+p1(m.cagr)+'</td><td style="color:#FF6B7A">'+p1(m.maxDD)+'</td>'
+          +'<td style="color:#00C896">'+p1(m.ret)+'</td><td style="color:#7A8AA0">'+p1(m.spyRet)+'</td></tr>'
+      }).join('')
+    +'</table></div><div style="font-size:8px;color:#5A6278;margin-top:3px">⚠ = 樣本 <180 天,Sharpe 累積中,不作正式判讀</div>'
+  var qcards='<div style="font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#BC8CFF;margin:12px 0 4px">🗓️ 季度正式檢討 · 截至季末累積</div>'
+    + qs.map(function(q){
+        var shc=q.insufficient?'#F0A500':(q.sharpe>=0?'#00C896':'#FF4B5C')
+        return '<div style="margin-bottom:6px;padding:9px 12px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420">'
+          +'<div style="font-size:11px;font-weight:600;color:#C8D6E6;margin-bottom:4px">'+q.key+'（截至 '+q.end+'）'+(q.insufficient?' <span style="font-size:9px;color:#F0A500">樣本'+q.days+'天·累積中</span>':'')+'</div>'
+          +'<div style="font-size:10px;color:#8A96AD;line-height:1.7">Sharpe <span style="color:'+shc+';font-weight:600">'+n2(q.sharpe)+'</span> · CAGR '+p1(q.cagr)+' · MaxDD <span style="color:#FF6B7A">'+p1(q.maxDD)+'</span> · 總報酬 <span style="color:#00C896">'+p1(q.ret)+'</span><br>'
+          +'SPY Shadow：Sharpe '+n2(q.spySharpe)+' · 報酬 '+p1(q.spyRet)+' · MaxDD '+p1(q.spyMaxDD)+'</div>'
+          +'<div style="font-size:10px;color:#9AB0C8;margin-top:4px;padding-top:4px;border-top:.5px dashed #1E2840">Δ vs 上一季：'+_qDiag(q)+'</div>'
+          +'<div style="font-size:8px;color:#5A6278;margin-top:2px">此為指標觀察與診斷,非策略成敗結論,不觸發任何交易調整</div></div>'
+      }).join('')
+  el.innerHTML='<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#7EE787;margin:6px 0 4px">🔭 績效觀測 Performance Observatory</div>'+band+mtab+qcards
+}
 function renderKPICards(m) {
   var S = PORTFOLIO_STATE
   var grid = document.getElementById('kpi-grid')
@@ -6942,6 +7014,7 @@ function renderAnalytics(m) {
   }
 
   try { renderKPICards(m) } catch(e) { console.error('[renderKPICards]', e) }
+  try { renderPerfReview() } catch(e) { console.error('[renderPerfReview]', e) }   // V13.85 績效觀測
   var updEl = document.getElementById('analytics-updated')
   if (updEl) updEl.textContent = m.today
 
