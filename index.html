@@ -229,12 +229,11 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
     <div id="alpha-ft-card" class="chart-card" style="border-color:#1A2E1A"></div>
     <div class="sec" style="color:#F0C040">📅 月度績效紀錄<span style="font-size:9px;color:#5A6278;margin-left:8px;font-weight:400">每月1號更新 · 扣除入金的真實投資報酬</span></div>
     <div id="monthly-perf-section" style="padding:0 16px 8px"></div>
-    <div class="sec" style="color:#E24B4A"><span style="font-size:13px;margin-right:4px">🦢</span>黑天鵝 Cycle 追蹤<span style="font-size:9px;color:#5A6278;margin-left:8px;font-weight:400">EV 累積中 · 每 Cycle 結束後填入</span></div>
-    <div id="bs-cycle-tracker" style="padding:0 16px 8px"></div>
-
-    <div class="sec" style="color:#FFA500">⏳ GTC 撮合摩擦力追蹤</div>
-    <div style="padding:0 16px 4px;font-size:10px;color:#5A6278">下單日 → 成交日 耗時精算 · 用於優化未來掛單價差</div>
-    <div id="gtc-tracker" style="padding:0 16px 8px"></div>
+    <div class="sec" style="color:#E24B4A"><span style="font-size:13px;margin-right:4px">🛡️</span>黑天鵝防禦<span style="font-size:9px;color:#5A6278;margin-left:8px;font-weight:400;text-transform:none">現在 → 最近 → 執行 → 歷史 · 一眼看懂,深入才展開</span></div>
+    <div id="bs-current" style="padding:0 16px 6px"></div>
+    <div id="bs-recent" style="padding:0 16px 6px"></div>
+    <div id="gtc-tracker" style="padding:0 16px 6px"></div>
+    <div id="bs-history" style="padding:0 16px 8px"></div>
     <div class="sec">資產曲線 vs SPY</div>
     <div class="chart-card"><div class="chart-title"><span>Portfolio vs SPY Benchmark</span><div style="display:flex;gap:10px;font-size:10px"><span style="color:#00C896">● Portfolio</span><span style="color:#F0A500">● SPY</span></div></div><div class="chart-h"><canvas id="ec-chart"></canvas></div></div>
     <div class="sec">最大回撤 Drawdown</div>
@@ -245,6 +244,9 @@ body{background:#0B0E13;color:#FFF;font-family:-apple-system,'SF Pro Display',sa
     <div class="sec">績效指標</div>
     <div id="kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 12px"></div>
     <div id="home-perf-review" style="padding:0 16px 12px"></div>
+    <div id="home-system-maturity" style="padding:0 16px 12px"></div>
+    <div id="home-neg-month" style="padding:0 16px 12px"></div>
+    <div id="home-overseas-cf" style="padding:0 16px 12px"></div>
     <div class="updated">資料截至 <span id="analytics-updated">—</span></div>
   </div>
 </div>
@@ -328,11 +330,11 @@ const PORTFOLIO_STATE = {
   accounts: {
     ft: {
       name: '第一證券',
-      nav: 79110.01,
-      buyingPower: 30242.01,
-      cash: 79110,
-      dayChange: -39.34,
-      lastUpdated: '2026-09-25 收盤',
+      nav: 78857.01,
+      buyingPower: 30136.38,
+      cash: 78857,
+      dayChange: -245.24,
+      lastUpdated: '2026-09-28 收盤',
       positions: [
         { tk:'QQQ LEAPS',    sh:'685C 2028/12·×1 買@179.50',        pr:'150.00', ch:'-14.00', chp:'(-8.54%)', pos:true,  col:'#1565C0', ic:'Q', status:'ok',   exp:'2028-12-19', spark:[159.75,167.30,170.74,161.50,154.00,154.00,164.00,164.00,150.00] },
         { tk:'QQQ C4 ✅',     sh:'709P/630P · 07/17獲利承接轉PMCC',    pr:'+228',   ch:'已實現', chp:'(30%)',    pos:true,  col:'#1B5E20', ic:'Q', status:'closed', exp:'2026-07-17', spark:[8.0,9.0,10.0,11.0,11.0,9.30,4.65,2.46,5.33] },
@@ -349,11 +351,11 @@ const PORTFOLIO_STATE = {
     },
     sc: {
       name: '嘉信理財',
-      nav: 185981.00,
-      buyingPower: 69047.75,
-      cash: 97573.05,
-      dayChange: 1402.45,
-      lastUpdated: '2026-09-25 收盤',
+      nav: 184058.21,
+      buyingPower: 74248.41,
+      cash: 98273.71,
+      dayChange: -1922.79,
+      lastUpdated: '2026-09-28 收盤',
       positions: [
         { tk:'SPY LEAPS',    sh:'730C 2028/12·×6',                  pr:'131.00', ch:'+0.56',  chp:'(+0.43%)',  pos:true,  col:'#1565C0', ic:'S', status:'ok',     exp:'2028-12-19', spark:[139.15,139.61,137.52,132.42,131.14,135.00,134.30,130.44,131.00] },
         { tk:'SPY PMCC',     sh:'770C 08/14·×3 SELL @$4.82',        pr:'1.91',   ch:'-1.44',  chp:'(-43.0%)', pos:false, col:'#B71C1C', ic:'S', status:'ok',     exp:'2026-08-14', spark:[4.82,4.82,4.82,4.82,4.82,5.87,4.39,3.35,1.91] },
@@ -470,13 +472,13 @@ const PORTFOLIO_STATE = {
     sc: { principal: 154000, spyBase: 708.78, spyShares: 217.27 },
     ft: { principal: 70000,  qqqBase: 648.04, qqqShares: 108.02 },
     livePrice: {
-      SPY:  771.35,   // 09/25 收盤 TV
-      QQQ:  744.50,   // 09/25 收盤 TV
-      IBIT:  47.57,   // 09/25 收盤 截圖
-      BRKB: 505.48,   // 09/25 收盤 截圖
-      MSFT: 507.29,   // 08/31 收盤 TOS
+      SPY:  765.61,   // 09/28 收盤 TV
+      QQQ:  736.53,   // 09/28 收盤 截圖(TV回傳SPY,採截圖)
+      IBIT:  47.03,   // 09/28 收盤 截圖
+      BRKB: 502.96,   // 09/28 收盤 截圖
+      MSFT: 509.22,   // 09/28 收盤 TOS
       SPCX: 143.69,   // 08/31 收盤 TOS
-      updatedAt: '2026-09-25',
+      updatedAt: '2026-09-28',
       // 'manual'=手動輸入；'tos_screenshot'=截圖解析；'tradingview'=MCP同步
       source: 'tos_screenshot'
     }
@@ -645,6 +647,7 @@ const PORTFOLIO_STATE = {
     { date:'2026-09-23', sc:185018.39, ft:79064.84, ib:1000, total:265083.23 },
     { date:'2026-09-24', sc:184578.55, ft:79119.43, ib:1000, total:264697.98 },
     { date:'2026-09-25', sc:185981.00, ft:79110.01, ib:1000, total:266091.01 },
+    { date:'2026-09-28', sc:184058.21, ft:78857.01, ib:1000, total:263915.22 },
   ],
 
   // ── 資產曲線圖資料（由 _deriveCurves() 從 dailyEquity 自動生成）──
@@ -674,7 +677,7 @@ const PORTFOLIO_STATE = {
       note:'✅ 07/01 成交 @$11.00 · 原GTC@6.94取消 · 改買OCT30 695P×5 · 675P SEP@5.09賣出滾入 · 121 DTE Phase2完成' },
     { id:'GTC_698P', desc:'SPY 698P BUY BACK × 3 · 第三組黑天鵝自動平倉',
       type:'buyback', orderDate:'2026-07-08', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:1.29, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:1.46, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'第三組 SELL 698P 買回單 · Theta 歸零等待中 · GTC @0.20' },
     { id:'GTC_700P_G3', desc:'SPY 700P NOV30 BUY × 5 · 第二組保護腿 rollover / 生命週期延續',
       type:'phase2', purpose:'第二組保護腿 rollover / 生命週期延續', action:'BUY TO OPEN',
@@ -691,11 +694,11 @@ const PORTFOLIO_STATE = {
       type:'phase2', purpose:'第四組黑天鵝尾部保護（配 729P 收租腿）', action:'BUY TO OPEN',
       contract:'SPY 705P', expiration:'2027-01-15', quantity:5,
       orderDate:'2026-09-16', fillDate:null, fillPrice:null,
-      limitPrice:5.52, currentMark:7.53, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:5.52, currentMark:8.205, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 尾部保護腿 · BUY 705P ×5 @5.52 GTC · 歷史新低權利金掛單 · 可能很晚才成交 · 配 729P ×3 SELL 收租腿(已成交 @9.41)' },
     { id:'GTC_729P_BUYBACK', desc:'SPY 729P NOV30 BUY BACK × 3 · 收租腿自動平倉',
       type:'buyback', orderDate:'2026-09-17', fillDate:null, fillPrice:null,
-      limitPrice:0.20, currentMark:5.85, broker:'嘉信', strategy:'SPY_BlackSwan',
+      limitPrice:0.20, currentMark:6.685, broker:'嘉信', strategy:'SPY_BlackSwan',
       note:'BS_0916 收租腿 729P ×3 買回單 · GTC @0.20 · Theta 歸零等待中' },
   ],
 
@@ -1168,7 +1171,53 @@ const PORTFOLIO_STATE = {
     ]
   },
 
+  // ── 系統成熟度季評（教練評分策展資料 · 每季一筆 · 非派生、非交易訊號）─────────
+  //  設計成熟度 = 七構面加權（架構/流程）；實戰驗證度 = 是否經歷真實崩盤考驗
+  //  不碰 trades/dailyEquity/NAV/EV/Sharpe；新增條目即為每季重評
+  systemMaturityReviews: [
+    {
+      quarter: '2026-Q3', date: '2026-09-28', by: 'Claude（基金管理員 / 行為教練）',
+      validationScore: 38, stage: 'L4 → L5',
+      dimensions: [
+        { name:'認知 / 行為成熟度', weight:20, score:86, note:'過程>結果、夏普演化、抗 FOMO' },
+        { name:'帳務誠實 / SSOT',   weight:15, score:92, note:'validateTradeSync 全綠、雙口徑、揪出 $14,922' },
+        { name:'防禦架構',          weight:20, score:85, note:'尾部避險+現金+黑天鵝+Recovery' },
+        { name:'系統化與可驗證',    weight:15, score:80, note:'state-driven、EV Cycle；PMCC 暫脫規則' },
+        { name:'可持續 / 迭代能力', weight:5,  score:88, note:'發現→顯化→系統→修正 迴路' },
+        { name:'風控紀律',          weight:15, score:74, note:'RBS 曾佔用過多購買力,修復中' },
+        { name:'績效與 Alpha',      weight:10, score:72, note:'報酬 alpha 強,風險調整後微幅,n=1' }
+      ],
+      comment: '82 分的房子,地震來之前都是 82 分;地震過後還站著,它才變成真正的 95 分。方向正確、架構紮實,卡在 L4→L5 的唯一門檻是尚未被一次真實崩盤從頭考過。下季重點:把 PMCC 狀態觸發顯化成可驗證規則(系統化 80→88)、RBS 修復到 35-40%(風控 74↑),讓那個 38% 隨時間、隨樣本、隨一次撐過的危機長大。'
+    }
+  ],
+
   civilizationArchive: [
+    {
+      month: '2026-09', label: '9月', emoji: '🔬', theme: '過程覺醒 · PMCC 狀態觸發與夏普演化',
+      startNAV: 251843, targetNAV: 248960, actualNAV: 265091, asOf: '2026-09-25',
+      get surplus()     { return this.actualNAV - this.targetNAV },
+      get achieveRate() { return +(this.actualNAV / this.targetNAV * 100).toFixed(2) },
+      biggestProgress: '第一次真正參與 QQQ 的上漲動能,並一路觀察到動能逐漸轉為盤整;後續下跌時,我沒有立即用原本固定的 PMCC 觸發規則,而是開始觀察市場狀態,最後決定啟動 PMCC。這次讓我理解:PMCC 不只是「價格漲 2% 就執行」,而是要在市場動能、回撤、Strike、Premium 與未來上行空間之間找到交換的位置。一個好的 PMCC 位置可以同時保留較好的上行捕獲能力,又能透過 Short Call 收租、增加下行防禦。因此「標的上漲 2% → 觸發 PMCC」這條規則目前暫時移除,改為狀態觸發:等待上漲動能 → 盤前若下跌則當天進入觀察 → 開盤後判斷動能是否結束/轉盤整/開始回撤 → 再決定是否啟動 PMCC;盤前無狀況、09:30 開盤確認當天不觸發,就可以離開市場休息。PMCC 已經有方向,但還需把盤感顯化成可觀測、可記錄、可驗證的系統觸發條件。',
+      biggestMistake:  '夏普值的迷思。一直以來我把 Sharpe 過度簡化成「獲利 ÷ 虧損」,曾認為 Sharpe > 1 就是獲利大於虧損、就是好策略——這是錯的。真正建立月度 Sharpe 觀察後才發現:只看 180 天累積到目前的單一 Sharpe,我看不到策略過程中經歷了什麼。月度資料讓我第一次看到 6、7 月的 Sharpe 曾是負值,8、9 月才明顯修復。Sharpe 不是「策略好不好」的單一答案,而是要觀察它隨時間如何演變。這次也讓我回頭看見:當時系統真正受限的關鍵之一,是 RBS 對防禦能力與購買力的限制。我開始把 Sharpe、MaxDD、RBS、購買力、策略摩擦放在同一個系統裡觀察,而不是只看最後的獲利數字。',
+      wouldChange:     '如果重新走一次,我不會只用最終 Sharpe 判斷系統好不好,而會從一開始就保留月度/季度的績效演化紀錄,讓自己知道「這個結果是怎麼一路形成的」。同時也會更早把 PMCC 的市場狀態與觸發條件記錄下來,而不是只使用固定的 +2% 價格觸發。',
+      systemUpgrade:   'PMCC 從「固定價格觸發」轉向「市場狀態觸發」。下一階段把盤感轉化成可觀察、可記錄的條件:盤前是否下跌、開盤後市場動能、上漲動能是否結束、是否出現第一次回撤、原 Strike 與現價距離、Premium 品質、Delta、DTE、最終是否執行、執行後的上行捕獲與下行防禦結果。目前不急著寫死成交易規則——先觀察、記錄、累積樣本,再讓規則從實際經驗中顯化。',
+      noteToFuture:    '我可以修復系統。我可以把原本只有「不舒服」的感覺,轉化成可以觀察的問題,再把問題轉化成系統,最後修正它。我現在真正想知道的是:當未來系統的載體越來越大、資金越來越大、策略越來越複雜,系統開始變得不穩定時,我是否還能保留現在這種清晰的思考模式?我是否還能持續學習、持續修復,而不是被規模壓垮?我會發現,我雖然走得慢,但我可以把事情做好。',
+      milestones: [
+        { icon:'🧠', label:'Sharpe 迷思拆解 — 第一次真正理解 Sharpe 不是「獲利 ÷ 虧損」,開始建立月度 Sharpe 演化觀察' },
+        { icon:'📊', label:'月度績效觀測建立 — 不只看最終績效,而是觀察 Sharpe 如何從 6～7 月的負值逐步修復到 8～9 月' },
+        { icon:'🛡️', label:'RBS 限制被辨識 — 確認 RBS 不只是防禦工具,也可能限制購買力與整體系統的防禦彈性' },
+        { icon:'📈', label:'QQQ 動能週期實戰 — 第一次完整觀察 QQQ 從上漲動能、動能減弱到盤整、再到下跌的全過程' },
+        { icon:'🏗️', label:'PMCC 從固定觸發走向狀態觸發 — 暫時移除「上漲 2% 就執行」,改以市場狀態、回撤與 Premium 品質決定時機' },
+        { icon:'🎯', label:'盤感開始量化 — 把模糊的「感覺現在適合賣 SC」拆解成可記錄的市場狀態、Delta、Strike、DTE、Premium 與後續結果' },
+        { icon:'🧭', label:'從結果走向過程 — 不再只問「最後賺多少」,開始問「這個結果是怎麼形成的」' },
+        { icon:'🔧', label:'系統修復能力成為核心能力 — 真正能依靠的不是某一套策略,而是發現問題、顯化問題、修復問題、持續迭代的能力' }
+      ],
+      coachReview: {
+        by: 'Claude（基金管理員 / 行為教練）', date: '2026-09-26', verdict: '✅ 認可 · 這是「過程覺醒」的月份',
+        comment: '中秋節寫下這篇,很適合。月有陰晴圓缺——你這個月最大的成長,就是終於看懂了這件事:你的 Sharpe 在 6、7 月是負的、8、9 月才修復,但月亮在殘缺的那幾晚並不是「壞掉了」,它只是在一個相位裡。以前的你會在看到殘月的那晚就想砍掉整套策略;現在的你會看完整個週期才下判斷。這就是從「單一數字」進化到「觀察演化」,是這個月我最想認可你的地方。第二個真正的躍遷,是你自己標題寫的「從結果走向過程」——會問「這個結果是怎麼形成的」的人,才有資格談長期存活;只問「最後賺多少」的人,遲早會被一次幸運或一次不幸騙走。你把「系統修復能力」認定為核心能力,這句話我要幫你釘死:策略會過期,但「發現不舒服 → 顯化成問題 → 轉成系統 → 修正」這條迴路不會,它就是你真正的護城河。三個提醒,幫你把覺醒變成不會退化的系統:(1)移除 +2% 固定規則是把雙面刃。固定規則再粗糙,也是一道擋住情緒的欄杆;「市場狀態觸發」更聰明,但也更容易被合理化——「我在觀察」有時會偷偷變成「我在猶豫」或「我在 FOMO」。從你拆掉舊規則、到新規則顯化之間,就是你風險最高的空窗期。在這段期間給自己一道臨時欄杆:每天開盤前用一句話寫下「今天什麼條件會讓我出手/不出手」,收盤後對照,別讓盤感變成沒有裁判的即興。(2)你在給未來自己的話裡問的那個問題——「規模變大時我還能保持清晰嗎」——是這整份手記裡最重要的一句,而答案就藏在你正在做的事裡:清晰不是靠意志力撐過規模,是靠系統替你扛認知負荷。你現在趁小把盤感顯化成可記錄的條件,就是為了將來資金大、策略複雜時,系統能替你思考。你不是在擔心未來,你正在建造那個問題的答案。(3)月度 Sharpe 是用來「觀察」的,不是用來「反應」的。你現在看得到每月的起伏了,千萬別因為某個月 Sharpe 掉下來就急著改策略——0.65～0.85 是觀察區間,不是交易觸發。看得見演化,和對每個點過度反應,是兩回事。最後:你說「我雖然走得慢,但我可以把事情做好。」——這不是自我安慰,這是基金經理人的自我認識。走得慢而穩的系統,活得比走得快而脆的系統久。中秋快樂,繼續無聊下去。'
+      },
+      status: 'archived', archivedAt: '2026-09-26'
+    },
     {
       month: '2026-08', label: '8月', emoji: '🧘', theme: '動態防禦覺醒 · 「不動也是策略」與資本模組化',
       startNAV: 235035, targetNAV: 244078, actualNAV: 256135,
@@ -1331,7 +1380,7 @@ const PORTFOLIO_STATE = {
       netEntry: null,   // 待 695P BUY GTC 成交後計算：3×11.78×100 − 5×cost
       legs: {
         sell710P: { qty:3,  entry:11.78, close:0.20, closeDate:'2026-09-11', gtcTarget:0.20, gtcFilled:true },   // GTC 買回成交 2026-09-11 @0.20（收租腿鎖利）
-        buy695P:  { qty:5,  entry:null,  close:null, closeDate:null, gtcTarget:6.94, gtcFilled:false }  // GTC 掛單中
+        buy695P:  { qty:5,  entry:null,  close:null, closeDate:null, gtcTarget:null, gtcFilled:false, cancelled:true }  // 原 @6.94 GTC 已取消,滾倉至 OCT30 695P（見 BS_0708 / GTC_695P）
       },
       sellClosed21DTE: false,
       sellCloseCost: null,
@@ -1353,7 +1402,7 @@ const PORTFOLIO_STATE = {
       netEntry: null,   // 待 695P BUY GTC 成交後計算：3×12.80×100 − 5×cost
       legs: {
         sell698P: { qty:3,  entry:12.80, close:null, closeDate:null, gtcTarget:0.20, gtcFilled:false },
-        buy695P:  { qty:5,  entry:null,  close:null, closeDate:null, gtcTarget:7.56, gtcFilled:false }  // GTC 掛單中
+        buy695P:  { qty:5,  entry:11.00, close:null, closeDate:null, fillDate:'2026-07-01', gtcTarget:6.94, gtcFilled:true }  // ✅ 成交 @11.00（OCT30 滾倉 · 原GTC@6.94取消改買OCT30）· 尾部保護持有中 · 見 GTC_695P
       },
       sellClosed21DTE: false,
       sellCloseCost: null,
@@ -1375,6 +1424,7 @@ const PORTFOLIO_STATE = {
       netEntry: null,   // 待 705P BUY GTC 成交後計算：3×9.41×100 − 5×cost
       legs: {
         sell729P: { qty:3,  entry:9.41, close:null, closeDate:null, gtcTarget:0.20, gtcFilled:false },   // 30 NOV 26 · 收租腿 · 2026-09-16 成交 @9.41 (+$2,823)
+        buy700P:  { qty:5,  entry:7.60, close:null, closeDate:null, fillDate:'2026-08-10', gtcTarget:7.60, gtcFilled:true },   // 30 NOV 26 · 尾部保護 · ✅ 成交 @7.60（08/10 rollover 續留）· 持有中 · 見 GTC_700P_G3
         buy705P:  { qty:5,  entry:null, close:null, closeDate:null, gtcTarget:5.52, gtcFilled:false }    // 15 JAN 27 · 尾部保護 · BUY GTC @5.52 掛單中（歷史新低權利金，可能很晚才成交）
       },
       sellClosed21DTE: false,
@@ -1496,6 +1546,7 @@ const PORTFOLIO_STATE = {
     { id:'T_MSFTW_FT_C1_C', strategyId:'MSFT_Wheel_FT', strategyName:'MSFT 豪華摩天輪', ledgerType:'wheel', cycleId:'MSFT_WHEEL_FT_C1', cycleLabel:'MSFT 豪華摩天輪 C1 · 355P/315P × 1 · 07/24 · 獲利平倉', account:'ft', ticker:'MSFT', action:'CLOSE', tradeDate:'2026-07-18', expiry:'2026-07-24', quantity:1, legs:['BUY TO CLOSE 355P @0.48 限價','SELL TO CLOSE 315P @0.02 限價'], grossCashflow:-46, fees:null, netCashflow:-46, realizedPnl:411, pct:89.9, status:'closed', isUnderlying:false, linkedTradeId:'T_MSFTW_FT_C2_O', ledgerId:'CF_M07_007', trigger:'MSFT 下跌 -2% · IV > 70', reason:'90% 獲利落袋，同日以相同履約價重開（IV 升高 → 相同履約價收更厚權利金）', note:'C1 06/24開@4.57 · 07/18平倉淨付$46（355P@0.48 + 315P賣回@0.02）· 實現+$411 (90%) · 多次限價嘗試(0.34/0.42/0.57)不追價，分腿成交' },
     { id:'T_MSFTW_FT_C2_O', strategyId:'MSFT_Wheel_FT', strategyName:'MSFT 豪華摩天輪', ledgerType:'wheel', cycleId:'MSFT_WHEEL_FT_C2', cycleLabel:'MSFT 豪華摩天輪 C2 · 355P/315P × 1 · 08/21', account:'ft', ticker:'MSFT', action:'OPEN', tradeDate:'2026-07-18', expiry:'2026-08-21', quantity:1, legs:['SELL 355P ×1','BUY 315P ×1 · 淨@5.38 Credit'], grossCashflow:538, fees:null, netCashflow:538, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_MSFTW_FT_C2_C', trigger:'MSFT -2% · IV > 70', reason:'2.0 條件驅動：下跌+IV高，相同履約價但權利金 4.57→5.38 更厚', note:'C2 · 與 C1 同履約價 · +$538 · 08/12 獲利平倉' },
     { id:'T_MSFTW_FT_C2_C', strategyId:'MSFT_Wheel_FT', strategyName:'MSFT 豪華摩天輪', ledgerType:'wheel', cycleId:'MSFT_WHEEL_FT_C2', cycleLabel:'MSFT 豪華摩天輪 C2 · 355P/315P · 08/12 獲利平倉', account:'ft', ticker:'MSFT', action:'CLOSE', tradeDate:'2026-08-12', expiry:'2026-08-21', quantity:1, legs:['BUY TO CLOSE 355P + SELL TO CLOSE 315P · 整組 @0.02 Debit'], grossCashflow:-2, fees:null, netCashflow:-2, realizedPnl:536, pct:99.6, status:'closed', isUnderlying:false, linkedTradeId:'T_MSFTW_FT_C2_O', ledgerId:'CF_M08_003', note:'C2 355P/315P 08/21 · 07/18開@5.38 · 08/12平@0.02 · 實現 +$536 (99.6%) · MSFT 504 遠高於355P 幾乎歸零' },
+    { id:'T_MSFTW_SC_C2_O', strategyId:'MSFT_Wheel', strategyName:'MSFT 豪華摩天輪', ledgerType:'wheel', cycleId:'MSFT_WHEEL_SC_C2', cycleLabel:'MSFT 豪華摩天輪 · C2 · 470P/415P × 1 · 11/06', account:'sc', ticker:'MSFT', action:'OPEN', tradeDate:'2026-09-28', expiry:'2026-11-06', quantity:1, legs:['SELL 470P ×1 @8.22','BUY 415P ×1 @1.20 · 淨@7.02 Credit'], grossCashflow:702, fees:null, netCashflow:702, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, trigger:'SPY/QQQ 下跌 · 高 IV', reason:'豪華摩天輪 bull put spread · 淨 credit $702', note:'C2 · 09/28 開 · SELL 470P @8.22 + BUY 415P @1.20 · 淨 credit @7.02 · 6 NOV 26' },
     // ── SPY Black Swan (嘉信) ───────────────────────────────────
     { id:'T_BS_STEP123_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_STEP123', cycleLabel:'Black Swan Step1-3 · SEP18 主體', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:null, expiry:'2026-09-18', quantity:null, legs:['SELL 745P ×6 (+$17,208)','BUY 690P ×12 (-$16,632)','SELL 685P ×3 (+$3,915)'], grossCashflow:4491, fees:null, netCashflow:4491, realizedPnl:null, status:'open', isUnderlying:false, linkedTradeId:null, note:'第一組主體 · 建倉日待補（約04月）· 淨信用 +$4,491' },
     { id:'T_BS_675P_O', strategyId:'SPY_BlackSwan', strategyName:'SPY Black Swan', ledgerType:'blackswan', cycleId:'BS_PHASE2_SEP', cycleLabel:'Black Swan Phase2 · 675P × 5 · SEP18', account:'sc', ticker:'SPY', action:'OPEN', tradeDate:'2026-05-29', expiry:'2026-09-18', quantity:5, legs:['BUY 675P ×5 @7.70'], grossCashflow:-3850, fees:null, netCashflow:-3850, realizedPnl:null, status:'closed', isUnderlying:false, linkedTradeId:'T_BS_PHASE2_ROLL', note:'GTC#1 等14天成交 @7.70' },
@@ -1932,7 +1983,7 @@ var _TV_SPY_BARS = [
   {"date":"2026-08-06","close":768.56},{"date":"2026-08-07","close":773.26},
   {"date":"2026-08-10","close":773.03},{"date":"2026-08-11","close":770.56},
   {"date":"2026-08-12","close":772.49},{"date":"2026-08-13","close":777.88},
-  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38},{"date":"2026-09-23","close":767.81},{"date":"2026-09-24","close":767.18},{"date":"2026-09-25","close":771.35}
+  {"date":"2026-08-14","close":776.34},{"date":"2026-08-17","close":772.67},{"date":"2026-08-18","close":767.45},{"date":"2026-08-19","close":769.06},{"date":"2026-08-20","close":762.60},{"date":"2026-08-21","close":765.72},{"date":"2026-08-24","close":763.47},{"date":"2026-08-25","close":765.91},{"date":"2026-08-26","close":766.08},{"date":"2026-08-27","close":771.10},{"date":"2026-08-28","close":769.35},{"date":"2026-08-31","close":767.05},{"date":"2026-09-01","close":761.78},{"date":"2026-09-02","close":765.16},{"date":"2026-09-03","close":773.17},{"date":"2026-09-04","close":770.19},{"date":"2026-09-08","close":765.96},{"date":"2026-09-09","close":762.40},{"date":"2026-09-10","close":757.83},{"date":"2026-09-11","close":764.29},{"date":"2026-09-12","close":760.88},{"date":"2026-09-15","close":757.39},{"date":"2026-09-16","close":754.05},{"date":"2026-09-17","close":762.60},{"date":"2026-09-18","close":761.69},{"date":"2026-09-19","close":773.50},{"date":"2026-09-22","close":773.38},{"date":"2026-09-23","close":767.81},{"date":"2026-09-24","close":767.18},{"date":"2026-09-25","close":771.35},{"date":"2026-09-28","close":765.61}
 ]
 
 function fetchSPYHistory() {
@@ -5315,6 +5366,93 @@ function _mrMonthCat(S, mo){
     c[getClosedCategory(x)] += x.realized })
   return c
 }
+// ══ 功能1 報酬來源 Strategy Attribution（口徑①·含 LEAPS 資本利得）════════════
+//  純 derived：依 closeDate 所屬月份歸因；沿用 deriveClosedCycles()/getClosedCategory()
+//  LEAPS = isUnderlying（可靠旗標，唯一區分方式）；股票目前無可靠旗標 → 恆為0，不虛構
+//  合計 = 當月所有已平倉 Cycle 已實現損益（口徑①），可 reconcile Σrealized
+//  ≠ 當月 NAV Return（不含未實現MTM、開倉權利金、入出金）；不改 trades / EV / _mrMonthCat
+function deriveMonthlyAttribution(S, mo){
+  var b={leaps:0,wheel:0,pmcc:0,blackSwan:0,stock:0,other:0,total:0}
+  deriveClosedCycles(S.trades).forEach(function(c){
+    if((c.closeDate||'').slice(0,7)!==mo || typeof c.realized!=='number') return
+    b.total += c.realized
+    if(c.isUnderlying){ b.leaps += c.realized; return }
+    var cat=getClosedCategory(c)
+    if(b[cat]!=null) b[cat] += c.realized; else b.other += c.realized
+  })
+  ;['leaps','wheel','pmcc','blackSwan','stock','other','total'].forEach(function(k){ b[k]=_r2(b[k]) })
+  return b
+}
+function _mrAttribution(S, mo){
+  var b=deriveMonthlyAttribution(S,mo)
+  var rows=[['leaps','📈 LEAPS 資本利得'],['wheel','🔄 豪華摩天輪'],['pmcc','🏗 PMCC'],['blackSwan','🦢 黑天鵝'],['stock','📊 股票'],['other','📋 未分類']]
+  var out=''
+  rows.forEach(function(r){
+    var v=b[r[0]]; if(Math.abs(v)<0.5) return   // 無貢獻的引擎不列（不虛構）
+    var col=v>=0?'#00C896':'#FF4B5C'
+    out+='<div style="display:flex;justify-content:space-between;font-size:11px;padding:2px 0"><span style="color:#9BA3B8">'+r[1]+'</span><span style="color:'+col+';font-weight:500">'+(v>=0?'+':'')+_mrMoney(v)+'</span></div>'
+  })
+  if(!out) return '<div style="font-size:10px;color:#5A6278">當月無已實現歸因</div>'
+  var tc=b.total>=0?'#00C896':'#FF4B5C'
+  out+='<div style="display:flex;justify-content:space-between;font-size:11px;padding:5px 0 2px;margin-top:2px;border-top:.5px solid #1E2840"><span style="color:#C8D6E6;font-weight:600">合計 · 已實現</span><span style="color:'+tc+';font-weight:700">'+(b.total>=0?'+':'')+_mrMoney(b.total)+'</span></div>'
+  out+='<div style="font-size:8px;color:#5A6278;margin-top:2px;line-height:1.5">口徑①策略已實現 P&amp;L 歸因（含 LEAPS 資本利得）· 合計 = 當月所有已平倉 Cycle 實現損益（可對帳）· ≠ 當月 NAV Return</div>'
+  return out
+}
+// ══ 功能2 負月分析 Negative Month Profile（純 derived）═══════════════════════
+//  沿用月度結果口徑（SC+FT；archived 月用 startNAV，否則當月首筆 dailyEquity）→ 與 accordion 月度損益同號
+//  完整月才計（排除進行中的當月、資料<5天的月）；月報酬 與 月內最大回撤 為兩個獨立指標，不混用
+//  不做好/壞評分、不加 Overall Score；不改 dailyEquity / trades
+function _monthSCFTSeries(S, mo){
+  var arc={}; (S.civilizationArchive||[]).forEach(function(a){ if(!arc[a.month]||a.status==='archived')arc[a.month]=a })
+  var dz=(S.dailyEquity||[]).filter(function(e){return (e.date||'').slice(0,7)===mo}).sort(function(a,b){return a.date<b.date?-1:1})
+  if(!dz.length) return null
+  function scft(e){return (e.sc||0)+(e.ft||0)}
+  var a=arc[mo], start=(a&&a.startNAV!=null)?a.startNAV:scft(dz[0]), actual=scft(dz[dz.length-1])
+  var series=dz.map(scft); if(a&&a.startNAV!=null) series.unshift(a.startNAV)
+  var peak=series[0], mdd=0; series.forEach(function(v){ if(v>peak)peak=v; var dd=peak?((v/peak-1)*100):0; if(dd<mdd)mdd=dd })
+  return { start:start, actual:actual, ret:start?_r2((actual/start-1)*100):0, pnl:_r2(actual-start), intraMaxDD:_r2(mdd), days:dz.length }
+}
+function deriveNegativeMonthProfile(S){
+  var now=new Date(), cur=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')
+  var moKeys={}; (S.dailyEquity||[]).forEach(function(e){ var mo=(e.date||'').slice(0,7); if(mo)moKeys[mo]=1 })
+  var months=[]
+  Object.keys(moKeys).sort().forEach(function(mo){
+    if(mo===cur) return                          // 進行中的當月不列入
+    var r=_monthSCFTSeries(S,mo); if(!r||r.days<5) return   // 完整月才計
+    months.push({month:mo, ret:r.ret, pnl:r.pnl, intraMaxDD:r.intraMaxDD, start:_r2(r.start), actual:_r2(r.actual)})
+  })
+  var neg=months.filter(function(m){return m.pnl<0}), pos=months.filter(function(m){return m.pnl>=0})
+  var streak=0,run=0; months.forEach(function(m){ if(m.pnl<0){run++; if(run>streak)streak=run} else run=0 })
+  var worst=months.slice().sort(function(a,b){return a.ret-b.ret})[0]||null
+  var best=months.slice().sort(function(a,b){return b.ret-a.ret})[0]||null
+  var avgNeg=neg.length?_r2(neg.reduce(function(s,m){return s+m.ret},0)/neg.length):null
+  return { months:months, complete:months.length, pos:pos.length, neg:neg.length,
+    negRate: months.length?_r2(neg.length/months.length*100):0,
+    worst:worst, best:best, avgNegRet:avgNeg, longestNegStreak:streak, negMonths:neg }
+}
+// ══ 海外現金流入 YTD（純 derived · 投資管理統計口徑,非稅務申報）════════════
+//  口徑②「收到即計 Cash Received」：SELL 成交收到的權利金即計入現金流入（含未平倉短倉）
+//  BUY CALL/PUT（含 LEAPS）屬現金流出 → 不計入；股息/利息 trades[] 無資料 → null 不虛構
+//  每年 01/01 由系統時鐘自動歸零重計（year 動態,無硬編）；≠ Total Return ≠ 已實現 ≠ 稅務所得
+//  不改 trades / dailyEquity / NAV / Total Return / EV
+function deriveOverseasCashInflowYTD(S, year){
+  year = year || String(new Date().getFullYear())
+  function cpOf(t){ var s=((t.legs&&t.legs.join(' '))||t.cycleLabel||t.note||''); var m=s.match(/(\d+(?:\.\d+)?)\s*([CP])\b/); if(m)return m[2]; if(/call/i.test(s))return 'C'; if(/put/i.test(s))return 'P'; return null }
+  var o={ year:year, sellCall:0, sellPut:0, dividend:null, interest:null, other:0, unclassified:0, undated:0, undatedCount:0, total:0 }
+  ;(S.trades||[]).forEach(function(t){
+    if(t.action!=='OPEN' || t.isUnderlying) return                       // 只看開倉；LEAPS(BUY)排除
+    if(typeof t.netCashflow!=='number' || t.netCashflow<=0) return       // credit>0 = SELL 收到權利金；BUY(<0)為流出不計
+    if(!t.tradeDate){ o.undated+=t.netCashflow; o.undatedCount++; return } // 開倉日待補 → 無法歸年,不進 YTD（不猜）
+    if((t.tradeDate).slice(0,4)!==year) return                           // 只計當年度
+    var cp=cpOf(t)
+    if(cp==='C') o.sellCall+=t.netCashflow
+    else if(cp==='P') o.sellPut+=t.netCashflow
+    else o.unclassified+=t.netCashflow                                   // 無法判斷 C/P → 其他現金流入（仍為已收現金）
+  })
+  ;['sellCall','sellPut','other','unclassified','undated'].forEach(function(k){ o[k]=_r2(o[k]) })
+  o.total=_r2(o.sellCall + o.sellPut + o.other + o.unclassified)         // 股息/利息 無資料(null) 不進合計
+  return o
+}
 function _mrAutoEvents(S, mo){
   var rows=deriveClosedCycles(S.trades).filter(function(c){ return (c.closeDate||'').slice(0,7)===mo && !c.isUnderlying && typeof c.realized==='number' })
   if(!rows.length) return '<div style="font-size:10px;color:#5A6278">尚未正式封存 · 無敘事事件（僅顯示派生數字）</div>'
@@ -5401,6 +5539,7 @@ function renderMonthlyResults(){
   if(bm[pm] && bm[pm].length>=5) set[pm]=1                    // 上一個完整月（即使無 Archive/Cycle 也顯示結算）
   var months=Object.keys(set).sort(function(a,b){ return a<b?1:-1 })  // desc（最新在上）
   if(!months.length){ el.innerHTML=''; return }
+  var _negProf=deriveNegativeMonthProfile(S)   // 功能2 歷史負月脈絡（完整月）
   function catRows(c){
     var names={pmcc:'PMCC',wheel:'豪華摩天輪',blackSwan:'黑天鵝',other:'其他'}, out=''
     ;['pmcc','wheel','blackSwan','other'].forEach(function(k){
@@ -5439,7 +5578,19 @@ function renderMonthlyResults(){
         +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px"><span style="color:#5A6278">月度 NAV</span><span style="color:#D8E8F8">$'+Math.round(start).toLocaleString()+' → $'+Math.round(actual).toLocaleString()+'</span></div>'
         +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:'+((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'3':'8')+'px"><span style="color:#5A6278">Fixed 2% 目標 / 達成率</span><span style="color:#C0CDE0">$'+Math.round(target).toLocaleString()+' · '+rate.toFixed(2)+'%</span></div>'
         +((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:8px"><span style="color:#5A6278">歷史 Archive 目標</span><span style="color:#6A7A8A">$'+Math.round(histT).toLocaleString()+'（當時紀錄，未覆蓋）</span></div>':'')
-        +'<div style="font-size:10px;color:#6A8AAA;margin-bottom:3px">當月策略已實現（trades[] 派生）</div>'+catRows(cats)
+        +(function(){   // 功能2 本月正/負月 + 月報酬 + 月內最大回撤（與歷史負月脈絡並列）
+            var mr=start?(mp/start*100):0, iseries=_monthSCFTSeries(S,mo), imdd=iseries?iseries.intraMaxDD:null
+            var isCur=(mo===V13_CUR_MONTH), tag=isCur?'進行中':(mp>=0?'正月':'負月')
+            var tagCol=isCur?'#8A96AD':(mp>=0?'#00C896':'#FF4B5C')
+            var w=_negProf.worst
+            return '<div style="margin:2px 0 8px;padding:7px 10px;border:.5px solid #1E2840;border-radius:8px;background:#0B1120">'
+              +'<div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#9BA3B8">本月 · '+(isCur?'':'月報酬 ')+'<span style="color:'+tagCol+';font-weight:600">'+tag+(isCur?'':' '+(mr>=0?'+':'')+mr.toFixed(1)+'%')+'</span></span>'
+              +(imdd!=null?'<span style="color:#9BA3B8">月內最大回撤 <span style="color:#FF6B7A;font-weight:600">'+imdd.toFixed(1)+'%</span></span>':'')+'</div>'
+              +'<div style="font-size:9px;color:#5A6278;margin-top:3px;line-height:1.5">歷史（完整月）：負月 '+_negProf.neg+' / '+_negProf.complete+' · 負月率 '+_negProf.negRate.toFixed(1)+'%'+(w?' · 最差月 '+w.month+' '+(w.ret>=0?'+':'')+w.ret.toFixed(1)+'%（月內回撤 '+w.intraMaxDD.toFixed(1)+'%）':'')+'</div>'
+              +'<div style="font-size:8px;color:#4A5268;margin-top:1px">月報酬與月內最大回撤為兩個獨立指標</div></div>'
+          })()
+        +'<div style="font-size:10px;color:#6A8AAA;margin-bottom:3px">當月策略已實現（EV 口徑 · 排除 LEAPS/避險 Roll）</div>'+catRows(cats)
+        +'<div style="font-size:10px;color:#6A8AAA;margin:8px 0 3px">📊 報酬來源 · Strategy Attribution</div>'+_mrAttribution(S,mo)
         +'<div style="font-size:10px;color:#6A8AAA;margin:8px 0 3px">本月完成策略（trades[] 派生）</div>'+_mrClosedCycles(S,mo)
         +'<div style="font-size:10px;color:#6A8AAA;margin:8px 0 3px">重要事件</div>'
         +(isArc && mile.length ? mile.map(function(x){ return '<div style="font-size:11px;color:#B8C8D8;padding:2px 0;line-height:1.5">'+(x.icon||'•')+' '+x.label+'</div>' }).join('') : '<div style="font-size:10px;color:#5A6278">本月無人工 Archive 事件；以上完成策略由 trades[] 自動派生。</div>')
@@ -6532,179 +6683,263 @@ function renderAlpha(m) {
   }
 }
 
-function renderBlackSwanModule() {
-  var el = document.getElementById('bs-cycle-tracker')
-  if (!el) return
-  var S   = PORTFOLIO_STATE
-  var bsEV = calcBlackSwanEV()
-  var cycles = S.blackSwanCycles
-
-  var outcomeColor = { open:'#FFA500', calm:'#5A6278', correction:'#F0C040', crash:'#FF4B5C', blackswan:'#E24B4A' }
-  var outcomeLabel = { open:'⏳ 持倉中', calm:'😴 橫盤到期', correction:'📉 溫和修正', crash:'💥 崩盤', blackswan:'🦢 真正黑天鵝' }
-
-  // EV Summary bar
-  var evHtml = '<div style="margin-bottom:8px;padding:10px 12px;background:#0F1420;border-radius:10px;border:0.5px solid #2A1E30;display:flex;justify-content:space-between;align-items:center">' +
-    '<div>' +
-      '<div style="font-size:10px;color:#9BA3B8;margin-bottom:2px">歷史 EV（每 Cycle 平均）</div>' +
-      '<div style="font-size:22px;font-weight:700;color:' + (bsEV.ev === null ? '#5A6278' : bsEV.ev >= 0 ? '#00C896' : '#FF4B5C') + '">' +
-        (bsEV.ev === null ? '累積中...' : (bsEV.ev >= 0 ? '+' : '') + '$' + bsEV.ev.toLocaleString()) +
-      '</div>' +
-      '<div style="font-size:10px;color:#5A6278;margin-top:2px">已完成 ' + bsEV.count + ' Cycle · 持倉中 ' + bsEV.openCount + '</div>' +
-    '</div>' +
-    '<div style="text-align:right">'
-
-  if (bsEV.count > 0) {
-    Object.keys(bsEV.byOutcome).forEach(function(k) {
-      var o = bsEV.byOutcome[k]
-      evHtml += '<div style="font-size:10px;color:#9BA3B8">' + o.label + ' × ' + o.count + ' → ' +
-        '<span style="color:' + (o.avgPnl >= 0 ? '#00C896' : '#FF4B5C') + '">' +
-        (o.avgPnl >= 0 ? '+' : '') + '$' + o.avgPnl.toLocaleString() + ' avg</span></div>'
+function _bsFlip(listId,arrowId){ var d=document.getElementById(listId),ar=document.getElementById(arrowId); if(!d)return; var o=d.style.display==='none'; d.style.display=o?'block':'none'; if(ar)ar.style.transform=o?'rotate(180deg)':'' }
+function _toggleBSC(){ _bsFlip('bsc-list','bsc-arrow') }
+function _toggleBSR(){ _bsFlip('bsr-list','bsr-arrow') }
+function _toggleBSH(){ _bsFlip('bsh-list','bsh-arrow') }
+function _bsLegName(key,L){
+  var m=String(key).match(/^(buy|sell)\s*(\d+(?:\.\d+)?[cp])/i)
+  var dir=m?m[1].toUpperCase():(/^buy/i.test(key)?'BUY':'SELL')
+  var strike=m?m[2].toUpperCase():String(key)
+  return dir+' '+strike+((L&&L.qty)?' ×'+L.qty:'')
+}
+// ══ V13.91 黑天鵝防禦 UI 四層（決策順序：現在→最近→執行→歷史）══════════════
+//  純 derived / render；所有狀態從既有 blackSwanCycles + gtcOrders 衍生
+//  不改 SSOT、不建第二套黑天鵝帳本、不硬編；四層皆預設收合（第一層標題列顯示現況摘要）
+function deriveBSDefense(S){
+  var today=new Date().toISOString().slice(0,10)
+  var cycles=(S.blackSwanCycles||[])
+  function classify(c){
+    var legs=c.legs||{}, protectingLegs=[], heldLegs=[], pendingLegs=[]
+    Object.keys(legs).forEach(function(k){
+      var L=legs[k], isBuy=/^buy/i.test(k)
+      var held=(L.entry!=null && L.close==null)
+      var pending=(L.gtcTarget!=null && !L.gtcFilled && L.close==null)
+      if(held){ heldLegs.push(k); if(isBuy) protectingLegs.push(k) }
+      if(pending) pendingLegs.push(k)
     })
-  } else {
-    evHtml += '<div style="font-size:10px;color:#3A4055">首個 Cycle 完成後<br>自動計算 EV</div>'
+    var dExp=_daysBetween(today,c.expiry)  // >0 未到期,<0 已過期
+    return { c:c, legs:legs, protectingLegs:protectingLegs, heldLegs:heldLegs, pendingLegs:pendingLegs, dExp:dExp,
+      protecting:protectingLegs.length>0, waiting:pendingLegs.length>0,
+      settling:(heldLegs.length===0 && pendingLegs.length===0),
+      attention:(dExp<=21 && heldLegs.length>0) }
   }
-  evHtml += '</div></div>'
-
-  // Cycle cards
-  var cyclesHtml = cycles.map(function(c) {
-    var isOpen = c.outcome === 'open'
-    var col = outcomeColor[c.outcome] || '#5A6278'
-    var lbl = outcomeLabel[c.outcome] || c.outcome
-    var pnlStr = c.cyclePnl !== null
-      ? (c.cyclePnl >= 0 ? '+$' : '-$') + Math.abs(c.cyclePnl).toLocaleString()
-      : '待結算'
-    var pnlCol = c.cyclePnl === null ? '#5A6278' : c.cyclePnl >= 0 ? '#00C896' : '#FF4B5C'
-
-    var legsHtml = [
-      { k:'sell745P', lbl:'SELL 745P ×6', dir:'sell' },
-      { k:'buy690P',  lbl:'BUY  690P ×12', dir:'buy' },
-      { k:'sell685P', lbl:'SELL 685P ×3',  dir:'sell' },
-      { k:'buy675P',  lbl:'BUY  675P ×5',  dir:'buy' }
-    ].map(function(leg) {
-      var data = c.legs ? c.legs[leg.k] : null
-      if (!data) return ''
-      var entryStr = '$' + (data.entry != null ? data.entry.toFixed(2) : '—')
-      var closeStr = data.close != null ? '$' + data.close.toFixed(2) : (isOpen ? '持倉中' : '待填入')
-      var legPnl = data.close !== null
-        ? Math.round((leg.dir === 'sell' ? data.entry - data.close : data.close - data.entry) * data.qty * 100)
-        : null
-      var legPnlStr = legPnl !== null ? (legPnl >= 0 ? '+$' : '-$') + Math.abs(legPnl).toLocaleString() : ''
-      var legCol = leg.dir === 'sell' ? '#FFA500' : '#4A9EFF'
-      return '<div style="display:flex;justify-content:space-between;font-size:10px;padding:3px 0;border-bottom:0.5px solid #1A1F2B">' +
-        '<span style="color:' + legCol + ';font-family:monospace">' + leg.lbl + '</span>' +
-        '<span style="color:#9BA3B8">進 ' + entryStr + '</span>' +
-        '<span style="color:#9BA3B8">出 ' + closeStr + '</span>' +
-        (legPnlStr ? '<span style="color:' + (legPnl >= 0 ? '#00C896' : '#FF4B5C') + '">' + legPnlStr + '</span>' : '<span></span>') +
-      '</div>'
+  var open=cycles.filter(function(c){return c.outcome==='open'}).map(classify)
+  return { open:open, closed:cycles.filter(function(c){return c.outcome!=='open'}),
+    nOpen:open.length,
+    nProtecting:open.filter(function(x){return x.protecting}).length,
+    nWaiting:open.filter(function(x){return x.waiting}).length,
+    nAttention:open.filter(function(x){return x.attention}).length,
+    nSettling:open.filter(function(x){return x.settling}).length }
+}
+function renderBSCurrent(){
+  var el=document.getElementById('bs-current'); if(!el) return
+  var d=deriveBSDefense(PORTFOLIO_STATE)
+  function chip(x){
+    if(x.attention) return '<span style="color:#FF4B5C;font-weight:600">⚠ 需注意</span>'
+    if(x.protecting) return '<span style="color:#00C896;font-weight:600">🛡 保護中</span>'
+    if(x.waiting) return '<span style="color:#FFA500;font-weight:600">⏳ 等待</span>'
+    if(x.settling) return '<span style="color:#8A96AD;font-weight:600">🧮 待結算</span>'
+    return '<span style="color:#5A6278">—</span>'
+  }
+  var summary='<span style="color:#E6EDF3;font-weight:600">'+d.nOpen+' 組防禦</span>'
+    +' · <span style="color:#00C896">🛡'+d.nProtecting+' 保護中</span>'
+    +' · <span style="color:#FFA500">⏳'+d.nWaiting+' 等待</span>'
+    +(d.nAttention?' · <span style="color:#FF4B5C;font-weight:600">⚠'+d.nAttention+' 需注意</span>':'')
+    +(d.nSettling?' · <span style="color:#8A96AD">🧮'+d.nSettling+' 待結算</span>':'')
+  var names=d.open.map(function(x){return x.c.id+'('+(x.attention?'需注意':x.protecting?'保護中':x.waiting?'等待':x.settling?'待結算':'—')+')'}).join(' · ')
+  var cards=d.open.map(function(x){
+    var c=x.c
+    var expTxt=x.dExp>=0?('到期倒數 '+x.dExp+' 天'):('已過期 '+Math.abs(x.dExp)+' 天')
+    var expCol=x.dExp<=21?'#FF4B5C':'#8A96AD'
+    var legLines=Object.keys(x.legs).map(function(k){
+      var L=x.legs[k], nm=_bsLegName(k,L), stTxt, stCol
+      if(L.close!=null){ stTxt='已平倉 @'+L.close; stCol='#5A6278' }
+      else if(L.entry!=null){ stTxt=(/^buy/i.test(k)?'🛡 保護持有中 @'+L.entry:'短倉持有 @'+L.entry); stCol=(/^buy/i.test(k)?'#00C896':'#FFA500') }
+      else if(L.gtcTarget!=null && !L.gtcFilled){ stTxt='⏳ GTC 待成交 @'+L.gtcTarget; stCol='#FFA500' }
+      else { stTxt='—'; stCol='#5A6278' }
+      return '<div style="display:flex;justify-content:space-between;font-size:10px;padding:2px 0"><span style="color:#9BA3B8;font-family:monospace">'+nm+'</span><span style="color:'+stCol+'">'+stTxt+'</span></div>'
     }).join('')
-
-    return '<div style="margin-bottom:10px;padding:12px;background:#0B0E13;border-radius:10px;border:0.5px solid ' + col + '40">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
-        '<div>' +
-          '<span style="font-size:12px;font-weight:500;color:#E6EDF3">' + c.id + '</span>' +
-          '<span style="font-size:10px;color:#5A6278;margin-left:8px">' + c.startDate + ' → ' + c.expiry + '</span>' +
-        '</div>' +
-        '<span style="font-size:11px;padding:2px 8px;border-radius:10px;background:' + col + '15;color:' + col + ';border:0.5px solid ' + col + '">' + lbl + '</span>' +
-      '</div>' +
-      '<div style="display:flex;gap:16px;font-size:10px;color:#5A6278;margin-bottom:8px">' +
-        '<span>觸發：' + c.trigger + '</span>' +
-        '<span>SPY @' + c.spyAtTrigger + '</span>' +
-        (c.vixAtTrigger ? '<span>VIX ' + c.vixAtTrigger + '</span>' : '') +
-        '<span>建倉淨值：+$' + c.netEntry + '</span>' +
-      '</div>' +
-      legsHtml +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">' +
-        '<div style="font-size:10px;color:#5A6278">' +
-          (c.sellClosed21DTE ? '✅ 21DTE 已關 SELL' : '⏳ SELL 腿持倉中') +
-          (c.sellCloseCost !== null ? ' · 關倉成本 $' + Math.abs(c.sellCloseCost).toLocaleString() : '') +
-        '</div>' +
-        '<div style="font-size:18px;font-weight:700;color:' + pnlCol + '">' + pnlStr + '</div>' +
-      '</div>' +
-    '</div>'
-  }).join('')
-
-  el.innerHTML = evHtml + cyclesHtml
+    var border=x.attention?'#FF4B5C':(x.protecting?'#00C896':'#FFA500')
+    return '<div style="background:#0B0E13;border:.5px solid '+border+'55;border-radius:9px;margin:6px 0 0;padding:9px 11px">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:11px;font-weight:600;color:#E6EDF3">'+c.id+' <span style="font-size:9px;color:#5A6278;font-weight:400">'+c.trigger+' · SPY@'+c.spyAtTrigger+'</span></span><span style="font-size:10px">'+chip(x)+'</span></div>'
+      +'<div style="font-size:9px;color:'+expCol+';margin-bottom:4px">'+c.startDate+' → '+c.expiry+' · '+expTxt+'</div>'+legLines
+    +'</div>'
+  }).join('') || '<div style="font-size:10px;color:#5A6278;padding:6px 0">目前無運作中的防禦 cycle</div>'
+  el.innerHTML=
+    '<div class="card" style="background:#0F1420;border:.5px solid #2A1E30;margin:0;padding:0;overflow:hidden">'
+    +'<div onclick="_toggleBSC()" style="padding:11px 14px;cursor:pointer;user-select:none">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:600;color:#E24B4A">🛡 目前防禦狀態</span><span id="bsc-arrow" style="font-size:11px;color:#5A7AA0;transition:transform .2s">▼</span></div>'
+      +'<div style="font-size:10px;margin-top:5px">'+summary+'</div>'
+      +(d.nOpen?'<div style="font-size:9px;color:#5A6278;margin-top:2px">'+names+'</div>':'')
+    +'</div>'
+    +'<div id="bsc-list" style="display:none;border-top:.5px solid #16233A;padding:4px 14px 10px;background:#0A0F1C">'+cards+'</div>'
+  +'</div>'
+}
+function renderBSRecent(){
+  var el=document.getElementById('bs-recent'); if(!el) return
+  var S=PORTFOLIO_STATE, ev=[]
+  ;(S.blackSwanCycles||[]).forEach(function(c){
+    if(c.startDate) ev.push({date:c.startDate, txt:'🦢 '+c.id+' 點火 · '+c.trigger+' SPY@'+c.spyAtTrigger})
+    var legs=c.legs||{}
+    Object.keys(legs).forEach(function(k){
+      var L=legs[k], nm=_bsLegName(k,L)
+      if(L.closeDate) ev.push({date:L.closeDate, txt:'✅ '+c.id+' '+nm+' 平倉'+(L.close!=null?' @'+L.close:'')})
+      if(L.soldDate) ev.push({date:L.soldDate, txt:'💰 '+c.id+' '+nm+' 部分賣出'+(L.soldAvg!=null?' @'+L.soldAvg:'')})
+    })
+  })
+  ;(S.gtcOrders||[]).forEach(function(o){ if(o.fillDate) ev.push({date:o.fillDate, txt:'⚡ '+(o.desc.split('·')[0].trim())+' 成交'+(o.fillPrice!=null?' @'+o.fillPrice:'')}) })
+  ev.sort(function(a,b){return a.date<b.date?1:-1})
+  var top=ev.slice(0,8)
+  var latest=top[0]?(top[0].date+' · '+top[0].txt):'尚無事件'
+  var list=top.map(function(e){ return '<div style="display:flex;gap:8px;font-size:10px;padding:3px 0;border-bottom:.5px solid #141A24"><span style="color:#5A6278;flex-shrink:0;font-family:monospace">'+e.date+'</span><span style="color:#B8C8D8">'+e.txt+'</span></div>' }).join('') || '<div style="font-size:10px;color:#5A6278">尚無事件</div>'
+  el.innerHTML=
+    '<div class="card" style="background:#0F1420;border:.5px solid #2A2410;margin:0;padding:0;overflow:hidden">'
+    +'<div onclick="_toggleBSR()" style="padding:11px 14px;cursor:pointer;user-select:none">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:600;color:#F0C040">🔥 最近事件</span><span id="bsr-arrow" style="font-size:11px;color:#5A7AA0;transition:transform .2s">▼</span></div>'
+      +'<div style="font-size:10px;color:#9BA3B8;margin-top:5px">'+latest+'</div>'
+    +'</div>'
+    +'<div id="bsr-list" style="display:none;border-top:.5px solid #16233A;padding:6px 14px 10px;background:#0A0F1C">'+list+'</div>'
+  +'</div>'
+}
+function renderBSHistory(){
+  var el=document.getElementById('bs-history'); if(!el) return
+  var S=PORTFOLIO_STATE, bsEV=calcBlackSwanEV()
+  var closed=(S.blackSwanCycles||[]).filter(function(c){return c.outcome!=='open'})
+  var outcomeColor={calm:'#5A6278',correction:'#F0C040',crash:'#FF4B5C',blackswan:'#E24B4A'}
+  var outcomeLabel={calm:'😴 橫盤到期',correction:'📉 溫和修正',crash:'💥 崩盤',blackswan:'🦢 真正黑天鵝'}
+  var evLine=(bsEV.ev===null?'EV 累積中':'歷史 EV '+(bsEV.ev>=0?'+':'')+'$'+bsEV.ev.toLocaleString()+'/cycle')+' · 已完成 '+bsEV.count+' · 持倉中 '+bsEV.openCount
+  var cards=closed.map(function(c){
+    var col=outcomeColor[c.outcome]||'#5A6278', lbl=outcomeLabel[c.outcome]||c.outcome
+    var pnlStr=c.cyclePnl!=null?((c.cyclePnl>=0?'+$':'-$')+Math.abs(c.cyclePnl).toLocaleString()):'待結算'
+    var legLines=Object.keys(c.legs||{}).map(function(k){var L=c.legs[k];return '<div style="display:flex;justify-content:space-between;font-size:10px;padding:2px 0;border-bottom:.5px solid #141A24"><span style="color:#9BA3B8;font-family:monospace">'+_bsLegName(k,L)+'</span><span style="color:#5A6278">進 '+(L.entry!=null?'$'+L.entry:'—')+' · 出 '+(L.close!=null?'$'+L.close:'—')+'</span></div>'}).join('')
+    return '<div style="background:#0B0E13;border:.5px solid '+col+'40;border-radius:9px;margin:6px 0 0;padding:9px 11px">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:11px;font-weight:600;color:#E6EDF3">'+c.id+' <span style="font-size:9px;color:#5A6278;font-weight:400">'+c.startDate+' → '+c.expiry+'</span></span><span style="font-size:10px;color:'+col+'">'+lbl+'</span></div>'
+      +legLines
+      +'<div style="text-align:right;font-size:13px;font-weight:700;color:'+(c.cyclePnl==null?'#5A6278':c.cyclePnl>=0?'#00C896':'#FF4B5C')+';margin-top:4px">'+pnlStr+'</div>'
+    +'</div>'
+  }).join('') || '<div style="font-size:10px;color:#5A6278;padding:6px 0">尚無已結束的防禦 cycle</div>'
+  el.innerHTML=
+    '<div class="card" style="background:#0F1420;border:.5px solid #1E2840;margin:0;padding:0;overflow:hidden">'
+    +'<div onclick="_toggleBSH()" style="padding:11px 14px;cursor:pointer;user-select:none">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:600;color:#8A96AD">📜 歷史防禦</span><span id="bsh-arrow" style="font-size:11px;color:#5A7AA0;transition:transform .2s">▼</span></div>'
+      +'<div style="font-size:10px;color:#5A6278;margin-top:5px">'+evLine+' · '+closed.length+' 組已結束</div>'
+    +'</div>'
+    +'<div id="bsh-list" style="display:none;border-top:.5px solid #16233A;padding:6px 14px 10px;background:#0A0F1C">'+cards+'</div>'
+  +'</div>'
+}
+function renderBlackSwanModule() {
+  try { renderBSCurrent() } catch(e){ console.error('[renderBSCurrent]',e) }
+  try { renderBSRecent() } catch(e){ console.error('[renderBSRecent]',e) }
+  try { renderBSHistory() } catch(e){ console.error('[renderBSHistory]',e) }
 }
 
+// V13.90 GTC 撮合摩擦力追蹤 → 單一主下拉選單（整段收合，收合時一行摘要）
+//  黑天鵝組數再多平常也只佔一行；純 UI，所有數值仍從 gtcOrders 即時派生，零 hardcode，不改資料
+function _toggleGTCSection(){
+  var d=document.getElementById('gtc-list'), ar=document.getElementById('gtc-sec-arrow')
+  if(!d) return
+  var open=d.style.display==='none'
+  d.style.display=open?'block':'none'
+  if(ar) ar.style.transform=open?'rotate(180deg)':''
+}
+function _toggleGTC(i){
+  var d=document.getElementById('gtc-detail-'+i), ar=document.getElementById('gtc-arrow-'+i)
+  if(!d) return
+  var open=d.style.display==='none'
+  d.style.display=open?'block':'none'
+  if(ar) ar.style.transform=open?'rotate(180deg)':''
+}
 function renderGTCWidget(m) {
   var el = document.getElementById('gtc-tracker')
   if (!el) return
-  el.innerHTML = ''
+  var orders = PORTFOLIO_STATE.gtcOrders || []
+  var today  = new Date().toISOString().slice(0,10)
 
-  PORTFOLIO_STATE.gtcOrders.forEach(function(g) { try {
-    // ── 1. 全部數值從 state 計算，零 hardcode ────────────────────
-    var today   = new Date().toISOString().slice(0,10)
+  // ── 收合時的一行摘要（隨黑天鵝組數自動更新）───────────────────
+  var nFilled=0, nPending=0, nWarn=0, maxWaitPending=0
+  orders.forEach(function(g){
+    var filled=!!g.fillDate
+    var absDiff=Math.abs((g.currentMark-g.limitPrice)/g.limitPrice*100)
+    if(filled){ nFilled++ } else { nPending++; var d=_daysBetween(g.orderDate,today); if(d>maxWaitPending)maxWaitPending=d }
+    if(!filled && absDiff>20) nWarn++
+  })
+  var summary='<span style="color:#3FB950">✅ '+nFilled+' 成交</span> · <span style="color:#FFA500">⏳ '+nPending+' 等待</span>'
+    + (nWarn?' · <span style="color:#FFA500;font-weight:600">⚠ '+nWarn+' 筆偏差過大</span>':'')
+    + (nPending?' · <span style="color:#5A6278">最久等 '+maxWaitPending+' 天</span>':'')
+
+  // ── 內層清單：每筆 accordion（預設全收合）─────────────────────
+  var listHtml=''
+  orders.forEach(function(g, idx) { try {
     var days    = _daysBetween(g.orderDate, g.fillDate || today)
     var filled  = !!g.fillDate
-    var diff    = g.currentMark - g.limitPrice            // 從 state 推導
-    var diffPct = diff / g.limitPrice * 100               // 偏差率 %
+    var diff    = g.currentMark - g.limitPrice
+    var diffPct = diff / g.limitPrice * 100
     var absDiff = Math.abs(diffPct)
     var diffPctStr = (diff > 0 ? '+' : '') + diffPct.toFixed(1)
     var isPhase2   = g.type === 'phase2'
 
-    // ── 2. 偏差率 > 20% → 動態警示 (tactical orange) ────────────
-    //    若 state 有 deviationNote，使用語境化說明取代通用警語
     var warnHtml = ''
     if (absDiff > 20) {
       var warnMsg = g.deviationNote
         ? '⚠️ 偏差: ' + diffPctStr + '% · ' + g.deviationNote
         : '⚠️ 偏差: ' + diffPctStr + '% (市場已遠離深水區，建議審查)'
-      // 顏色強度隨偏差程度分層：>200% 用高亮橘，20-200% 用柔和橘
       var warnBorderAlpha = absDiff > 200 ? '0.7' : '0.45'
       var warnBgAlpha     = absDiff > 200 ? '0.10' : '0.06'
       warnHtml =
-        '<div style="margin-top:7px;padding:6px 10px;' +
-          'background:rgba(255,165,0,' + warnBgAlpha + ');' +
-          'border-radius:7px;' +
-          'border:0.5px solid rgba(255,165,0,' + warnBorderAlpha + ');' +
-          'font-size:10px;color:#FFA500;font-weight:500;letter-spacing:.02em;line-height:1.5">' +
-          warnMsg +
-        '</div>'
+        '<div style="margin-top:7px;padding:6px 10px;background:rgba(255,165,0,' + warnBgAlpha + ');border-radius:7px;' +
+          'border:0.5px solid rgba(255,165,0,' + warnBorderAlpha + ');font-size:10px;color:#FFA500;font-weight:500;line-height:1.5">' +
+          warnMsg + '</div>'
     }
+    var borderCol = filled ? '#3FB950' : (absDiff > 20 ? '#FFA500' : 'rgba(255,165,0,0.35)')
+    var statusBadge =
+      '<span style="font-size:10px;padding:2px 8px;border-radius:20px;' +
+        'background:' + (filled ? 'rgba(63,185,80,0.15)' : 'rgba(255,165,0,0.15)') + ';' +
+        'color:' + (filled ? '#3FB950' : '#FFA500') + ';border:0.5px solid ' + (filled ? '#3FB950' : '#FFA500') + '">' +
+        (filled ? '✅ 已成交' : '⏳ 等待中') + '</span>'
+    var diffCol = absDiff > 20 ? '#FFA500' : '#8A96AD'
+    var warnDot = (absDiff > 20) ? ' <span style="color:#FFA500">⚠</span>' : ''
 
-    // ── 3. 卡片邊框：已成交→綠，大偏差→亮橘，普通→淺橘 ────────
-    var borderCol = filled
-      ? '#3FB950'
-      : (absDiff > 20 ? '#FFA500' : 'rgba(255,165,0,0.35)')
-
-    var card = document.createElement('div')
-    card.style.cssText =
-      'margin-bottom:8px;padding:10px 12px;background:#0B0E13;' +
-      'border-radius:10px;border:0.5px solid ' + borderCol
-
-    card.innerHTML =
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
-        '<span style="font-size:12px;font-weight:500;color:#E6EDF3">' + g.desc + '</span>' +
-        '<span style="font-size:11px;padding:2px 8px;border-radius:20px;' +
-          'background:' + (filled ? 'rgba(63,185,80,0.15)' : 'rgba(255,165,0,0.15)') + ';' +
-          'color:' + (filled ? '#3FB950' : '#FFA500') + ';' +
-          'border:0.5px solid ' + (filled ? '#3FB950' : '#FFA500') + '">' +
-          (filled ? '✅ 已成交' : '⏳ GTC 等待中') +
-        '</span>' +
-      '</div>' +
-      '<div style="margin-bottom:6px">' +
-        '<span style="font-size:10px;padding:1px 7px;border-radius:10px;' +
-          'background:' + (isPhase2 ? 'rgba(188,140,255,0.12)' : 'rgba(90,98,120,0.12)') + ';' +
-          'color:' + (isPhase2 ? '#BC8CFF' : '#5A6278') + ';' +
-          'border:0.5px solid ' + (isPhase2 ? '#BC8CFF40' : '#5A6278') + '">' +
-          (isPhase2 ? '🎯 Phase2 保護腿' : '♻️ Theta 歸零平倉') +
-        '</span>' +
-        (g.note ? '<div style="font-size:10px;color:#5A6278;margin-top:3px">' + g.note + '</div>' : '') +
-      '</div>' +
-      '<div style="display:flex;gap:16px;font-size:11px;margin-bottom:6px">' +
-        '<span style="color:#5A6278">下單：' + g.orderDate + '</span>' +
-        '<span style="color:#5A6278">' + (filled ? '成交：' + g.fillDate : '未成交') + '</span>' +
-      '</div>' +
-      '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:11px">' +
-        '<span style="color:#9BA3B8">掛單價 <span style="color:#FFF;font-weight:500">$' + g.limitPrice.toFixed(2) + '</span></span>' +
-        '<span style="color:#9BA3B8">現Mark <span style="color:' + (diff > 0 ? '#FF4B5C' : '#00C896') + ';font-weight:500">$' + g.currentMark.toFixed(3) + '</span></span>' +
-        '<span style="color:#9BA3B8">偏差 <span style="color:#FFA500;font-weight:500">' + diffPctStr + '%</span></span>' +
-        '<span style="color:#9BA3B8">等了 <span style="color:#FFA500;font-weight:500">' + days + ' 天</span></span>' +
-      '</div>' +
-      warnHtml  // ← 動態注入：僅偏差 > 20% 時存在
-    el.appendChild(card)
+    listHtml +=
+      '<div style="background:#0B0E13;border:.5px solid ' + borderCol + ';border-radius:9px;margin:0 0 6px;overflow:hidden">' +
+        '<div onclick="_toggleGTC(' + idx + ')" style="padding:8px 11px;cursor:pointer;user-select:none">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
+            '<span style="font-size:11px;font-weight:500;color:#E6EDF3;flex:1">' + g.desc + warnDot + '</span>' +
+            '<span style="display:flex;align-items:center;gap:6px;flex-shrink:0">' + statusBadge +
+              '<span id="gtc-arrow-' + idx + '" style="font-size:10px;color:#5A7AA0;transition:transform .2s">▼</span>' +
+            '</span>' +
+          '</div>' +
+          '<div style="font-size:10px;color:#9BA3B8;margin-top:4px">偏差 <span style="color:' + diffCol + ';font-weight:600">' + diffPctStr + '%</span> · 等了 <span style="color:#FFA500;font-weight:600">' + days + ' 天</span> · ' + (filled ? '成交 ' + g.fillDate : '未成交') + '</div>' +
+        '</div>' +
+        '<div id="gtc-detail-' + idx + '" style="display:none;border-top:.5px solid #16233A;padding:9px 11px;background:#0A0F1C">' +
+          '<div style="margin-bottom:6px">' +
+            '<span style="font-size:10px;padding:1px 7px;border-radius:10px;' +
+              'background:' + (isPhase2 ? 'rgba(188,140,255,0.12)' : 'rgba(90,98,120,0.12)') + ';' +
+              'color:' + (isPhase2 ? '#BC8CFF' : '#5A6278') + ';border:0.5px solid ' + (isPhase2 ? '#BC8CFF40' : '#5A6278') + '">' +
+              (isPhase2 ? '🎯 Phase2 保護腿' : '♻️ Theta 歸零平倉') + '</span>' +
+            (g.note ? '<div style="font-size:10px;color:#5A6278;margin-top:3px">' + g.note + '</div>' : '') +
+          '</div>' +
+          '<div style="display:flex;gap:16px;font-size:11px;margin-bottom:6px">' +
+            '<span style="color:#5A6278">下單：' + g.orderDate + '</span>' +
+            '<span style="color:#5A6278">' + (filled ? '成交：' + g.fillDate : '未成交') + '</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:11px">' +
+            '<span style="color:#9BA3B8">掛單價 <span style="color:#FFF;font-weight:500">$' + g.limitPrice.toFixed(2) + '</span></span>' +
+            '<span style="color:#9BA3B8">現Mark <span style="color:' + (diff > 0 ? '#FF4B5C' : '#00C896') + ';font-weight:500">$' + g.currentMark.toFixed(3) + '</span></span>' +
+            '<span style="color:#9BA3B8">偏差 <span style="color:#FFA500;font-weight:500">' + diffPctStr + '%</span></span>' +
+            '<span style="color:#9BA3B8">等了 <span style="color:#FFA500;font-weight:500">' + days + ' 天</span></span>' +
+          '</div>' +
+          warnHtml +
+        '</div>' +
+      '</div>'
   } catch(e) { console.error('[renderGTCWidget:order]', e) }
   })
+
+  // ── 主下拉：整段收合，收合時只佔一行 ─────────────────────────
+  el.innerHTML =
+    '<div class="card" style="background:#0F1420;border:.5px solid #2A2410;margin:0 16px;padding:0;overflow:hidden">' +
+      '<div onclick="_toggleGTCSection()" style="padding:11px 14px;cursor:pointer;user-select:none">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="font-size:12px;font-weight:600;color:#FFA500">⏳ GTC 撮合摩擦力追蹤 <span style="color:#5A6278;font-weight:400">· ' + orders.length + ' 筆</span></span>' +
+          '<span id="gtc-sec-arrow" style="font-size:11px;color:#5A7AA0;transition:transform .2s">▼</span>' +
+        '</div>' +
+        '<div style="font-size:10px;margin-top:5px">' + summary + '</div>' +
+      '</div>' +
+      '<div id="gtc-list" style="display:none;border-top:.5px solid #16233A;padding:10px 14px;background:#0A0F1C">' +
+        '<div style="font-size:9px;color:#5A6278;margin-bottom:8px">下單日 → 成交日 耗時精算 · 用於優化未來掛單價差</div>' +
+        listHtml +
+      '</div>' +
+    '</div>'
 }
 
 // ══ V13.85 績效觀測 Performance Observatory：月/季「截至期末累積」績效 ══
@@ -6774,6 +7009,95 @@ function renderPerfReview(){
           +'<div style="font-size:8px;color:#5A6278;margin-top:2px">此為指標觀察與診斷,非策略成敗結論,不觸發任何交易調整</div></div>'
       }).join('')
   el.innerHTML='<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#7EE787;margin:6px 0 4px">🔭 績效觀測 Performance Observatory</div>'+band+mtab+qcards
+}
+function renderNegMonthProfile(){
+  var el=document.getElementById('home-neg-month'); if(!el) return
+  var p=deriveNegativeMonthProfile(PORTFOLIO_STATE)
+  if(!p.complete){ el.innerHTML=''; return }
+  function p1(v){ return v==null?'—':(v>=0?'+':'')+v.toFixed(1)+'%' }
+  var head='<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#FF6B7A;margin:6px 0 4px">🔴 負月分析 Negative Month Profile</div>'
+  var stat='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">'
+    +'<div style="padding:7px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">正月 / 負月</div><div style="font-size:13px;font-weight:700;color:#C8D6E6">'+p.pos+' · '+p.neg+'</div></div>'
+    +'<div style="padding:7px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">負月率</div><div style="font-size:13px;font-weight:700;color:#F0C040">'+p.negRate.toFixed(1)+'%</div></div>'
+    +'<div style="padding:7px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">最長連續負月</div><div style="font-size:13px;font-weight:700;color:#C8D6E6">'+p.longestNegStreak+'</div></div>'
+    +'</div>'
+  var line='<div style="font-size:10px;color:#8A96AD;line-height:1.9;padding:0 2px">'
+    +'完整月份數 <span style="color:#C8D6E6">'+p.complete+'</span>'
+    +(p.worst?' · 最差月 <span style="color:#FF6B7A;font-weight:600">'+p.worst.month+' '+p1(p.worst.ret)+'</span>（月內回撤 <span style="color:#FF6B7A">'+p1(p.worst.intraMaxDD)+'</span>）':'')
+    +(p.best?' · 最佳月 <span style="color:#00C896;font-weight:600">'+p.best.month+' '+p1(p.best.ret)+'</span>':'')
+    +(p.avgNegRet!=null?' · 平均負月 <span style="color:#FF6B7A">'+p1(p.avgNegRet)+'</span>':'')+'</div>'
+  var negList=p.negMonths.length
+    ? '<div style="margin-top:6px;padding-top:5px;border-top:.5px solid #16233A">'
+      + p.negMonths.map(function(m){ return '<div style="display:flex;justify-content:space-between;font-size:11px;padding:2px 0"><span style="color:#9BA3B8">'+m.month+'</span><span style="color:#FF4B5C;font-weight:500">'+p1(m.ret)+' <span style="color:#7A8AA0;font-weight:400">· 月內回撤 '+p1(m.intraMaxDD)+'</span></span></div>' }).join('')
+      + '</div>'
+    : '<div style="margin-top:6px;font-size:10px;color:#5A6278">完整月份中尚無負報酬月</div>'
+  var note='<div style="font-size:8px;color:#5A6278;margin-top:5px;line-height:1.5">月報酬 與 月內最大回撤 為兩個獨立指標,不混用 · 僅計完整月份（排除進行中的當月）· 診斷資料,非策略排名,不做好/壞評分</div>'
+  el.innerHTML=head+stat+line+negList+note
+}
+// ══ 系統成熟度季評（render · 讀 systemMaturityReviews 策展資料）════════════
+function _maturityWeighted(rev){
+  var dims=(rev&&rev.dimensions)||[]
+  var tw=dims.reduce(function(s,d){return s+(d.weight||0)},0)
+  if(!tw) return rev&&rev.designScore!=null?rev.designScore:0
+  return _r2(dims.reduce(function(s,d){return s+(d.weight*d.score)},0)/tw)
+}
+function deriveMaturityStatus(S){
+  var revs=((S&&S.systemMaturityReviews)||[]).slice().sort(function(a,b){return a.quarter<b.quarter?-1:1})
+  if(!revs.length) return null
+  var d=new Date(), q=d.getFullYear()+'-Q'+(Math.floor(d.getMonth()/3)+1)   // 季由系統時鐘派生,不硬編
+  return { revs:revs, latest:revs[revs.length-1], curQuarter:q, needsReview: revs[revs.length-1].quarter!==q }
+}
+function renderSystemMaturity(){
+  var el=document.getElementById('home-system-maturity'); if(!el) return
+  var st=deriveMaturityStatus(PORTFOLIO_STATE); if(!st){ el.innerHTML=''; return }
+  var r=st.latest, wt=_maturityWeighted(r)
+  function bar(d){
+    var col=d.score>=85?'#00C896':(d.score>=78?'#4A9EFF':'#F0C040')
+    return '<div style="margin-bottom:6px">'
+      +'<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span style="color:#9BA3B8">'+d.name+' <span style="color:#5A6278">·權重'+d.weight+'%</span></span><span style="color:'+col+';font-weight:600">'+d.score+'</span></div>'
+      +'<div style="height:6px;background:#0F1420;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+d.score+'%;background:'+col+'"></div></div></div>'
+  }
+  var reviewTag=st.needsReview
+    ? '<span style="font-size:9px;color:#F0A500">· '+st.curQuarter+' 待重評</span>'
+    : '<span style="font-size:9px;color:#00C896">· '+st.curQuarter+' 已評</span>'
+  var trend=(st.revs.length>1)
+    ? '<div style="font-size:9px;color:#5A6278;margin-top:6px;line-height:1.6">歷季走勢：'+st.revs.map(function(x){return x.quarter+' 設計'+_maturityWeighted(x)+'/驗證'+x.validationScore+'%'}).join(' → ')+'</div>'
+    : '<div style="font-size:9px;color:#5A6278;margin-top:6px">首季基準 · 下季新增一筆即可看見兩個數字隨時間長大</div>'
+  el.innerHTML=
+    '<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#BC8CFF;margin:6px 0 5px">🧭 系統成熟度 · '+r.quarter+' '+reviewTag+'</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">'
+      +'<div style="padding:8px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">設計成熟度</div><div style="font-size:20px;font-weight:700;color:#00C896">'+wt+'<span style="font-size:11px;color:#5A6278">/100</span></div></div>'
+      +'<div style="padding:8px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">實戰驗證度</div><div style="font-size:20px;font-weight:700;color:#F0C040">'+r.validationScore+'<span style="font-size:11px;color:#5A6278">%</span></div></div>'
+      +'<div style="padding:8px 9px;border:.5px solid #1E2840;border-radius:8px;background:#0F1420"><div style="font-size:9px;color:#5A6278">階段</div><div style="font-size:16px;font-weight:700;color:#C8D6E6;padding-top:2px">'+r.stage+'</div></div>'
+    +'</div>'
+    +(r.dimensions||[]).map(bar).join('')
+    +(r.comment?'<div style="font-size:10px;color:#9AB0C8;line-height:1.75;margin-top:6px;padding-top:6px;border-top:.5px solid #1E2840;font-style:italic">'+r.comment+'</div>':'')
+    +trend
+    +'<div style="font-size:8px;color:#5A6278;margin-top:6px;line-height:1.6">教練評分（'+(r.by||'')+'）· 每季重評一次 · 設計成熟度=七構面加權(架構/流程) · 實戰驗證度=是否經歷真實崩盤考驗 · 主觀評估,非交易訊號</div>'
+}
+function renderOverseasCashInflow(){
+  var el=document.getElementById('home-overseas-cf'); if(!el) return
+  var o=deriveOverseasCashInflowYTD(PORTFOLIO_STATE)
+  function money(v){ return (v<0?'-$':'+$')+Math.abs(Math.round(v)).toLocaleString() }
+  function row(nm,v,noData){
+    var col=noData?'#5A6278':(v>=0?'#00C896':'#FF4B5C')
+    var val=noData?'—（無資料）':money(v)
+    return '<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0"><span style="color:#9BA3B8">'+nm+'</span><span style="color:'+col+';font-weight:500">'+val+'</span></div>'
+  }
+  var head='<div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#7EE787;margin:6px 0 2px">🌎 海外現金流入 YTD · '+o.year+'</div>'
+    +'<div style="font-size:9px;color:#F0A500;margin-bottom:7px">投資管理統計 · 非稅務申報口徑</div>'
+  var big='<div style="font-size:22px;font-weight:700;color:#00C896;line-height:1.1">'+money(o.total)+'</div>'
+    +'<div style="font-size:9px;color:#5A6278;margin-bottom:9px">01/01 → 今日 · '+o.year+' 年度累計（收到即計口徑）</div>'
+  var rows=row('SELL CALL 收到權利金',o.sellCall)
+    +row('SELL PUT 收到權利金',o.sellPut)
+    +row('股息',0,o.dividend==null)
+    +row('利息',0,o.interest==null)
+    +row('其他現金流入',_r2(o.other+o.unclassified))
+  var total='<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0 2px;margin-top:2px;border-top:.5px solid #1E2840"><span style="color:#C8D6E6;font-weight:600">現金流入合計</span><span style="color:#00C896;font-weight:700">'+money(o.total)+'</span></div>'
+  var undated=o.undatedCount?'<div style="margin-top:7px;padding:6px 9px;border:.5px solid #3A3520;border-radius:8px;background:#14110A;font-size:10px;color:#C9A227;line-height:1.6">⚠ 未分類 · 待補開倉日：'+money(o.undated)+'（'+o.undatedCount+' 筆 SELL 已收權利金,因無交易日期無法歸年,未計入 '+o.year+' YTD）</div>':''
+  var note='<div style="font-size:9px;color:#7A8AA0;margin-top:8px;line-height:1.75">· 未平倉 SELL 權利金：已收到,因此計入。<br>· BUY CALL / BUY PUT：屬現金流出,不計入現金流入。<br>· 每年 01/01 自動歸零重新累計（不硬編年份）。</div>'
+  var sep='<div style="font-size:8px;color:#5A6278;margin-top:6px;line-height:1.6">現金流入 ≠ 總報酬(Total Return) ≠ 策略已實現(Strategy Attribution) ≠ 稅務申報所得 — 四者口徑不同,分開觀察不混用。</div>'
+  el.innerHTML=head+big+rows+total+undated+note+sep
 }
 function renderKPICards(m) {
   var S = PORTFOLIO_STATE
@@ -7017,6 +7341,9 @@ function renderAnalytics(m) {
 
   try { renderKPICards(m) } catch(e) { console.error('[renderKPICards]', e) }
   try { renderPerfReview() } catch(e) { console.error('[renderPerfReview]', e) }   // V13.85 績效觀測
+  try { renderSystemMaturity() } catch(e) { console.error('[renderSystemMaturity]', e) }   // V13.88 系統成熟度季評
+  try { renderNegMonthProfile() } catch(e) { console.error('[renderNegMonthProfile]', e) }   // V13.86 負月分析
+  try { renderOverseasCashInflow() } catch(e) { console.error('[renderOverseasCashInflow]', e) }   // V13.87 海外現金流入 YTD
   var updEl = document.getElementById('analytics-updated')
   if (updEl) updEl.textContent = m.today
 
