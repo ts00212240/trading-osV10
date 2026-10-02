@@ -5667,6 +5667,7 @@ function renderMonthlyResults(){
   var months=Object.keys(set).sort(function(a,b){ return a<b?1:-1 })  // desc（最新在上）
   if(!months.length){ el.innerHTML=''; return }
   var _negProf=deriveNegativeMonthProfile(S)   // 功能2 歷史負月脈絡（完整月）
+  var _nhMap={}; try{ deriveMonthlyNewHighs(S).months.forEach(function(x){ _nhMap[x.month]=x }) }catch(e){}   // 🏔️ 每月創新高查表
   function catRows(c){
     var names={pmcc:'PMCC',wheel:'豪華摩天輪',blackSwan:'黑天鵝',other:'其他'}, out=''
     ;['pmcc','wheel','blackSwan','other'].forEach(function(k){
@@ -5693,7 +5694,12 @@ function renderMonthlyResults(){
       +'<div onclick="_toggleMonthly('+idx+')" style="padding:11px 14px;cursor:pointer;user-select:none">'
         +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'
           +'<span style="font-size:12px;font-weight:600;color:#8AAAC8">📅 '+mo+' · '+lbl+'結果 '+emoji+(isArc?'':' <span style="font-size:9px;color:#F0A500">自動</span>')+'</span>'
-          +'<span id="mo-arrow-'+idx+'" style="font-size:11px;color:#5A7AA0;transition:transform .2s'+(open?';transform:rotate(180deg)':'')+'">▼</span>'
+          +'<span style="display:flex;align-items:center;gap:8px">'
+            +(function(){ var nh=_nhMap[mo]; if(!nh||!nh.count) return ''
+              var c=nh.trueCount?'#F0C040':'#9BB0C8'
+              return '<span style="font-size:10px;font-weight:600;color:'+c+';background:rgba(240,200,64,0.10);border:.5px solid rgba(240,200,64,0.28);border-radius:10px;padding:1px 7px;white-space:nowrap">'+(nh.trueCount?'👑':'🏔️')+' 創新高 '+nh.count+' 次</span>' })()
+            +'<span id="mo-arrow-'+idx+'" style="font-size:11px;color:#5A7AA0;transition:transform .2s'+(open?';transform:rotate(180deg)':'')+'">▼</span>'
+          +'</span>'
         +'</div>'
         +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'
           +'<div><div style="font-size:9px;color:#5A6278">完成率</div><div style="font-size:14px;font-weight:700;color:'+rCol+'">'+rate.toFixed(1)+'%</div></div>'
@@ -5703,6 +5709,9 @@ function renderMonthlyResults(){
       +'</div>'
       +'<div id="mo-detail-'+idx+'" style="display:'+(open?'block':'none')+';border-top:.5px solid #16233A;padding:10px 14px;background:#0A0F1C">'
         +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px"><span style="color:#5A6278">月度 NAV</span><span style="color:#D8E8F8">$'+Math.round(start).toLocaleString()+' → $'+Math.round(actual).toLocaleString()+'</span></div>'
+        +(function(){ var nh=_nhMap[mo]; if(!nh||!nh.count) return ''
+            var dates=nh.days.map(function(x){ return (x.date||'').slice(5)+' $'+x.value.toLocaleString()+(x.trueATH?' 👑':'') }).join(' · ')
+            return '<div style="margin-bottom:8px;padding:6px 9px;border:.5px solid #2A2410;border-radius:8px;background:#14110A"><div style="font-size:10px;color:#C9A227;font-weight:600">🏔️ 本月創新高 '+nh.count+' 次'+(nh.trueCount?'（👑 真·歷史新高 '+nh.trueCount+' 次·突破官方合計 ATH）':'（區間新高·自系統啟航滾動高點）')+'</div><div style="font-size:10px;color:#9BA3B8;margin-top:3px;line-height:1.6">'+dates+'</div></div>' })()
         +'<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:'+((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'3':'8')+'px"><span style="color:#5A6278">Fixed 2% 目標 / 達成率</span><span style="color:#C0CDE0">$'+Math.round(target).toLocaleString()+' · '+rate.toFixed(2)+'%</span></div>'
         +((isArc&&histT!=null&&Math.abs(histT-target)>=1)?'<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:8px"><span style="color:#5A6278">歷史 Archive 目標</span><span style="color:#6A7A8A">$'+Math.round(histT).toLocaleString()+'（當時紀錄，未覆蓋）</span></div>':'')
         +(function(){   // 功能2 本月正/負月 + 月報酬 + 月內最大回撤（與歷史負月脈絡並列）
@@ -6289,37 +6298,7 @@ function deriveMonthlyNewHighs(S){
   months.forEach(function(m){ total+=m.count; trueTotal+=m.trueCount; if(!best||m.count>best.count)best=m })
   return { months:months, total:total, trueTotal:trueTotal, best:best, officialATH:offVal }
 }
-function _toggleNewHighs(){
-  var d=document.getElementById('nh-list'), ar=document.getElementById('nh-arrow')
-  if(!d) return
-  var o=d.style.display==='none'; d.style.display=o?'block':'none'
-  if(ar) ar.style.transform=o?'rotate(180deg)':''
-}
-function renderMonthlyNewHighs(containerId){
-  var el=document.getElementById(containerId); if(!el) return
-  var r=deriveMonthlyNewHighs(PORTFOLIO_STATE)
-  if(!r.months.length) return
-  var rows=r.months.map(function(m){
-    var dots=m.days.map(function(x){return x.trueATH?'👑':'🏔️'}).join('')
-    var dates=m.days.map(function(x){return (x.date||'').slice(5)+' $'+x.value.toLocaleString()+(x.trueATH?' 👑':'')}).join(' · ')
-    return '<div style="padding:6px 0;border-bottom:.5px solid #141A24">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:#C8D6E6;font-weight:600">'+m.month+' <span style="font-size:14px">'+dots+'</span></span>'
-      +'<span style="font-size:12px;font-weight:700;color:'+(m.count?'#00C896':'#5A6278')+'">'+m.count+' 次'+(m.trueCount?' · 👑'+m.trueCount:'')+'</span></div>'
-      +'<div style="font-size:9px;color:#5A6278;margin-top:2px;line-height:1.5">'+dates+'</div></div>'
-  }).join('')
-  var bestTxt=r.best?(r.best.month+'（'+r.best.count+' 次）'):'—'
-  var offTxt=r.officialATH!=null?('　·　👑 真·歷史新高 '+r.trueTotal+' 天（突破官方合計 $'+Math.round(r.officialATH).toLocaleString()+'）'):''
-  el.insertAdjacentHTML('afterbegin',
-    '<div style="margin:6px 14px 10px"><div class="card" style="background:#0F1420;border:.5px solid #2A3050;padding:0;overflow:hidden">'
-    +'<div onclick="_toggleNewHighs()" style="padding:11px 14px;cursor:pointer;user-select:none">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:600;color:#F0C040">🏔️ 每月創新高次數 Monthly New Highs</span><span id="nh-arrow" style="font-size:11px;color:#5A7AA0;transition:transform .2s">▼</span></div>'
-      +'<div style="font-size:10px;color:#9BA3B8;margin-top:5px">合計資產滾動高點 · 總計 <span style="color:#00C896;font-weight:600">'+r.total+'</span> 天創區間新高 · 最佳月 '+bestTxt+offTxt+'</div>'
-    +'</div>'
-    +'<div id="nh-list" style="display:none;border-top:.5px solid #16233A;padding:6px 14px 10px;background:#0A0F1C">'+rows
-      +'<div style="font-size:8px;color:#5A6278;margin-top:6px;line-height:1.5">🏔️ 區間新高=自系統啟航(dailyEquity 起算)滾動高點 · 👑 真·歷史新高=突破 2025-02 官方合計 ATH · 口徑:合計(SC+FT+IB)</div>'
-    +'</div>'
-  +'</div></div>')
-}
+// （月度創新高已改為整合進 Monthly Results 月度時間膠囊卡片，見 renderMonthlyResults；deriveMonthlyNewHighs 保留供其派生）
 function renderRecords(m) {
   try {
     renderCivJourneyV11(m)   // V11 absolute equity chart（V10 renderJourneyTimeline 已棄用）
@@ -6334,7 +6313,6 @@ function renderRecords(m) {
     if (_oel) _oel.innerHTML = '<div style="padding:32px 16px;text-align:center;font-size:11px;color:#FF4B5C">⚠ 持倉渲染異常 · 詳情見 Console</div>'
   }
   try { renderEntrySnapshots('rec-open') } catch(e) { console.error('[renderRecords:entrySnapshots]', e) }   // 📸 下單快照
-  try { renderMonthlyNewHighs('rec-open') } catch(e) { console.error('[renderRecords:newHighs]', e) }   // 🏔️ 每月創新高次數
   try {
     renderClosedAccordion('rec-closed', PORTFOLIO_STATE.strategyCards.closed)
   } catch(e) {
